@@ -16,6 +16,9 @@
 		D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */; };
 		D7C962A1257B5025001B1D42 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A0257B5025001B1D42 /* Constants.swift */; };
 		D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A3257B5493001B1D42 /* RefuelsController.swift */; };
+		D7F61234257CDF9600D51357 /* CellOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61233257CDF9600D51357 /* CellOption.swift */; };
+		D7F61237257CE1ED00D51357 /* AddRefuelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61236257CE1ED00D51357 /* AddRefuelCell.swift */; };
+		D7F6123A257CE39800D51357 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61239257CE39800D51357 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D7C962A0257B5025001B1D42 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D7C962A3257B5493001B1D42 /* RefuelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelsController.swift; sourceTree = "<group>"; };
+		D7F61233257CDF9600D51357 /* CellOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellOption.swift; sourceTree = "<group>"; };
+		D7F61236257CE1ED00D51357 /* AddRefuelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRefuelCell.swift; sourceTree = "<group>"; };
+		D7F61239257CE39800D51357 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 		D7C9629B257B4D97001B1D42 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D7F61233257CDF9600D51357 /* CellOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -86,6 +93,7 @@
 		D7C9629C257B4DA2001B1D42 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D7F61236257CE1ED00D51357 /* AddRefuelCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -104,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C962A0257B5025001B1D42 /* Constants.swift */,
+				D7F61239257CE39800D51357 /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -181,8 +190,11 @@
 				D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */,
 				D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */,
 				D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */,
+				D7F61234257CDF9600D51357 /* CellOption.swift in Sources */,
+				D7F6123A257CE39800D51357 /* Extensions.swift in Sources */,
 				D7C96287257B459F001B1D42 /* Refuel.xcdatamodeld in Sources */,
 				D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */,
+				D7F61237257CE1ED00D51357 /* AddRefuelCell.swift in Sources */,
 				D7C962A1257B5025001B1D42 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

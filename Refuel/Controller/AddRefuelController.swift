@@ -9,6 +9,11 @@ import UIKit
 
 class AddRefuelController: UITableViewController {
     
+    // MARK: - Properties
+    
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -28,9 +33,9 @@ class AddRefuelController: UITableViewController {
         }
         view.backgroundColor = .white
         tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
         
-        // TODO: - !!! remember to change
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: K.Identifier.addRefuel)
+        tableView.register(AddRefuelCell.self, forCellReuseIdentifier: K.Identifier.addRefuel)
     }
     
     // MARK: - Table view data source
@@ -41,16 +46,21 @@ class AddRefuelController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return CellOption.allCases.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.addRefuel, for: indexPath)
-
-        cell.textLabel?.text = "Choose the vehicle"
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.addRefuel, for: indexPath) as! AddRefuelCell
+        
+        cell.cellOption = CellOption(rawValue: indexPath.row)
 
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     
