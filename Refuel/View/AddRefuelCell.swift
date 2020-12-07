@@ -7,17 +7,24 @@
 
 import UIKit
 
+
 protocol AddRefuelCellDelegate {
-    var dateDelegate: Date? { get set }
-    var litersDelegate: Double? { get set }
-    var sumDelegate: Double? { get set }
-    var odoDelegate: Int? { get set }
+    
+    var date: Date? { get set }
+    var liters: Double? { get set }
+    var cost: Double? { get set }
+    var odometer: Int? { get set }
+    
+    func dateChanged(newDate date: Date)
+    
     func saveButtonTapped()
 }
+
 
 class AddRefuelCell: UITableViewCell {
 
     // MARK: - Properties
+    
     var delegate: AddRefuelCellDelegate?
     
     var cellOption: CellOption? {
@@ -54,19 +61,24 @@ class AddRefuelCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
         let currentDate = Date()
-        delegate?.dateDelegate = currentDate
+        delegate?.date = currentDate
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         label.text = dateFormatter.string(from: currentDate)
         return label
     }()
     
-    lazy private var datePicker: UILabel = {
+    lazy private var datePicker: UIDatePicker = {
         // DEBUG
-        let dp = UILabel()
-        dp.font = UIFont.boldSystemFont(ofSize: 16)
-        dp.text = "DEBUG: !date picker is here!"
-        return dp
+        let datePicker = UIDatePicker()
+        if #available(iOS 14.0, *) {
+            datePicker.preferredDatePickerStyle = .inline
+        } else {
+            // Fallback on earlier versions
+            // TODO: check for old versions!
+        }
+        datePicker.addTarget(self, action: #selector(handleDateChanged), for: .valueChanged)
+        return datePicker
     }()
     
     lazy private var textField: UITextField = {
@@ -115,7 +127,6 @@ class AddRefuelCell: UITableViewCell {
     }
     
     private func configureDateLabel() {
-        print("DEBUG: configure date")
         contentView.addSubview(dateLabel)
         dateLabel.anchor(trailing: contentView.trailingAnchor, paddingTrailing: 15,
                          centerY: contentView.centerYAnchor)
@@ -131,8 +142,14 @@ class AddRefuelCell: UITableViewCell {
     
     private func configureDatePicker() {
         contentView.addSubview(datePicker)
+        
+        // TODO: check for old versions!
+        // if #available(iOS 14.0, *)
+        clipsToBounds = true
         datePicker.anchor(centerX: contentView.centerXAnchor,
                           centerY: contentView.centerYAnchor)
+        datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
+        datePicker.heightAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
     private func configureSaveButton() {
@@ -143,8 +160,25 @@ class AddRefuelCell: UITableViewCell {
                           centerY: contentView.centerYAnchor)
     }
     
+    func setDate(to date: Date) {
+        guard let cellOption = cellOption, cellOption == .dateLabel else { return }
+        
+        delegate?.date = date
+        
+        // set date to label
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let dateStr = dateFormatter.string(from: date)
+        dateLabel.text = dateStr
+    }
+    
     
     // MARK: - Selectors
+    
+    @objc private func handleDateChanged() {
+        delegate?.dateChanged(newDate: datePicker.date)
+    }
     
     @objc private func handleSaveButtonTapped() {
         delegate?.saveButtonTapped()
@@ -159,15 +193,13 @@ extension AddRefuelCell: UITextFieldDelegate {
         guard let option = cellOption else { return }
         
         if option == .litersAmount {
-            delegate?.litersDelegate = Double(textField.text ?? "")
-        }
-
-        if option == .sum {
-            delegate?.sumDelegate = Double(textField.text ?? "")
-        }
-
-        if option == .odo {
-            delegate?.odoDelegate = Int(textField.text ?? "")
+            delegate?.liters = Double(textField.text ?? "")
+            
+        } else if option == .sum {
+            delegate?.cost = Double(textField.text ?? "")
+            
+        } else if option == .odo {
+            delegate?.odometer = Int(textField.text ?? "")
         }
     }
 }

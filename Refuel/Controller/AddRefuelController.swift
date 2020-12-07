@@ -11,10 +11,17 @@ class AddRefuelController: UITableViewController {
 
     // MARK: - Properties
     
-    private var date: Date?
-    private var liters: Double?
-    private var sum: Double?
-    private var odo: Int?
+    private var dateValue: Date?
+    private var litersValue: Double?
+    private var costValue: Double?
+    private var odometerValue: Int?
+    
+    private var rowDatePickerHeight: CGFloat {
+        // row heigth equals width of main view
+        return view.frame.width
+    }
+    
+    private var datePickerCurrentHeight: CGFloat = 0
     
     
     // MARK: - Lifecycle
@@ -32,9 +39,9 @@ class AddRefuelController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         view.backgroundColor = .white
-        tableView.isScrollEnabled = false
-        tableView.separatorStyle = .none
         
+//        tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
         tableView.register(AddRefuelCell.self, forCellReuseIdentifier: K.Identifier.addRefuel)
         
         // Hide keyboard when tap out of TextFields
@@ -74,7 +81,22 @@ class AddRefuelController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        if let cellOption = CellOption(rawValue: indexPath.row), cellOption == .datePicker {
+            return datePickerCurrentHeight
+        } else {
+            return 60
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cellOption = CellOption(rawValue: indexPath.row), cellOption == .dateLabel {
+            UIView.animate(withDuration: 0.3) {
+                // show or hide date picker
+                self.datePickerCurrentHeight = self.datePickerCurrentHeight == 0 ? self.rowDatePickerHeight : 0
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+        }
     }
     
     /*
@@ -89,65 +111,68 @@ class AddRefuelController: UITableViewController {
 // MARK: - AddRefuelCellDelegate
 
 extension AddRefuelController: AddRefuelCellDelegate {
-    var dateDelegate: Date? {
+    
+    var date: Date? {
         get {
-            return date
+            return dateValue
         }
         set {
-            print("DEBUG: set new date")
-            date = newValue
+            dateValue = newValue
         }
     }
     
-    var litersDelegate: Double? {
+    var liters: Double? {
         get {
-            return liters
+            return litersValue
         }
         set {
-            print("DEBUG: set new liters")
-            liters = newValue
+            litersValue = newValue
         }
     }
     
-    var sumDelegate: Double? {
+    var cost: Double? {
         get {
-            return sum
+            return costValue
         }
         set {
-            print("DEBUG: set new sum")
-            sum = newValue
+            costValue = newValue
         }
     }
     
-    var odoDelegate: Int? {
+    var odometer: Int? {
         get {
-            return odo
+            return odometerValue
         }
         set {
-            print("DEBUG: set new odo")
-            odo = newValue
+            odometerValue = newValue
+        }
+    }
+    
+    func dateChanged(newDate date: Date) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: CellOption.dateLabel.rawValue, section: 0)) as? AddRefuelCell {
+            cell.setDate(to: date)
         }
     }
     
     func saveButtonTapped() {
         print("DEBUG: save button tapped")
         
-        guard let date = date else {
+        guard let date = dateValue else {
             print("DEBUG: show message -> set date ?? or should just use today")
             return
         }
         
-        guard let liters = liters else {
+        guard let liters = litersValue else {
             print("DEBUG: show message -> incorrect liters")
             return
         }
         
-        guard let sum = sum else {
+        guard let sum = costValue else {
             print("DEBUG: show message -> incorrect sum")
             return
         }
         
-        guard let odo = odo else {
+        guard let odo = odometerValue else {
             print("DEBUG: show message -> incorrect odo")
             return
         }
