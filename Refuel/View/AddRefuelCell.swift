@@ -7,9 +7,19 @@
 
 import UIKit
 
+protocol AddRefuelCellDelegate {
+    var dateDelegate: Date? { get set }
+    var litersDelegate: Double? { get set }
+    var sumDelegate: Double? { get set }
+    var odoDelegate: Int? { get set }
+    func saveButtonTapped()
+}
+
 class AddRefuelCell: UITableViewCell {
 
     // MARK: - Properties
+    var delegate: AddRefuelCellDelegate?
+    
     var cellOption: CellOption? {
         didSet {
             guard let option = cellOption else { return }
@@ -43,8 +53,11 @@ class AddRefuelCell: UITableViewCell {
     lazy private var dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        // DEBUG
-        label.text = "23.11.2020"
+        let currentDate = Date()
+        delegate?.dateDelegate = currentDate
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        label.text = dateFormatter.string(from: currentDate)
         return label
     }()
     
@@ -52,13 +65,14 @@ class AddRefuelCell: UITableViewCell {
         // DEBUG
         let dp = UILabel()
         dp.font = UIFont.boldSystemFont(ofSize: 16)
-        dp.text = "!date picker is here!"
+        dp.text = "DEBUG: !date picker is here!"
         return dp
     }()
     
     lazy private var textField: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
+        tf.delegate = self
         return tf
     }()
     
@@ -83,7 +97,6 @@ class AddRefuelCell: UITableViewCell {
         
         selectionStyle = .none
 
-//        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -102,6 +115,7 @@ class AddRefuelCell: UITableViewCell {
     }
     
     private func configureDateLabel() {
+        print("DEBUG: configure date")
         contentView.addSubview(dateLabel)
         dateLabel.anchor(trailing: contentView.trailingAnchor, paddingTrailing: 15,
                          centerY: contentView.centerYAnchor)
@@ -133,6 +147,27 @@ class AddRefuelCell: UITableViewCell {
     // MARK: - Selectors
     
     @objc private func handleSaveButtonTapped() {
-        print("DEBUG: save data...")
+        delegate?.saveButtonTapped()
+    }
+}
+
+
+// MARK: - UITextFieldDelegate
+
+extension AddRefuelCell: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let option = cellOption else { return }
+        
+        if option == .litersAmount {
+            delegate?.litersDelegate = Double(textField.text ?? "")
+        }
+
+        if option == .sum {
+            delegate?.sumDelegate = Double(textField.text ?? "")
+        }
+
+        if option == .odo {
+            delegate?.odoDelegate = Int(textField.text ?? "")
+        }
     }
 }
