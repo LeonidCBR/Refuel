@@ -7,24 +7,24 @@
 
 import Foundation
 
-enum CellOption: Int, CaseIterable, CustomStringConvertible {
+enum AddRefuelOption: Int, CaseIterable {
     
     case dateLabel = 0 // Дата
     case datePicker // Календарик
     case litersAmount // Заправлено литров
-    case sum // На сумму
-    case odo // Пробег
+    case cost // На сумму
+    case odometer // Пробег
     case save // Кнопка "Сохранить"
     
-    var description: String {
+    var caption: String {
         switch self {
         case .dateLabel: return "Дата"
         case .datePicker: return "Date picker"
         case .litersAmount: return "Заправлено литров"
-        case .sum: return "На сумму"
-        case .odo: return "Пробег"
+        case .cost: return "На сумму"
+        case .odometer: return "Пробег"
         case .save: return "Сохранить"
         }
     }
-    
+
 }

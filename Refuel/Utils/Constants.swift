@@ -17,7 +17,13 @@ struct K {
     }
     
     struct Identifier {
-        static let addRefuel = "addRefuelIdentifier"
+//        static let addRefuel = "addRefuelIdentifier"
+        struct AddRefuel {
+            static let labelsCell = "addRefuelLabelsIdentifier"
+            static let datePickerCell = "addRefuelDatePickerIdentifier"
+            static let inputTextCell = "addRefuelInputTextIdentifier"
+            static let buttonCell = "addRefuelButtonIdentifier"
+        }
     }
     
 }
