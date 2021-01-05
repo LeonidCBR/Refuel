@@ -21,14 +21,17 @@ class ButtonCell: UITableViewCell {
     
     var delegate: ButtonCellDelegate?
     
-    var saveButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Сохранить", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 10
-        return button
+    private lazy var saveButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.addTarget(self,
+                     action: #selector(handleSaveButtonTapped),
+                     for: .touchUpInside)
+        btn.setTitle("Сохранить", for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = .systemBlue
+        btn.layer.cornerRadius = 10
+        return btn
     }()
     
     
@@ -51,9 +54,9 @@ class ButtonCell: UITableViewCell {
         selectionStyle = .none
         clipsToBounds = true
         
-        saveButton.addTarget(self,
-                         action: #selector(handleSaveButtonTapped),
-                         for: .touchUpInside)
+//        saveButton.addTarget(self,
+//                         action: #selector(handleSaveButtonTapped),
+//                         for: .touchUpInside)
         
         contentView.addSubview(saveButton)
         saveButton.anchor(width: 200,

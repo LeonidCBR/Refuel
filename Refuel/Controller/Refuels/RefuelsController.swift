@@ -9,14 +9,52 @@ import UIKit
 
 class RefuelsController: UITableViewController {
 
+    // MARK: - Properties
+    var vehicle: Vehicle? {
+        didSet {
+            fetchRefuels()
+        }
+    }
+    // didSet fetch refuelsByVehicle
+    
+    var refuels: [Refuel] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        configureUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if vehicle == nil {
+            let choiceController = ChoiceController()
+            choiceController.delegate = self
+            present(choiceController, animated: true, completion: nil)
+        }
+    }
+    
+    
+    // MARK: - Methods
+    private func configureUI() {
+        title = "Заправки"
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        view.backgroundColor = .white
+//        tableView.separatorStyle = .none
+        tableView.register(RefuelCell.self, forCellReuseIdentifier: K.Identifier.Refuels.refuelCell)
+    }
+    
+    private func fetchRefuels() {
+        guard let vehicle = vehicle else { return }
+        PersistentManager.shared.fetchRefuelsByVehicle(vehicle) { refuels in
+            self.refuels = refuels
+        }
     }
 
     // MARK: - Table view data source
@@ -28,18 +66,15 @@ class RefuelsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return refuels.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Refuels.refuelCell, for: indexPath) as! RefuelCell
+        cell.refuel = refuels[indexPath.row]
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -86,4 +121,10 @@ class RefuelsController: UITableViewController {
     }
     */
 
+}
+
+extension RefuelsController: ChoiceControllerDelegate {
+    func didChoose(_ vehicle: Vehicle) {
+        self.vehicle = vehicle
+    }
 }

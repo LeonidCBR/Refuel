@@ -11,14 +11,14 @@ class LabelsCell: UITableViewCell {
 
     // MARK: - Properties
     
-    private var captionLabel: UILabel = {
+    private let captionLabel: UILabel = {
         let label = UILabel()
         label.text = "Дата"
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
     
-    private var dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
         let currentDate = Date()

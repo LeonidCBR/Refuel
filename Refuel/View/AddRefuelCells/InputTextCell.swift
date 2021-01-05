@@ -29,13 +29,13 @@ class InputTextCell: UITableViewCell {
         }
     }
     
-    private var captionLabel: UILabel = {
+    private let captionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
     
-    private var textField: UITextField = {
+    private let textField: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
         return tf

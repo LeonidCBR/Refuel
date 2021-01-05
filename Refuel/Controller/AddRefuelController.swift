@@ -11,14 +11,7 @@ class AddRefuelController: UITableViewController {
 
     // MARK: - Properties
     
-    private struct RefuelValues {
-        var date: Date
-        var liters: Double
-        var cost: Double
-        var odometer: Int
-    }
-    
-    private var refuelValues = RefuelValues(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
+    private var refuel = Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
     
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -38,7 +31,7 @@ class AddRefuelController: UITableViewController {
     // MARK: - Methods
     
     private func configureUI() {
-        title = "Add refuel"
+        title = "Добавить заправку"
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
@@ -99,13 +92,13 @@ class AddRefuelController: UITableViewController {
         switch cellOption {
         case .dateLabel:
             let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.labelsCell, for: indexPath) as! LabelsCell
-            labelsCell.setDate(to: refuelValues.date)
+            labelsCell.setDate(to: refuel.date)
             cell = labelsCell
             
         case .datePicker:
             let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.datePickerCell, for: indexPath) as! DatePickerCell
             datePickerCell.delegate = self
-            datePickerCell.setDate(to: refuelValues.date)
+            datePickerCell.setDate(to: refuel.date)
             cell = datePickerCell
             
         case .litersAmount:
@@ -127,7 +120,7 @@ class AddRefuelController: UITableViewController {
             let liters = numberFormatter.string(from: number) ?? ""
             inputTextCell.setText(to: liters)
             */
-            inputTextCell.setText(to: getString(from: refuelValues.liters))
+            inputTextCell.setText(to: getString(from: refuel.liters))
             
             cell = inputTextCell
             
@@ -137,7 +130,7 @@ class AddRefuelController: UITableViewController {
             inputTextCell.option = .cost
             inputTextCell.setCaption(to: cellOption.caption)
 //            inputTextCell.setText(to: "\(refuelValues.cost)")
-            inputTextCell.setText(to: getString(from: refuelValues.cost))
+            inputTextCell.setText(to: getString(from: refuel.cost))
             cell = inputTextCell
             
         case .odometer:
@@ -145,7 +138,7 @@ class AddRefuelController: UITableViewController {
             inputTextCell.delegate = self
             inputTextCell.option = .odometer
             inputTextCell.setCaption(to: cellOption.caption)
-            inputTextCell.setText(to: "\(refuelValues.odometer)")
+            inputTextCell.setText(to: "\(refuel.odometer)")
             cell = inputTextCell
             
         case .save:
@@ -196,7 +189,7 @@ extension AddRefuelController: DatePickerCellDelegate {
             cell.setDate(to: date)
         }
         
-        refuelValues.date = date
+        refuel.date = date
     }
     
 }
@@ -212,11 +205,11 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong liters!")
             // Set old values back to the text field
             if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)) as? InputTextCell {
-                cell.setText(to: getString(from: refuelValues.liters))
+                cell.setText(to: getString(from: refuel.liters))
             }
             return
         }
-        refuelValues.liters = liters
+        refuel.liters = liters
     }
     
     func didGetCost(_ cost: Double?) {
@@ -224,11 +217,11 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong cost!")
             // Set old values back to the text field
             if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)) as? InputTextCell {
-                cell.setText(to: getString(from: refuelValues.cost))
+                cell.setText(to: getString(from: refuel.cost))
             }
             return
         }
-        refuelValues.cost = cost
+        refuel.cost = cost
     }
     
     func didGetOdometer(_ odometer: Int?) {
@@ -236,11 +229,11 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong odometer!")
             // Set old values back to the text field
             if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.odometer.rawValue, section: 0)) as? InputTextCell {
-                cell.setText(to: "\(refuelValues.odometer)")
+                cell.setText(to: "\(refuel.odometer)")
             }
             return
         }
-        refuelValues.odometer = odometer
+        refuel.odometer = odometer
     }
     
 }
@@ -251,7 +244,7 @@ extension AddRefuelController: InputTextCellDelegate {
 extension AddRefuelController: ButtonCellDelegate {
     
     func saveButtonTapped() {
-        print("save \(refuelValues)")
+        PersistentManager.shared.saveRefuel(refuel)
     }
     
 }

@@ -21,7 +21,7 @@ class DatePickerCell: UITableViewCell {
     
     var delegate: DatePickerCellDelegate?
     
-    var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         // DEBUG
         let datePicker = UIDatePicker()
         if #available(iOS 14.0, *) {

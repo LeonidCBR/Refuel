@@ -24,6 +24,10 @@ struct K {
             static let inputTextCell = "addRefuelInputTextIdentifier"
             static let buttonCell = "addRefuelButtonIdentifier"
         }
+        
+        struct Refuels {
+            static let refuelCell = "refuelIdentifier"
+        }
     }
     
 }

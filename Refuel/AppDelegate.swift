@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Init window only if iOS version below 13.0
             window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = MainTabBarController()
+            window?.rootViewController = LoadingController() // MainTabBarController()
             window?.makeKeyAndVisible()
         }
         

@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
     private func configureViewControllers() {
         let addRefuelTab = UINavigationController(rootViewController: AddRefuelController())
         let vehiclesTab = UIViewController()
-        let refuelsTab = UIViewController()
+        let refuelsTab = UINavigationController(rootViewController: RefuelsController())
         let servicesTab = UIViewController()
         
         addRefuelTab.tabBarItem = UITabBarItem(title: K.TabBarItem.addRefuel,
