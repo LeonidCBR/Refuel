@@ -28,6 +28,10 @@ struct K {
         struct Refuels {
             static let refuelCell = "refuelIdentifier"
         }
+        
+        struct Vehicles {
+            static let vehicleCell = "vehicleIdentifier"
+        }
     }
     
 }
