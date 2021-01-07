@@ -20,20 +20,30 @@ struct PersistentManager {
     
     // MARK: - Methods
     
-    func saveVehicle(_ vehicle: Vehicle) {
+    func saveContext() throws {
+        
+        // (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        if context.hasChanges {
+            try context.save()
+        }
+    }
+    
+    func saveVehicle(_ vehicle: Vehicle) throws {
         print("DEBUG: saving \(vehicle)")
         let newVehicle = CDVehicle(context: context)
         newVehicle.manufacturer = vehicle.manufacturer
         newVehicle.model = vehicle.model
         
-        do {
-            try context.save()
-            
-        } catch {
-            // TODO: catch errors
-            let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        try context.save()
+//        do {
+//            try context.save()
+//
+//        } catch {
+//            // TODO: catch errors
+//            let nserror = error as NSError
+//            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+//        }
     }
     
     func saveRefuel(_ refuel: Refuel) {
@@ -48,29 +58,30 @@ struct PersistentManager {
     
     func fetchVehicles(completion: @escaping ([CDVehicle]) -> Void) {
         
-        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
-        do {
-            let vehicles = try context.fetch(request)
-            completion(vehicles)
-        } catch {
-            // TODO: catch errors
-            let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
+            do {
+                let vehicles = try context.fetch(request)
+                DispatchQueue.main.async {
+                    completion(vehicles)
+                }
+                
+            } catch {
+                
+                // TODO: catch errors
+                DispatchQueue.main.async {
+                    let nserror = error as NSError
+                    fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
+        } 
         /*
         print("DEBUG: fetching vehicles...")
-        
-        let vehicles: [Vehicle] = [Vehicle(manufacturer: "Toyota", model: "Supra"),
-                                   Vehicle(manufacturer: "Yamaha", model: "R1")]
-        
-        
+       
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            completion(vehicles)
             completion([])
         }
         */
-        
     }
     
     

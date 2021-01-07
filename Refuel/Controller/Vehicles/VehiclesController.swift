@@ -21,10 +21,17 @@ class VehiclesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        loadVehicles()
+        fetchVehicles()
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        //navigationItem.rightBarButtonItems
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+        } else {
+            // TODO: - Fallback on earlier versions
+        }
     }
     
     
@@ -40,12 +47,20 @@ class VehiclesController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: K.Identifier.Vehicles.vehicleCell)
     }
     
-    private func loadVehicles() {
+    private func fetchVehicles() {
         PersistentManager.shared.fetchVehicles { (vehicles) in
             self.vehicles = vehicles
         }
     }
-
+    
+    
+    // MARK: - Selectors
+    @objc private func addVehicle() {
+        let createVehicleController = CreateVehicleController()
+        createVehicleController.delegate = self
+        navigationController?.pushViewController(createVehicleController, animated: true)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,7 +71,6 @@ class VehiclesController: UITableViewController {
         return vehicles?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Vehicles.vehicleCell, for: indexPath)
         if let vehicle = vehicles?[indexPath.row], let manufacturer = vehicle.manufacturer, let model = vehicle.model {
@@ -65,6 +79,13 @@ class VehiclesController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let createVehicleController = CreateVehicleController()
+        createVehicleController.delegate = self
+        createVehicleController.editableVehicle = vehicles?[indexPath.row]
+        navigationController?.pushViewController(createVehicleController, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -87,4 +108,15 @@ class VehiclesController: UITableViewController {
     */
 
 
+}
+
+
+// MARK: - CreateVehicleControllerDelegate
+
+extension VehiclesController: CreateVehicleControllerDelegate {
+    
+    func didSave() {
+        fetchVehicles()
+    }
+    
 }

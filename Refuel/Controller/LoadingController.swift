@@ -26,18 +26,20 @@ class LoadingController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        activityIndicator.startAnimating()
+        
         PersistentManager.shared.fetchVehicles { vehicles in
+            
             if vehicles.isEmpty {
                 PresenterManager.shared.show(.createVehicleController)
             } else {
                 PresenterManager.shared.show(.mainTabBarController)
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        activityIndicator.startAnimating()
     }
     
     

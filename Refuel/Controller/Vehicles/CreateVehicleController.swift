@@ -7,9 +7,22 @@
 
 import UIKit
 
+protocol CreateVehicleControllerDelegate {
+    func didSave()
+}
+
 class CreateVehicleController: UIViewController {
     
     // MARK: - Properties
+    var delegate: CreateVehicleControllerDelegate?
+    
+    // It will be not nil if it is being edited
+    var editableVehicle: CDVehicle? {
+        didSet {
+            manufacturerTextField.text = editableVehicle?.manufacturer
+            modelTextField.text = editableVehicle?.model
+        }
+    }
     
     private let captionLabel: UILabel = {
         let label = UILabel()
@@ -109,7 +122,35 @@ class CreateVehicleController: UIViewController {
         
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        let vehicle = Vehicle(manufacturer: manufacturer, model: model)
-        PersistentManager.shared.saveVehicle(vehicle)
+        do {
+            
+            if let didEditVehicle = editableVehicle {
+                
+                // Editing vehicle
+                didEditVehicle.manufacturer = manufacturerTextField.text
+                didEditVehicle.model = modelTextField.text
+                try PersistentManager.shared.saveContext()
+                
+            } else {
+                
+                // Creating new vehicle
+                let vehicle = Vehicle(manufacturer: manufacturer, model: model)
+                try PersistentManager.shared.saveVehicle(vehicle)
+            }
+            
+            delegate?.didSave()
+            
+            if let navigationController = navigationController {
+                navigationController.popViewController(animated: true)
+            } else {
+                PresenterManager.shared.show(.mainTabBarController)
+            }
+            
+        } catch {
+            // TODO: catch errors, show alarm
+            
+            let nserror = error as NSError
+            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+        }
     }
 }

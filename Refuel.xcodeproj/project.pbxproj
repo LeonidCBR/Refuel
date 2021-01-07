@@ -82,6 +82,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		D7C8CB7025A6A90F0057834C /* Vehicles */ = {
+			isa = PBXGroup;
+			children = (
+				D7F493F025874E0600297CD2 /* CreateVehicleController.swift */,
+				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
+			);
+			path = Vehicles;
+			sourceTree = "<group>";
+		};
 		D7C96270257B459F001B1D42 = {
 			isa = PBXGroup;
 			children = (
@@ -140,10 +149,9 @@
 			children = (
 				D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */,
 				D7F493F5258777FC00297CD2 /* LoadingController.swift */,
-				D7F493F025874E0600297CD2 /* CreateVehicleController.swift */,
 				D7C96280257B459F001B1D42 /* AddRefuelController.swift */,
+				D7C8CB7025A6A90F0057834C /* Vehicles */,
 				D7F493F325874E2F00297CD2 /* Refuels */,
-				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
