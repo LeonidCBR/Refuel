@@ -19,6 +19,7 @@ class CreateVehicleController: UIViewController {
     // It will be not nil if it is being edited
     var editableVehicle: CDVehicle? {
         didSet {
+            captionLabel.text = "Редактирование транспортного средства"
             manufacturerTextField.text = editableVehicle?.manufacturer
             modelTextField.text = editableVehicle?.model
         }
@@ -135,7 +136,7 @@ class CreateVehicleController: UIViewController {
                 
                 // Creating new vehicle
                 let vehicle = Vehicle(manufacturer: manufacturer, model: model)
-                try PersistentManager.shared.saveVehicle(vehicle)
+                try PersistentManager.shared.appendVehicle(vehicle)
             }
             
             delegate?.didSave()

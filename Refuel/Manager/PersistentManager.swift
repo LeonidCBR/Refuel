@@ -29,13 +29,16 @@ struct PersistentManager {
         }
     }
     
-    func saveVehicle(_ vehicle: Vehicle) throws {
+    func getNewVehicle() -> CDVehicle {
+        return CDVehicle(context: context)
+    }
+    
+    func appendVehicle(_ vehicle: Vehicle) throws {
         print("DEBUG: saving \(vehicle)")
         let newVehicle = CDVehicle(context: context)
         newVehicle.manufacturer = vehicle.manufacturer
         newVehicle.model = vehicle.model
-        
-        try context.save()
+        try saveContext()
 //        do {
 //            try context.save()
 //
@@ -46,17 +49,23 @@ struct PersistentManager {
 //        }
     }
     
+    func removeVehicle(_ vehicle: CDVehicle) throws {
+        print("DEBUG: deleting \(vehicle)")
+        context.delete(vehicle)
+        try saveContext()
+    }
+    
     func saveRefuel(_ refuel: Refuel) {
         print("DEBUG: saving \(refuel)")
     }
     
     
-    func vehiclesExist(completion: (Bool) -> Void) {
-        // TODO: return true if vehicles exist
-    }
+//    func vehiclesExist(completion: (Bool) -> Void) {
+//        // TODO: return true if vehicles exist
+//    }
     
     
-    func fetchVehicles(completion: @escaping ([CDVehicle]) -> Void) {
+    func fetchVehicles(completion: @escaping ([CDVehicle]) -> Void) { //throws, remember about main queue
         
         DispatchQueue.global(qos: .userInitiated).async {
             let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
