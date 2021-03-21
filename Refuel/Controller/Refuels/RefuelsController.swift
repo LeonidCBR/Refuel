@@ -6,19 +6,21 @@
 //
 
 import UIKit
+import CoreData
 
 class RefuelsController: UITableViewController {
 
     // MARK: - Properties
-    var vehicle: Vehicle? {
+    var vehicle: CDVehicle? {
         didSet {
             fetchRefuels()
         }
     }
     // didSet fetch refuelsByVehicle
     
-    var refuels: [Refuel] = [] {
+    var refuels: [CDRefuel] = [] {
         didSet {
+            // TODO: consider to remove it
             tableView.reloadData()
         }
     }
@@ -32,9 +34,7 @@ class RefuelsController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if vehicle == nil {
-            let choiceController = ChoiceController()
-            choiceController.delegate = self
-            present(choiceController, animated: true, completion: nil)
+            showChoiceController()
         }
     }
     
@@ -42,6 +42,9 @@ class RefuelsController: UITableViewController {
     // MARK: - Methods
     private func configureUI() {
         title = "Заправки"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(selectVehicleButtonTapped))
+        
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
@@ -51,10 +54,22 @@ class RefuelsController: UITableViewController {
     }
     
     private func fetchRefuels() {
-        guard let vehicle = vehicle else { return }
-        PersistentManager.shared.fetchRefuelsByVehicle(vehicle) { refuels in
+        if let vehicle = vehicle, let refuels = vehicle.refuels?.allObjects as? [CDRefuel] {
             self.refuels = refuels
         }
+    }
+    
+    private func showChoiceController() {
+        let choiceController = ChoiceController()
+        choiceController.delegate = self
+        present(choiceController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Selectors
+    
+    @objc private func selectVehicleButtonTapped() {
+        showChoiceController()
     }
 
     // MARK: - Table view data source
@@ -124,7 +139,8 @@ class RefuelsController: UITableViewController {
 }
 
 extension RefuelsController: ChoiceControllerDelegate {
-    func didChoose(_ vehicle: Vehicle) {
+    func didChoose(_ vehicle: CDVehicle) {
         self.vehicle = vehicle
+        print("selected: \(vehicle.model)")
     }
 }

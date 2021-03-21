@@ -6,11 +6,13 @@
 //
 
 import UIKit
-//import CoreData
+import CoreData
 
 class LoadingController: UIViewController {
 
     // MARK: - Properties
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let activityIndicator = UIActivityIndicatorView()
     
     let loadingLabel: UILabel = {
@@ -32,13 +34,14 @@ class LoadingController: UIViewController {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
         
-        PersistentManager.shared.fetchVehicles { vehicles in
-            
-            if vehicles.isEmpty {
-                PresenterManager.shared.show(.createVehicleController)
-            } else {
-                PresenterManager.shared.show(.mainTabBarController)
-            }
+        // TODO: Show message with error!
+
+        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
+        request.fetchLimit = 1
+        if let countOfVehicles = try? context.count(for: request), countOfVehicles > 0 {
+            PresenterManager.shared.show(.mainTabBarController)   
+        } else {
+            PresenterManager.shared.show(.createVehicleController)
         }
     }
     

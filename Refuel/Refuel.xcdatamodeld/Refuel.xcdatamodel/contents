@@ -2,9 +2,9 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDRefuel" representedClassName=".CDRefuel" syncable="YES" codeGenerationType="class">
         <attribute name="cost" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="liters" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="odometer" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="refueling_date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="odometer" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="vehicle" maxCount="1" deletionRule="Nullify" destinationEntity="CDVehicle" inverseName="refuels" inverseEntity="CDVehicle"/>
     </entity>
     <entity name="CDVehicle" representedClassName=".CDVehicle" syncable="YES" codeGenerationType="class">
@@ -13,7 +13,7 @@
         <relationship name="refuels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDRefuel" inverseName="vehicle" inverseEntity="CDRefuel"/>
     </entity>
     <elements>
-        <element name="CDRefuel" positionX="-138.4638671875" positionY="-16.364013671875" width="128" height="118"/>
+        <element name="CDRefuel" positionX="-138.4638671875" positionY="-16.364013671875" width="128" height="104"/>
         <element name="CDVehicle" positionX="-383.7345581054688" positionY="-6.104400634765625" width="128" height="88"/>
     </elements>
 </model>

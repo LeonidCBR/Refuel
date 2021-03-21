@@ -4,7 +4,7 @@
 //
 //  Created by Яна Латышева on 13.12.2020.
 //
-
+/*
 import UIKit
 import CoreData
 
@@ -29,24 +29,18 @@ struct PersistentManager {
         }
     }
     
+    func fetchVehicles() throws -> [CDVehicle] {
+        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
+        let vehicles = try context.fetch(request)
+        return vehicles
+    }
+    
     func getNewVehicle() -> CDVehicle {
         return CDVehicle(context: context)
     }
     
-    func appendVehicle(_ vehicle: Vehicle) throws {
-        print("DEBUG: saving \(vehicle)")
-        let newVehicle = CDVehicle(context: context)
-        newVehicle.manufacturer = vehicle.manufacturer
-        newVehicle.model = vehicle.model
-        try saveContext()
-//        do {
-//            try context.save()
-//
-//        } catch {
-//            // TODO: catch errors
-//            let nserror = error as NSError
-//            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
-//        }
+    func getNewRefuel() -> CDRefuel {
+        return CDRefuel(context: context)
     }
     
     func removeVehicle(_ vehicle: CDVehicle) throws {
@@ -54,7 +48,24 @@ struct PersistentManager {
         context.delete(vehicle)
         try saveContext()
     }
-    
+  */
+    /*
+    func appendVehicle(_ vehicle: Vehicle) throws {
+         print("DEBUG: saving \(vehicle)")
+         let newVehicle = CDVehicle(context: context)
+         newVehicle.manufacturer = vehicle.manufacturer
+         newVehicle.model = vehicle.model
+         try saveContext()
+ //        do {
+ //            try context.save()
+ //
+ //        } catch {
+ //            // TODO: catch errors
+ //            let nserror = error as NSError
+ //            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+ //        }
+    }
+     
     func saveRefuel(_ refuel: Refuel) {
         print("DEBUG: saving \(refuel)")
     }
@@ -83,14 +94,7 @@ struct PersistentManager {
                     fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
                 }
             }
-        } 
-        /*
-        print("DEBUG: fetching vehicles...")
-       
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            completion([])
         }
-        */
     }
     
     
@@ -105,4 +109,5 @@ struct PersistentManager {
                                  Refuel(date: Date(), liters: 15.6, cost: 765.3, odometer: 238123)]
         completion(refuels)
     }
-}
+    */
+//}

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol CreateVehicleControllerDelegate {
     func didSave()
@@ -14,6 +15,8 @@ protocol CreateVehicleControllerDelegate {
 class CreateVehicleController: UIViewController {
     
     // MARK: - Properties
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var delegate: CreateVehicleControllerDelegate?
     
     // It will be not nil if it is being edited
@@ -130,13 +133,17 @@ class CreateVehicleController: UIViewController {
                 // Editing vehicle
                 didEditVehicle.manufacturer = manufacturerTextField.text
                 didEditVehicle.model = modelTextField.text
-                try PersistentManager.shared.saveContext()
                 
             } else {
                 
                 // Creating new vehicle
-                let vehicle = Vehicle(manufacturer: manufacturer, model: model)
-                try PersistentManager.shared.appendVehicle(vehicle)
+                let vehicle = CDVehicle(context: context)
+                vehicle.manufacturer = manufacturer
+                vehicle.model = model
+            }
+            
+            if context.hasChanges {
+                try context.save()
             }
             
             delegate?.didSave()
@@ -148,6 +155,7 @@ class CreateVehicleController: UIViewController {
             }
             
         } catch {
+            
             // TODO: catch errors, show alarm
             
             let nserror = error as NSError

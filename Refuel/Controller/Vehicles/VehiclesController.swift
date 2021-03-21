@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class VehiclesController: UITableViewController {
     
     // MARK: - Properties
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private var vehicles: [CDVehicle]? //{
         // this is conflicting with remove swipe
@@ -38,6 +40,17 @@ class VehiclesController: UITableViewController {
         }
     }
     
+    /*
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // TODO: - Find out the better way
+        
+        if context.hasChanges {
+            try! context.save()
+        }
+    }
+    */
     
     // MARK: - Methods
     
@@ -77,11 +90,13 @@ class VehiclesController: UITableViewController {
     
     // MARK: - Selectors
     @objc private func fetchVehicles() {
-        PersistentManager.shared.fetchVehicles { (vehicles) in
-            self.vehicles = vehicles
-            self.tableView.reloadData()
-            self.refreshControl?.endRefreshing()
-        }
+        // TODO: - Show message if an error is received
+        
+        
+        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
+        vehicles = try! context.fetch(request)
+        tableView.reloadData()
+        refreshControl?.endRefreshing()
     }
     
     @objc private func addVehicle() {
@@ -135,7 +150,10 @@ class VehiclesController: UITableViewController {
             
             do {
                 if let vehicle = vehicles?[indexPath.row] {
-                    try PersistentManager.shared.removeVehicle(vehicle)
+                    context.delete(vehicle)
+                    if context.hasChanges {
+                        try context.save()
+                    }
                     vehicles?.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 } else {

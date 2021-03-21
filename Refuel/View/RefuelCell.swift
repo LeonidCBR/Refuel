@@ -11,7 +11,7 @@ class RefuelCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var refuel: Refuel! {
+    var refuel: CDRefuel! {
         didSet {
             updateUI()
         }
@@ -89,7 +89,7 @@ class RefuelCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        let dateStr = dateFormatter.string(from: refuel.date)
+        let dateStr = dateFormatter.string(from: refuel.date!)
         dateLabel.text = dateStr
         
         litersLabel.text = "\(refuel.liters)"

@@ -21,24 +21,24 @@ class MainTabBarController: UITabBarController {
     
     private func configureViewControllers() {
         let addRefuelTab = UINavigationController(rootViewController: AddRefuelController())
-        let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         let refuelsTab = UINavigationController(rootViewController: RefuelsController())
-        let servicesTab = UIViewController()
+        let servicesTab = UINavigationController(rootViewController: UIViewController())
+        let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         
         addRefuelTab.tabBarItem = UITabBarItem(title: K.TabBarItem.addRefuel,
                                          image: nil,
                                          tag: 0)
-        vehiclesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.vehicles,
-                                         image: nil,
-                                         tag: 1)
         refuelsTab.tabBarItem = UITabBarItem(title: K.TabBarItem.refuels,
                                          image: nil,
-                                         tag: 2)
+                                         tag: 1)
         servicesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.services,
+                                         image: nil,
+                                         tag: 2)
+        vehiclesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.vehicles,
                                          image: nil,
                                          tag: 3)
         
-        viewControllers = [addRefuelTab, vehiclesTab, refuelsTab, servicesTab]
+        viewControllers = [addRefuelTab, refuelsTab, servicesTab, vehiclesTab]
         selectedIndex = 0
     }
 

@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class AddRefuelController: UITableViewController {
 
     // MARK: - Properties
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    private var refuel = Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
+    private var refuel: CDRefuel!  //Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
     
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -21,11 +23,15 @@ class AddRefuelController: UITableViewController {
     private var datePickerCurrentHeight: CGFloat = 0
     
     
+    // TODO: - add two rows for choosing a vehicle
+    
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        refuelInit()
     }
 
     // MARK: - Methods
@@ -62,6 +68,18 @@ class AddRefuelController: UITableViewController {
         view.addGestureRecognizer(tap)
     }
     
+    private func refuelInit() {
+        refuel = CDRefuel(context: context)
+        //Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
+        
+        
+//        refuel.vehicle = !!!
+        refuel.date = Date()
+        refuel.liters = 0.0
+        refuel.cost = 0.0
+        refuel.odometer = 0
+    }
+    
     private func getString(from doubleValue: Double) -> String {
         let number = NSNumber(value: doubleValue)
         let numberFormatter = NumberFormatter()
@@ -92,13 +110,13 @@ class AddRefuelController: UITableViewController {
         switch cellOption {
         case .dateLabel:
             let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.labelsCell, for: indexPath) as! LabelsCell
-            labelsCell.setDate(to: refuel.date)
+            labelsCell.setDate(to: refuel.date!)
             cell = labelsCell
             
         case .datePicker:
             let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.datePickerCell, for: indexPath) as! DatePickerCell
             datePickerCell.delegate = self
-            datePickerCell.setDate(to: refuel.date)
+            datePickerCell.setDate(to: refuel.date!)
             cell = datePickerCell
             
         case .litersAmount:
@@ -233,7 +251,7 @@ extension AddRefuelController: InputTextCellDelegate {
             }
             return
         }
-        refuel.odometer = odometer
+        refuel.odometer = Int64(odometer)
     }
     
 }
@@ -244,7 +262,11 @@ extension AddRefuelController: InputTextCellDelegate {
 extension AddRefuelController: ButtonCellDelegate {
     
     func saveButtonTapped() {
-        PersistentManager.shared.saveRefuel(refuel)
+        
+        // TODO - Implement saving result
+        
+        print("DEBUG - saving refuel...")
+        //PersistentManager.shared.saveRefuel(refuel)
     }
     
 }
