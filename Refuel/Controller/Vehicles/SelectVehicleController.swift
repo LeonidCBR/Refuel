@@ -13,7 +13,7 @@ protocol ChoiceControllerDelegate {
     func didChoose(_ vehicle: CDVehicle)
 }
 
-class ChoiceController: UIViewController {
+class SelectVehicleController: UIViewController {
 
     // MARK: - Properties
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -98,7 +98,7 @@ class ChoiceController: UIViewController {
 
 
 // MARK: - UIPickerViewDelegate, UIPickerViewDataSource
-extension ChoiceController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension SelectVehicleController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }

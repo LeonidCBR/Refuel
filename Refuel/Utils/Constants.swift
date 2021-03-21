@@ -34,4 +34,8 @@ struct K {
         }
     }
     
+    struct Notification {
+        static let RFVehicleDidSelect = NSNotification.Name(rawValue: "RFVehicleDidSelect")
+    }
+    
 }

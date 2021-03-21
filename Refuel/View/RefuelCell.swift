@@ -11,7 +11,7 @@ class RefuelCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var refuel: CDRefuel! {
+    var refuel: CDRefuel? {
         didSet {
             updateUI()
         }
@@ -85,6 +85,10 @@ class RefuelCell: UITableViewCell {
     
     private func updateUI() {
         //TODO: use NumberFormatter and DateFormatter
+        guard let refuel = refuel else {
+            print("DEBUG: Refuel is nil!")
+            return
+        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"

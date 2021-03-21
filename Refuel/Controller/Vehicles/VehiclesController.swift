@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class VehiclesController: UITableViewController {
+class VehiclesController: ParentController {
     
     // MARK: - Properties
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -33,11 +33,13 @@ class VehiclesController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         //navigationItem.rightBarButtonItems
-        if #available(iOS 14.0, *) {
+        
+        // TODO??
+//        if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
-        } else {
+//        } else {
             // TODO: - Fallback on earlier versions
-        }
+//        }
     }
     
     /*
@@ -91,8 +93,6 @@ class VehiclesController: UITableViewController {
     // MARK: - Selectors
     @objc private func fetchVehicles() {
         // TODO: - Show message if an error is received
-        
-        
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
         vehicles = try! context.fetch(request)
         tableView.reloadData()

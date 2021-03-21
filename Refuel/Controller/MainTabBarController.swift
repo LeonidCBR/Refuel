@@ -14,6 +14,7 @@ class MainTabBarController: UITabBarController {
     var selectedVehicle: CDVehicle? {
         didSet {
             print("DEBUG: - Did select vehicle - \(selectedVehicle?.model)")
+            NotificationCenter.default.post(name: K.Notification.RFVehicleDidSelect, object: nil)
         }
     }
 
@@ -30,7 +31,7 @@ class MainTabBarController: UITabBarController {
     private func configureViewControllers() {
         let addRefuelTab = UINavigationController(rootViewController: AddRefuelController())
         let refuelsTab = UINavigationController(rootViewController: RefuelsController())
-        let servicesTab = UINavigationController(rootViewController: UIViewController())
+        let servicesTab = UINavigationController(rootViewController: ServicesController())
         let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         
         addRefuelTab.tabBarItem = UITabBarItem(title: K.TabBarItem.addRefuel,

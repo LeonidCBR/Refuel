@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F9AAC2585EA4700E1225C /* PersistentManager.swift */; };
+		D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF0392606FD0700F664FD /* ParentController.swift */; };
+		D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF03C260701BA00F664FD /* ServicesController.swift */; };
 		D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8CB6C25A5676D0057834C /* VehiclesController.swift */; };
 		D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627C257B459F001B1D42 /* AppDelegate.swift */; };
 		D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627E257B459F001B1D42 /* SceneDelegate.swift */; };
@@ -23,7 +25,7 @@
 		D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E0257F4896002BED3A /* InputTextCell.swift */; };
 		D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */; };
 		D7F493E525862DF200297CD2 /* RefuelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493E425862DF200297CD2 /* RefuelCell.swift */; };
-		D7F493EB258702EB00297CD2 /* ChoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493EA258702EB00297CD2 /* ChoiceController.swift */; };
+		D7F493EB258702EB00297CD2 /* SelectVehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */; };
 		D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493ED25874BB500297CD2 /* PresenterManager.swift */; };
 		D7F493F125874E0600297CD2 /* CreateVehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F025874E0600297CD2 /* CreateVehicleController.swift */; };
 		D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F5258777FC00297CD2 /* LoadingController.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		D71F9AAC2585EA4700E1225C /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
+		D75DF0392606FD0700F664FD /* ParentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
+		D75DF03C260701BA00F664FD /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
 		D7C8CB6C25A5676D0057834C /* VehiclesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesController.swift; sourceTree = "<group>"; };
 		D7C96279257B459F001B1D42 /* Refuel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Refuel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C9627C257B459F001B1D42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +54,7 @@
 		D7CBD6E0257F4896002BED3A /* InputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextCell.swift; sourceTree = "<group>"; };
 		D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		D7F493E425862DF200297CD2 /* RefuelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelCell.swift; sourceTree = "<group>"; };
-		D7F493EA258702EB00297CD2 /* ChoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceController.swift; sourceTree = "<group>"; };
+		D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVehicleController.swift; sourceTree = "<group>"; };
 		D7F493ED25874BB500297CD2 /* PresenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterManager.swift; sourceTree = "<group>"; };
 		D7F493F025874E0600297CD2 /* CreateVehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVehicleController.swift; sourceTree = "<group>"; };
 		D7F493F5258777FC00297CD2 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
@@ -81,8 +85,9 @@
 		D7C8CB7025A6A90F0057834C /* Vehicles */ = {
 			isa = PBXGroup;
 			children = (
-				D7F493F025874E0600297CD2 /* CreateVehicleController.swift */,
 				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
+				D7F493F025874E0600297CD2 /* CreateVehicleController.swift */,
+				D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */,
 			);
 			path = Vehicles;
 			sourceTree = "<group>";
@@ -142,10 +147,12 @@
 			isa = PBXGroup;
 			children = (
 				D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */,
+				D75DF0392606FD0700F664FD /* ParentController.swift */,
 				D7F493F5258777FC00297CD2 /* LoadingController.swift */,
 				D7C96280257B459F001B1D42 /* AddRefuelController.swift */,
+				D7C962A3257B5493001B1D42 /* RefuelsController.swift */,
+				D75DF03C260701BA00F664FD /* ServicesController.swift */,
 				D7C8CB7025A6A90F0057834C /* Vehicles */,
-				D7F493F325874E2F00297CD2 /* Refuels */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,15 +175,6 @@
 				D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */,
 			);
 			path = AddRefuelCells;
-			sourceTree = "<group>";
-		};
-		D7F493F325874E2F00297CD2 /* Refuels */ = {
-			isa = PBXGroup;
-			children = (
-				D7C962A3257B5493001B1D42 /* RefuelsController.swift */,
-				D7F493EA258702EB00297CD2 /* ChoiceController.swift */,
-			);
-			path = Refuels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,9 +252,11 @@
 				D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */,
 				D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */,
 				D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */,
-				D7F493EB258702EB00297CD2 /* ChoiceController.swift in Sources */,
+				D7F493EB258702EB00297CD2 /* SelectVehicleController.swift in Sources */,
 				D7F61234257CDF9600D51357 /* AddRefuelOption.swift in Sources */,
 				D7F6123A257CE39800D51357 /* Extensions.swift in Sources */,
+				D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */,
+				D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */,
 				D7C96287257B459F001B1D42 /* Refuel.xcdatamodeld in Sources */,
 				D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */,
 				D7CBD6DB257F475D002BED3A /* LabelsCell.swift in Sources */,
