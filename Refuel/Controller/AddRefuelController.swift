@@ -8,9 +8,14 @@
 import UIKit
 import CoreData
 
+protocol AddRefuelDelegate {
+    func refuelDidAdd()
+}
+
 class AddRefuelController: ParentController {
 
     // MARK: - Properties
+
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var date = Date()
     private var liters = 0.0
@@ -26,6 +31,7 @@ class AddRefuelController: ParentController {
     
     private var datePickerCurrentHeight: CGFloat = 0
     
+    var delegate: AddRefuelDelegate?
     
     // TODO: - add two rows for choosing a vehicle
     
@@ -255,23 +261,23 @@ extension AddRefuelController: InputTextCellDelegate {
 extension AddRefuelController: ButtonCellDelegate {
     
     func saveButtonTapped() {
+        print("DEBUG: \(#function) saving refuel...")
         
-        // TODO - Implement saving result
-        print("DEBUG: Selected vehicle is \(selectedVehicle?.model)")
-        
-        print("DEBUG - saving refuel...")
         let refuel = CDRefuel(context: context)
-        //Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
-        
-        
         refuel.vehicle = selectedVehicle
-        refuel.date = Date()
-        refuel.liters = 0.0
-        refuel.cost = 0.0
-        refuel.odometer = 0
+        refuel.date = date
+        refuel.liters = liters
+        refuel.cost = cost
+        refuel.odometer = Int64(odometer)
         try! context.save()
         
-        //PersistentManager.shared.saveRefuel(refuel)
+        delegate?.refuelDidAdd()
+        
+        // Show message
+        let alert = UIAlertController(title: "Новая заправка", message: "Успешно сохранено!", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
 }

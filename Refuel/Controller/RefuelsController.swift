@@ -33,7 +33,7 @@ class RefuelsController: ParentController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        //fetchRefuels()
+        fetchRefuels()
     }
     
     // MARK: - Methods
@@ -51,12 +51,17 @@ class RefuelsController: ParentController {
     }
     
     private func fetchRefuels() {
-        let request: NSFetchRequest<CDRefuel> = CDRefuel.fetchRequest()
         
+        if let refuels = selectedVehicle?.refuels?.allObjects as? [CDRefuel] {
+            self.refuels = refuels
+        }
+        
+//        let request: NSFetchRequest<CDRefuel> = CDRefuel.fetchRequest()
         // TODO: Create predicate where vehicle = selected vehicle
+//        refuels = try! context.fetch(request)
         
-        refuels = try! context.fetch(request)
         tableView.reloadData()
+        
 //        if let vehicle = vehicle, let refuels = vehicle.refuels?.allObjects as? [CDRefuel] {
 //            self.refuels = refuels
 //        }
@@ -90,3 +95,8 @@ class RefuelsController: ParentController {
 
 }
 
+extension RefuelsController: AddRefuelDelegate {
+    func refuelDidAdd() {
+        fetchRefuels()
+    }
+}

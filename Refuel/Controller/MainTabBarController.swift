@@ -29,8 +29,12 @@ class MainTabBarController: UITabBarController {
     // MARK: - Methods
     
     private func configureViewControllers() {
-        let addRefuelTab = UINavigationController(rootViewController: AddRefuelController())
-        let refuelsTab = UINavigationController(rootViewController: RefuelsController())
+        let addRefuelController = AddRefuelController()
+        let refuelsController = RefuelsController()
+        addRefuelController.delegate = refuelsController
+        
+        let addRefuelTab = UINavigationController(rootViewController: addRefuelController)
+        let refuelsTab = UINavigationController(rootViewController: refuelsController)
         let servicesTab = UINavigationController(rootViewController: ServicesController())
         let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         
