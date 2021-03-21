@@ -14,7 +14,7 @@ struct PresenterManager {
     private init() {}
     
     enum VC {
-        case mainTabBarController
+        case mainTabBarController(selectedVehicle: CDVehicle)
         case createVehicleController
     }
     
@@ -23,8 +23,9 @@ struct PresenterManager {
         var window: UIWindow?
         
         switch viewControllerToShow {
-        case .mainTabBarController:
+        case .mainTabBarController(let vehicle):
             viewController = MainTabBarController()
+            (viewController as! MainTabBarController).selectedVehicle = vehicle
         case .createVehicleController:
             viewController = CreateVehicleController()
         }

@@ -125,6 +125,7 @@ class CreateVehicleController: UIViewController {
         }
         
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        let newVehicle: CDVehicle
         
         do {
             
@@ -133,6 +134,7 @@ class CreateVehicleController: UIViewController {
                 // Editing vehicle
                 didEditVehicle.manufacturer = manufacturerTextField.text
                 didEditVehicle.model = modelTextField.text
+                newVehicle = didEditVehicle
                 
             } else {
                 
@@ -140,6 +142,7 @@ class CreateVehicleController: UIViewController {
                 let vehicle = CDVehicle(context: context)
                 vehicle.manufacturer = manufacturer
                 vehicle.model = model
+                newVehicle = vehicle
             }
             
             if context.hasChanges {
@@ -148,10 +151,18 @@ class CreateVehicleController: UIViewController {
             
             delegate?.didSave()
             
+            // TODO: there is no tab bar
+//            if let tabBarController = tabBarController as? MainTabBarController {
+//                tabBarController.selectedVehicle = newVehicle
+//            }
+            
             if let navigationController = navigationController {
+                if let tabBarController = tabBarController as? MainTabBarController {
+                    tabBarController.selectedVehicle = newVehicle
+                }
                 navigationController.popViewController(animated: true)
             } else {
-                PresenterManager.shared.show(.mainTabBarController)
+                PresenterManager.shared.show(.mainTabBarController(selectedVehicle: newVehicle))
             }
             
         } catch {

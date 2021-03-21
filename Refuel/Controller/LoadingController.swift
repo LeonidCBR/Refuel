@@ -34,12 +34,13 @@ class LoadingController: UIViewController {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
         
-        // TODO: Show message with error!
+        // TODO: Show message with error! Make a refactor!
 
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
         request.fetchLimit = 1
         if let countOfVehicles = try? context.count(for: request), countOfVehicles > 0 {
-            PresenterManager.shared.show(.mainTabBarController)   
+            let vehicles = try! context.fetch(request)
+            PresenterManager.shared.show(.mainTabBarController(selectedVehicle: vehicles.first!))
         } else {
             PresenterManager.shared.show(.createVehicleController)
         }
