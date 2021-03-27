@@ -92,6 +92,26 @@ class RefuelsController: ParentController {
         cell.refuel = refuels?[indexPath.row]
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("DEBUG: Delete row \(indexPath.row)")
+            
+            guard let refuel = refuels?[indexPath.row] else { return }
+            context.delete(refuel)
+            do {
+                if context.hasChanges {
+                    try context.save()
+                }
+                refuels?.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                // TODO: catch errors
+                let nserror = error as NSError
+                PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+            }
+        }
+    }
 
 }
 
