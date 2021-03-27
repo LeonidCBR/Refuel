@@ -32,6 +32,12 @@ struct K {
         struct Vehicles {
             static let vehicleCell = "vehicleIdentifier"
         }
+        
+        struct CreateVehicle {
+            static let captionCell = "createVehicleCaptionIdentifier"
+            static let inputTextCell = "createVehicleInputTextIdentifier"
+            static let buttonCell = "createVehicleButtonIdentifier"
+        }
     }
     
     struct Notification {

@@ -10,6 +10,9 @@
 		D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F9AAC2585EA4700E1225C /* PersistentManager.swift */; };
 		D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF0392606FD0700F664FD /* ParentController.swift */; };
 		D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF03C260701BA00F664FD /* ServicesController.swift */; };
+		D75E36C6260DC1C100148156 /* CVCaptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36C5260DC1C100148156 /* CVCaptionCell.swift */; };
+		D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */; };
+		D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36CD260DD0A200148156 /* CVInputTextCell.swift */; };
 		D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8CB6C25A5676D0057834C /* VehiclesController.swift */; };
 		D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627C257B459F001B1D42 /* AppDelegate.swift */; };
 		D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627E257B459F001B1D42 /* SceneDelegate.swift */; };
@@ -20,9 +23,9 @@
 		D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */; };
 		D7C962A1257B5025001B1D42 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A0257B5025001B1D42 /* Constants.swift */; };
 		D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A3257B5493001B1D42 /* RefuelsController.swift */; };
-		D7CBD6DB257F475D002BED3A /* LabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DA257F475D002BED3A /* LabelsCell.swift */; };
-		D7CBD6DE257F4876002BED3A /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */; };
-		D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E0257F4896002BED3A /* InputTextCell.swift */; };
+		D7CBD6DB257F475D002BED3A /* ARLabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */; };
+		D7CBD6DE257F4876002BED3A /* ARDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */; };
+		D7CBD6E1257F4896002BED3A /* ARInputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */; };
 		D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */; };
 		D7F493E525862DF200297CD2 /* RefuelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493E425862DF200297CD2 /* RefuelCell.swift */; };
 		D7F493EB258702EB00297CD2 /* SelectVehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */; };
@@ -37,6 +40,9 @@
 		D71F9AAC2585EA4700E1225C /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		D75DF0392606FD0700F664FD /* ParentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
 		D75DF03C260701BA00F664FD /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
+		D75E36C5260DC1C100148156 /* CVCaptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVCaptionCell.swift; sourceTree = "<group>"; };
+		D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVehicleOption.swift; sourceTree = "<group>"; };
+		D75E36CD260DD0A200148156 /* CVInputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVInputTextCell.swift; sourceTree = "<group>"; };
 		D7C8CB6C25A5676D0057834C /* VehiclesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesController.swift; sourceTree = "<group>"; };
 		D7C96279257B459F001B1D42 /* Refuel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Refuel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C9627C257B459F001B1D42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,9 +55,9 @@
 		D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D7C962A0257B5025001B1D42 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D7C962A3257B5493001B1D42 /* RefuelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelsController.swift; sourceTree = "<group>"; };
-		D7CBD6DA257F475D002BED3A /* LabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsCell.swift; sourceTree = "<group>"; };
-		D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
-		D7CBD6E0257F4896002BED3A /* InputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextCell.swift; sourceTree = "<group>"; };
+		D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARLabelsCell.swift; sourceTree = "<group>"; };
+		D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDatePickerCell.swift; sourceTree = "<group>"; };
+		D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARInputTextCell.swift; sourceTree = "<group>"; };
 		D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		D7F493E425862DF200297CD2 /* RefuelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelCell.swift; sourceTree = "<group>"; };
 		D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVehicleController.swift; sourceTree = "<group>"; };
@@ -80,6 +86,15 @@
 				D7F493ED25874BB500297CD2 /* PresenterManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		D75E36C4260DC13F00148156 /* CreateVehiclesCells */ = {
+			isa = PBXGroup;
+			children = (
+				D75E36C5260DC1C100148156 /* CVCaptionCell.swift */,
+				D75E36CD260DD0A200148156 /* CVInputTextCell.swift */,
+			);
+			path = CreateVehiclesCells;
 			sourceTree = "<group>";
 		};
 		D7C8CB7025A6A90F0057834C /* Vehicles */ = {
@@ -130,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F61233257CDF9600D51357 /* AddRefuelOption.swift */,
+				D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +155,7 @@
 			children = (
 				D7CBD6D9257F471D002BED3A /* AddRefuelCells */,
 				D7F493E425862DF200297CD2 /* RefuelCell.swift */,
+				D75E36C4260DC13F00148156 /* CreateVehiclesCells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,9 +186,9 @@
 		D7CBD6D9257F471D002BED3A /* AddRefuelCells */ = {
 			isa = PBXGroup;
 			children = (
-				D7CBD6DA257F475D002BED3A /* LabelsCell.swift */,
-				D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */,
-				D7CBD6E0257F4896002BED3A /* InputTextCell.swift */,
+				D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */,
+				D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */,
+				D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */,
 				D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */,
 			);
 			path = AddRefuelCells;
@@ -248,7 +265,8 @@
 			files = (
 				D7C96281257B459F001B1D42 /* AddRefuelController.swift in Sources */,
 				D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */,
-				D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */,
+				D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */,
+				D7CBD6E1257F4896002BED3A /* ARInputTextCell.swift in Sources */,
 				D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */,
 				D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */,
 				D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */,
@@ -259,14 +277,16 @@
 				D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */,
 				D7C96287257B459F001B1D42 /* Refuel.xcdatamodeld in Sources */,
 				D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */,
-				D7CBD6DB257F475D002BED3A /* LabelsCell.swift in Sources */,
+				D7CBD6DB257F475D002BED3A /* ARLabelsCell.swift in Sources */,
 				D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */,
 				D7C962A1257B5025001B1D42 /* Constants.swift in Sources */,
 				D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */,
-				D7CBD6DE257F4876002BED3A /* DatePickerCell.swift in Sources */,
+				D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */,
+				D7CBD6DE257F4876002BED3A /* ARDatePickerCell.swift in Sources */,
 				D7F493F125874E0600297CD2 /* CreateVehicleController.swift in Sources */,
 				D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */,
 				D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */,
+				D75E36C6260DC1C100148156 /* CVCaptionCell.swift in Sources */,
 				D7F493E525862DF200297CD2 /* RefuelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

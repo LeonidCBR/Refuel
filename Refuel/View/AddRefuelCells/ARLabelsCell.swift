@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LabelsCell: UITableViewCell {
+class ARLabelsCell: UITableViewCell {
 
     // MARK: - Properties
     

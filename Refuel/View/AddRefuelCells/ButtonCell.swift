@@ -59,6 +59,9 @@ class ButtonCell: UITableViewCell {
 //                         for: .touchUpInside)
         
         contentView.addSubview(saveButton)
+        
+        // TODO: add constraint to width = contentView.width * 0.70
+        
         saveButton.anchor(width: 200,
                           height: 40,
                           centerX: contentView.centerXAnchor,

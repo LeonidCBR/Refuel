@@ -1,5 +1,5 @@
 //
-//  InputTextCell.swift
+//  ARInputTextCell.swift
 //  Refuel
 //
 //  Created by Яна Латышева on 08.12.2020.
@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol InputTextCellDelegate {
+protocol ARInputTextCellDelegate {
 
     func didGetLiters(_ liters: Double?)
     func didGetCost(_ cost: Double?)
@@ -17,11 +17,11 @@ protocol InputTextCellDelegate {
 }
 
 
-class InputTextCell: UITableViewCell {
+class ARInputTextCell: UITableViewCell {
 
     // MARK: - Properties
     
-    var delegate: InputTextCellDelegate?
+    var delegate: ARInputTextCellDelegate?
     
     var option: AddRefuelOption! {
         didSet {
@@ -99,7 +99,7 @@ class InputTextCell: UITableViewCell {
 
 // MARK: - UITextFieldDelegate (Text validation)
 
-extension InputTextCell: UITextFieldDelegate {
+extension ARInputTextCell: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

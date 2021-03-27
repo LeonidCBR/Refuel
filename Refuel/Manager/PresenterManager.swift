@@ -18,7 +18,7 @@ struct PresenterManager {
         case createVehicleController
     }
     
-    func show(_ viewControllerToShow: VC) {
+    func showViewController(_ viewControllerToShow: VC) {
         var viewController: UIViewController
         var window: UIWindow?
         
@@ -51,6 +51,13 @@ struct PresenterManager {
             UIView.transition(with: window, duration: 0.25, options: .transitionCrossDissolve, animations: nil, completion: nil)
             window.rootViewController = viewController
         }
+    }
+    
+    func showMessage(withTitle title: String, andMessage message: String, byViewController viewController: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        viewController.present(alert, animated: true, completion: nil)
     }
     
 }

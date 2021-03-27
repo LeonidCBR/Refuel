@@ -1,5 +1,5 @@
 //
-//  DatePickerCell.swift
+//  ARDatePickerCell.swift
 //  Refuel
 //
 //  Created by Яна Латышева on 08.12.2020.
@@ -8,18 +8,18 @@
 import UIKit
 
 
-protocol DatePickerCellDelegate  {
+protocol ARDatePickerCellDelegate  {
     
     func dateChanged(to date: Date)
 
 }
 
 
-class DatePickerCell: UITableViewCell {
+class ARDatePickerCell: UITableViewCell {
 
     // MARK: - Properties
     
-    var delegate: DatePickerCellDelegate?
+    var delegate: ARDatePickerCellDelegate?
     
     private let datePicker: UIDatePicker = {
         // DEBUG

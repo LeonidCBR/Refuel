@@ -52,11 +52,11 @@ class AddRefuelController: ParentController {
 //        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         
-        tableView.register(LabelsCell.self,
+        tableView.register(ARLabelsCell.self,
                            forCellReuseIdentifier: K.Identifier.AddRefuel.labelsCell)
-        tableView.register(DatePickerCell.self,
+        tableView.register(ARDatePickerCell.self,
                            forCellReuseIdentifier: K.Identifier.AddRefuel.datePickerCell)
-        tableView.register(InputTextCell.self,
+        tableView.register(ARInputTextCell.self,
                            forCellReuseIdentifier: K.Identifier.AddRefuel.inputTextCell)
         tableView.register(ButtonCell.self,
                            forCellReuseIdentifier: K.Identifier.AddRefuel.buttonCell)
@@ -103,18 +103,18 @@ class AddRefuelController: ParentController {
         
         switch cellOption {
         case .dateLabel:
-            let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.labelsCell, for: indexPath) as! LabelsCell
+            let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.labelsCell, for: indexPath) as! ARLabelsCell
             labelsCell.setDate(to: date)
             cell = labelsCell
             
         case .datePicker:
-            let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.datePickerCell, for: indexPath) as! DatePickerCell
+            let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.datePickerCell, for: indexPath) as! ARDatePickerCell
             datePickerCell.delegate = self
             datePickerCell.setDate(to: date)
             cell = datePickerCell
             
         case .litersAmount:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! ARInputTextCell
             inputTextCell.delegate = self
             inputTextCell.option = .litersAmount
             inputTextCell.setCaption(to: cellOption.caption)
@@ -137,7 +137,7 @@ class AddRefuelController: ParentController {
             cell = inputTextCell
             
         case .cost:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! ARInputTextCell
             inputTextCell.delegate = self
             inputTextCell.option = .cost
             inputTextCell.setCaption(to: cellOption.caption)
@@ -146,7 +146,7 @@ class AddRefuelController: ParentController {
             cell = inputTextCell
             
         case .odometer:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.AddRefuel.inputTextCell, for: indexPath) as! ARInputTextCell
             inputTextCell.delegate = self
             inputTextCell.option = .odometer
             inputTextCell.setCaption(to: cellOption.caption)
@@ -190,14 +190,14 @@ class AddRefuelController: ParentController {
 }
 
 
-// MARK: - DatePickerCellDelegate
+// MARK: - ARDatePickerCellDelegate
 
-extension AddRefuelController: DatePickerCellDelegate {
+extension AddRefuelController: ARDatePickerCellDelegate {
     
     func dateChanged(to date: Date) {
         // We got the date value from cell with date picker
         // And now let's assing it to date label
-        if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.dateLabel.rawValue, section: 0)) as? LabelsCell {
+        if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.dateLabel.rawValue, section: 0)) as? ARLabelsCell {
             cell.setDate(to: date)
         }
         
@@ -209,7 +209,7 @@ extension AddRefuelController: DatePickerCellDelegate {
 
 // MARK: - InputTextCellDelegate
 
-extension AddRefuelController: InputTextCellDelegate {
+extension AddRefuelController: ARInputTextCellDelegate {
     
     func didGetLiters(_ liters: Double?) {
         guard let liters = liters else {
@@ -217,7 +217,7 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong liters!")
             
             // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)) as? InputTextCell {
+            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)) as? ARInputTextCell {
                 cell.setText(to: getString(from: self.liters))
             }
             return
@@ -231,7 +231,7 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong cost!")
             
             // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)) as? InputTextCell {
+            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)) as? ARInputTextCell {
                 cell.setText(to: getString(from: self.cost))
             }
             return
@@ -245,7 +245,7 @@ extension AddRefuelController: InputTextCellDelegate {
             print("DEBUG: show error! wrong odometer!")
             
             // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.odometer.rawValue, section: 0)) as? InputTextCell {
+            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.odometer.rawValue, section: 0)) as? ARInputTextCell {
                 cell.setText(to: "\(self.odometer)")
             }
             return
@@ -274,10 +274,7 @@ extension AddRefuelController: ButtonCellDelegate {
         delegate?.refuelDidAdd()
         
         // Show message
-        let alert = UIAlertController(title: "Новая заправка", message: "Успешно сохранено!", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+        PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
     }
     
 }
