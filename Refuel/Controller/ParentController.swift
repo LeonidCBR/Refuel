@@ -46,7 +46,7 @@ class ParentController: UITableViewController {
     
     private func setLeftBarItem() {
         let modelVehicle = selectedVehicle?.model ?? "Unknown"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
             //UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(handleSelectVehicleButtonTapped))
     }
     

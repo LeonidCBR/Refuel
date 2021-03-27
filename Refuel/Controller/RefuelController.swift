@@ -8,14 +8,20 @@
 import UIKit
 import CoreData
 
-protocol AddRefuelDelegate {
+protocol RefuelControllerDelegate {
+    
+    // TODO: - Consider to change it to the 'refuelDidChange(mode, refuel)'
+    // mode: 'new', 'edit'
+    
     func refuelDidAdd()
 }
 
-class AddRefuelController: ParentController {
+class RefuelController: ParentController {
 
     // MARK: - Properties
 
+    private var caption = "Добавить заправку"
+    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var date = Date()
     private var liters = 0.0
@@ -31,10 +37,25 @@ class AddRefuelController: ParentController {
     
     private var datePickerCurrentHeight: CGFloat = 0
     
-    var delegate: AddRefuelDelegate?
+    var delegate: RefuelControllerDelegate?
     
-    // TODO: - add two rows for choosing a vehicle
+    // It will be not nil if it is being edited
+    var editableRefuel: CDRefuel? {
+        didSet {
+            guard let refuel = editableRefuel else { return }
+            caption = "Изменить данные"
+            date = refuel.date ?? Date()
+            liters = refuel.liters
+            cost = refuel.cost
+            odometer = Int(refuel.odometer)
+            
+//            caption = "Редактирование транспортного средства"
+//            manufacturer = vehicle.manufacturer ?? ""
+//            model = vehicle.model ?? ""
+        }
+    }
     
+
     
     // MARK: - Lifecycle
     
@@ -46,7 +67,10 @@ class AddRefuelController: ParentController {
     // MARK: - Methods
     
     private func configureUI() {
-        title = "Добавить заправку"
+        title = caption
+        
+        // Hide right bar button of changing the current vehicle
+        navigationItem.rightBarButtonItem = nil
 
         print("DEBUG: Selected vehicle is \(selectedVehicle?.model)")
 //        tableView.isScrollEnabled = false
@@ -192,7 +216,7 @@ class AddRefuelController: ParentController {
 
 // MARK: - ARDatePickerCellDelegate
 
-extension AddRefuelController: ARDatePickerCellDelegate {
+extension RefuelController: ARDatePickerCellDelegate {
     
     func dateChanged(to date: Date) {
         // We got the date value from cell with date picker
@@ -209,7 +233,7 @@ extension AddRefuelController: ARDatePickerCellDelegate {
 
 // MARK: - InputTextCellDelegate
 
-extension AddRefuelController: ARInputTextCellDelegate {
+extension RefuelController: ARInputTextCellDelegate {
     
     func didGetLiters(_ liters: Double?) {
         guard let liters = liters else {
@@ -258,12 +282,17 @@ extension AddRefuelController: ARInputTextCellDelegate {
 
 // MARK: - ButtonCellDelegate
 
-extension AddRefuelController: ButtonCellDelegate {
+extension RefuelController: ButtonCellDelegate {
     
     func saveButtonTapped() {
-        print("DEBUG: \(#function) saving refuel...")
+        let refuel: CDRefuel
         
-        let refuel = CDRefuel(context: context)
+        if let editableRefuel = editableRefuel {
+            refuel = editableRefuel
+        } else {
+            refuel = CDRefuel(context: context)
+        }
+        
         refuel.vehicle = selectedVehicle
         refuel.date = date
         refuel.liters = liters
@@ -273,8 +302,12 @@ extension AddRefuelController: ButtonCellDelegate {
         
         delegate?.refuelDidAdd()
         
-        // Show message
-        PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+        if let _ = editableRefuel {
+            navigationController?.popViewController(animated: true)
+        } else {
+            // Show message
+            PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+        }
     }
     
 }

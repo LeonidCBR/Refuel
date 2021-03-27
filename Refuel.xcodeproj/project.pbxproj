@@ -16,7 +16,7 @@
 		D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8CB6C25A5676D0057834C /* VehiclesController.swift */; };
 		D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627C257B459F001B1D42 /* AppDelegate.swift */; };
 		D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9627E257B459F001B1D42 /* SceneDelegate.swift */; };
-		D7C96281257B459F001B1D42 /* AddRefuelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C96280257B459F001B1D42 /* AddRefuelController.swift */; };
+		D7C96281257B459F001B1D42 /* RefuelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C96280257B459F001B1D42 /* RefuelController.swift */; };
 		D7C96287257B459F001B1D42 /* Refuel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7C96285257B459F001B1D42 /* Refuel.xcdatamodeld */; };
 		D7C96289257B45A7001B1D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C96288257B45A7001B1D42 /* Assets.xcassets */; };
 		D7C9628C257B45A7001B1D42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C9628A257B45A7001B1D42 /* LaunchScreen.storyboard */; };
@@ -30,7 +30,7 @@
 		D7F493E525862DF200297CD2 /* RefuelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493E425862DF200297CD2 /* RefuelCell.swift */; };
 		D7F493EB258702EB00297CD2 /* SelectVehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */; };
 		D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493ED25874BB500297CD2 /* PresenterManager.swift */; };
-		D7F493F125874E0600297CD2 /* CreateVehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F025874E0600297CD2 /* CreateVehicleController.swift */; };
+		D7F493F125874E0600297CD2 /* VehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F025874E0600297CD2 /* VehicleController.swift */; };
 		D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F5258777FC00297CD2 /* LoadingController.swift */; };
 		D7F61234257CDF9600D51357 /* AddRefuelOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61233257CDF9600D51357 /* AddRefuelOption.swift */; };
 		D7F6123A257CE39800D51357 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61239257CE39800D51357 /* Extensions.swift */; };
@@ -47,7 +47,7 @@
 		D7C96279257B459F001B1D42 /* Refuel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Refuel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C9627C257B459F001B1D42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7C9627E257B459F001B1D42 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D7C96280257B459F001B1D42 /* AddRefuelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRefuelController.swift; sourceTree = "<group>"; };
+		D7C96280257B459F001B1D42 /* RefuelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelController.swift; sourceTree = "<group>"; };
 		D7C96286257B459F001B1D42 /* Refuel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Refuel.xcdatamodel; sourceTree = "<group>"; };
 		D7C96288257B45A7001B1D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7C9628B257B45A7001B1D42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		D7F493E425862DF200297CD2 /* RefuelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelCell.swift; sourceTree = "<group>"; };
 		D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVehicleController.swift; sourceTree = "<group>"; };
 		D7F493ED25874BB500297CD2 /* PresenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterManager.swift; sourceTree = "<group>"; };
-		D7F493F025874E0600297CD2 /* CreateVehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVehicleController.swift; sourceTree = "<group>"; };
+		D7F493F025874E0600297CD2 /* VehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleController.swift; sourceTree = "<group>"; };
 		D7F493F5258777FC00297CD2 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
 		D7F61233257CDF9600D51357 /* AddRefuelOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRefuelOption.swift; sourceTree = "<group>"; };
 		D7F61239257CE39800D51357 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
-				D7F493F025874E0600297CD2 /* CreateVehicleController.swift */,
+				D7F493F025874E0600297CD2 /* VehicleController.swift */,
 				D7F493EA258702EB00297CD2 /* SelectVehicleController.swift */,
 			);
 			path = Vehicles;
@@ -166,7 +166,7 @@
 				D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */,
 				D75DF0392606FD0700F664FD /* ParentController.swift */,
 				D7F493F5258777FC00297CD2 /* LoadingController.swift */,
-				D7C96280257B459F001B1D42 /* AddRefuelController.swift */,
+				D7C96280257B459F001B1D42 /* RefuelController.swift */,
 				D7C962A3257B5493001B1D42 /* RefuelsController.swift */,
 				D75DF03C260701BA00F664FD /* ServicesController.swift */,
 				D7C8CB7025A6A90F0057834C /* Vehicles */,
@@ -263,7 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7C96281257B459F001B1D42 /* AddRefuelController.swift in Sources */,
+				D7C96281257B459F001B1D42 /* RefuelController.swift in Sources */,
 				D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */,
 				D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */,
 				D7CBD6E1257F4896002BED3A /* ARInputTextCell.swift in Sources */,
@@ -283,7 +283,7 @@
 				D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */,
 				D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */,
 				D7CBD6DE257F4876002BED3A /* ARDatePickerCell.swift in Sources */,
-				D7F493F125874E0600297CD2 /* CreateVehicleController.swift in Sources */,
+				D7F493F125874E0600297CD2 /* VehicleController.swift in Sources */,
 				D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */,
 				D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */,
 				D75E36C6260DC1C100148156 /* CVCaptionCell.swift in Sources */,

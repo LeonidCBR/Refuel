@@ -27,7 +27,7 @@ struct PresenterManager {
             viewController = MainTabBarController()
             (viewController as! MainTabBarController).selectedVehicle = vehicle
         case .createVehicleController:
-            viewController = CreateVehicleController()
+            viewController = VehicleController()
         }
         
         

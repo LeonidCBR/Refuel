@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController {
     // MARK: - Methods
     
     private func configureViewControllers() {
-        let addRefuelController = AddRefuelController()
+        let addRefuelController = RefuelController()
         let refuelsController = RefuelsController()
         addRefuelController.delegate = refuelsController
         

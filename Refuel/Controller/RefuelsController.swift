@@ -21,12 +21,13 @@ class RefuelsController: ParentController {
     // didSet fetch refuelsByVehicle
     
     var refuels: [CDRefuel]?
-//    {
-//        didSet {
+    {
+        didSet {
+            print("DEBUG: - Refuels has been changed")
 //            // TODO: consider to remove it
 //            tableView.reloadData()
-//        }
-//    }
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -93,6 +94,7 @@ class RefuelsController: ParentController {
         return cell
     }
     
+    // Delete refuel record
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             print("DEBUG: Delete row \(indexPath.row)")
@@ -112,10 +114,23 @@ class RefuelsController: ParentController {
             }
         }
     }
+    
+    // Edit refuel record
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let refuelController = RefuelController()
+        
+        // TODO: - Refactor
+        // пока это приведет к полному обновлению таблицы!!!
+        refuelController.delegate = self
+        
+        refuelController.editableRefuel = refuels?[indexPath.row]
+        navigationController?.pushViewController(refuelController, animated: true)
+    }
 
 }
 
-extension RefuelsController: AddRefuelDelegate {
+extension RefuelsController: RefuelControllerDelegate {
     func refuelDidAdd() {
         fetchRefuels()
     }

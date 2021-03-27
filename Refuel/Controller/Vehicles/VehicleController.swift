@@ -8,12 +8,12 @@
 import UIKit
 import CoreData
 
-protocol CreateVehicleControllerDelegate {
+protocol VehicleControllerDelegate {
     func didSave()
 }
 
 
-class CreateVehicleController: UITableViewController {
+class VehicleController: UITableViewController {
     
     // MARK: - Properties
     private var caption = "Добавление транспортного средства"
@@ -21,7 +21,7 @@ class CreateVehicleController: UITableViewController {
     private var model = ""
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var delegate: CreateVehicleControllerDelegate?
+    var delegate: VehicleControllerDelegate?
     
     // It will be not nil if it is being edited
     var editableVehicle: CDVehicle? {
@@ -185,7 +185,7 @@ class CreateVehicleController: UITableViewController {
 
 // MARK: - ButtonCellDelegate
 
-extension CreateVehicleController: ButtonCellDelegate {
+extension VehicleController: ButtonCellDelegate {
     func saveButtonTapped() {
         
     //        guard let manufacturer = manufacturerTextField.text, let model = modelTextField.text else { return }
@@ -227,6 +227,11 @@ extension CreateVehicleController: ButtonCellDelegate {
                     try context.save()
                 }
                 
+                
+                // TODO: - Make a refactor
+                // Consider to split save process into adding and editing
+                // It will prevent reloading whole table
+                
                 delegate?.didSave()
                 
                 // TODO: there is no tab bar
@@ -255,7 +260,7 @@ extension CreateVehicleController: ButtonCellDelegate {
 
 
 // MARK: - CVInputTextCellDelegate
-extension CreateVehicleController: CVInputTextCellDelegate {
+extension VehicleController: CVInputTextCellDelegate {
     func didChangeText(_ inputTextCell: CVInputTextCell, withText text: String) {
         switch inputTextCell.cellOption {
         case .manufacturer:

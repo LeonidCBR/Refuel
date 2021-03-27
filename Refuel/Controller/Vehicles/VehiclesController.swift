@@ -36,7 +36,7 @@ class VehiclesController: ParentController {
         
         // TODO??
 //        if #available(iOS 14.0, *) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+
 //        } else {
             // TODO: - Fallback on earlier versions
 //        }
@@ -61,6 +61,10 @@ class VehiclesController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+        let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+        navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
+        
         view.backgroundColor = .white
         
         configureRefreshControl()
@@ -100,7 +104,7 @@ class VehiclesController: ParentController {
     }
     
     @objc private func addVehicle() {
-        let createVehicleController = CreateVehicleController()
+        let createVehicleController = VehicleController()
         createVehicleController.delegate = self
         navigationController?.pushViewController(createVehicleController, animated: true)
     }
@@ -129,7 +133,7 @@ class VehiclesController: ParentController {
     // Row is selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let createVehicleController = CreateVehicleController()
+        let createVehicleController = VehicleController()
         createVehicleController.delegate = self
         createVehicleController.editableVehicle = vehicles?[indexPath.row]
         navigationController?.pushViewController(createVehicleController, animated: true)
@@ -197,7 +201,7 @@ class VehiclesController: ParentController {
 
 // MARK: - CreateVehicleControllerDelegate
 
-extension VehiclesController: CreateVehicleControllerDelegate {
+extension VehiclesController: VehicleControllerDelegate {
     
     func didSave() {
         fetchVehicles()
