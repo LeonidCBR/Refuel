@@ -19,10 +19,11 @@ class RefuelCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14) //.systemBoldFont(ofSize: 16)
         return label
     }()
     
+    /*
     private let litersLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -34,8 +35,15 @@ class RefuelCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
+    */
     
     private let odometerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         return label
@@ -66,7 +74,20 @@ class RefuelCell: UITableViewCell {
     // MARK: - Methods
     
     private func configureUI() {
-
+        contentView.addSubview(dateLabel)
+        dateLabel.anchor(top: contentView.topAnchor, paddingTop: 15.0,
+                         centerX: contentView.centerXAnchor)
+        
+        contentView.addSubview(odometerLabel)
+        odometerLabel.anchor(top: dateLabel.bottomAnchor, paddingTop: 10.0,
+                             bottom: contentView.bottomAnchor, paddingBottom: 25.0,
+                             leading: contentView.leadingAnchor, paddingLeading: 10.0)
+        
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.anchor(top: odometerLabel.topAnchor,
+                                trailing: contentView.trailingAnchor, paddingTrailing: 10.0)
+        
+        /*
         let stackView = UIStackView(arrangedSubviews: [dateLabel,
                                                        litersLabel,
                                                        costLabel,
@@ -80,6 +101,7 @@ class RefuelCell: UITableViewCell {
                          bottom: contentView.bottomAnchor,
                          leading: contentView.leadingAnchor,
                          trailing: contentView.trailingAnchor)
+    */
     }
     
     
@@ -96,8 +118,10 @@ class RefuelCell: UITableViewCell {
         let dateStr = dateFormatter.string(from: refuel.date!)
         dateLabel.text = dateStr
         
-        litersLabel.text = "\(refuel.liters)"
-        costLabel.text = "\(refuel.cost)"
+//        litersLabel.text = "\(refuel.liters)"
+//        costLabel.text = "\(refuel.cost)"
+        descriptionLabel.text = "\(refuel.liters) л, \(refuel.cost) руб."
+        
         odometerLabel.text = "\(refuel.odometer)"
     }
 }
