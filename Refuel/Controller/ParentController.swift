@@ -41,10 +41,10 @@ class ParentController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         view.backgroundColor = .white
-        setLeftBarItem()
+        setBarItem()
     }
     
-    private func setLeftBarItem() {
+    private func setBarItem() {
         let modelVehicle = selectedVehicle?.model ?? "Unknown"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
             //UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(handleSelectVehicleButtonTapped))
@@ -60,7 +60,7 @@ class ParentController: UITableViewController {
     }
 
     @objc func vehicleDidSelect() {
-        setLeftBarItem()
+        setBarItem()
     }
     
 }

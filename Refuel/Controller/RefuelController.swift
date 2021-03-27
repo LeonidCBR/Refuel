@@ -13,7 +13,7 @@ protocol RefuelControllerDelegate {
     // TODO: - Consider to change it to the 'refuelDidChange(mode, refuel)'
     // mode: 'new', 'edit'
     
-    func refuelDidAdd()
+    func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?)
 }
 
 class RefuelController: ParentController {
@@ -39,7 +39,9 @@ class RefuelController: ParentController {
     
     var delegate: RefuelControllerDelegate?
     
-    // It will be not nil if it is being edited
+    /** The `editableRefuel` refer to the editing refuel's record.
+     If a new refuel's record is created then the `editableRefuel` will be nil.
+    */
     var editableRefuel: CDRefuel? {
         didSet {
             guard let refuel = editableRefuel else { return }
@@ -48,12 +50,14 @@ class RefuelController: ParentController {
             liters = refuel.liters
             cost = refuel.cost
             odometer = Int(refuel.odometer)
-            
-//            caption = "Редактирование транспортного средства"
-//            manufacturer = vehicle.manufacturer ?? ""
-//            model = vehicle.model ?? ""
         }
     }
+    
+    /** The `indexPath` refer to the editing refuel's row
+     into the table of the refuels controller.
+     If a new refuel's record is created then the `indexPath` will be nil.
+    */
+    var indexPath: IndexPath?
     
 
     
@@ -291,21 +295,23 @@ extension RefuelController: ButtonCellDelegate {
             refuel = editableRefuel
         } else {
             refuel = CDRefuel(context: context)
+            refuel.vehicle = selectedVehicle
         }
         
-        refuel.vehicle = selectedVehicle
         refuel.date = date
         refuel.liters = liters
         refuel.cost = cost
         refuel.odometer = Int64(odometer)
         try! context.save()
         
-        delegate?.refuelDidAdd()
+        delegate?.refuelDidChange(refuel, indexPath: indexPath)
         
         if let _ = editableRefuel {
+            // Dissmiss this view controller if the selected refuel is edited
             navigationController?.popViewController(animated: true)
+            
         } else {
-            // Show message
+            // Show success message if a new refuel's is created
             PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
         }
     }

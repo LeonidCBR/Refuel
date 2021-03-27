@@ -123,6 +123,7 @@ class RefuelsController: ParentController {
         // TODO: - Refactor
         // пока это приведет к полному обновлению таблицы!!!
         refuelController.delegate = self
+        refuelController.indexPath = indexPath
         
         refuelController.editableRefuel = refuels?[indexPath.row]
         navigationController?.pushViewController(refuelController, animated: true)
@@ -130,8 +131,30 @@ class RefuelsController: ParentController {
 
 }
 
+
+// MARK: - RefuelControllerDelegate
+
 extension RefuelsController: RefuelControllerDelegate {
-    func refuelDidAdd() {
-        fetchRefuels()
+    
+    func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?) {
+
+        guard refuel.vehicle == selectedVehicle else { return }
+        
+        if let indexPath = indexPath {
+            // Editing refuel's record
+            print("DEBUG: - Editing refuel's record")
+            tableView.reloadRows(at: [indexPath], with: .none)
+            
+        } else {
+            // New refuel's record
+            print("DEBUG: - New refuel's record")
+            refuels?.append(refuel)
+            let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+            tableView.insertRows(at: [newIndexPath], with: .none)
+        }
+        
+//        fetchRefuels()
+//        tableView.reloadData()
+
     }
 }
