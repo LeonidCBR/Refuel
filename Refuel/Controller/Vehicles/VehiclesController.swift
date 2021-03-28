@@ -18,6 +18,9 @@ class VehiclesController: ParentController {
 //        didSet { tableView.reloadData() }
 //    }
     
+    var isSelectingMode = false
+    var caption = "Vehicles"
+    
     //let searchController = UISearchController(searchResultsController: nil)
 
     
@@ -57,15 +60,25 @@ class VehiclesController: ParentController {
     // MARK: - Methods
     
     private func configureUI() {
-        title = "Vehicles"
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
-        let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
-        navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
+        title = caption
         
-        view.backgroundColor = .white
+        if isSelectingMode {
+            view.backgroundColor = .lightGray
+            //navigationItem.rightBarButtonItems?.removeAll()
+            
+        } else {
+            view.backgroundColor = .white
+//            if #available(iOS 11.0, *) {
+//                navigationController?.navigationBar.prefersLargeTitles = true
+//            }
+            
+        }
+        
+        if shouldObserveVehicle {
+            let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+            navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
+        }
+        
         
         configureRefreshControl()
 
@@ -133,10 +146,21 @@ class VehiclesController: ParentController {
     // Row is selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let createVehicleController = VehicleController()
-        createVehicleController.delegate = self
-        createVehicleController.editableVehicle = vehicles?[indexPath.row]
-        navigationController?.pushViewController(createVehicleController, animated: true)
+        if isSelectingMode {
+            // Select vehicle
+            if let vehicle = vehicles?[indexPath.row] {
+//                selectedVehicle = vehicle
+                VehicleManager.shared.selectedVehicle = vehicle
+                //vehicleDidSelect(vehicle)
+            }
+            dismiss(animated: true, completion: nil)
+            
+        } else {
+            let createVehicleController = VehicleController()
+            createVehicleController.delegate = self
+            createVehicleController.editableVehicle = vehicles?[indexPath.row]
+            navigationController?.pushViewController(createVehicleController, animated: true)
+        }
     }
     
     /*

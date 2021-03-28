@@ -73,10 +73,10 @@ class RefuelController: ParentController {
     private func configureUI() {
         title = caption
         
-        // Hide right bar button of changing the current vehicle
-        navigationItem.rightBarButtonItem = nil
+//        // Hide right bar button of changing the current vehicle
+//        navigationItem.rightBarButtonItem = nil
 
-        print("DEBUG: Selected vehicle is \(selectedVehicle?.model)")
+//        print("DEBUG: Selected vehicle is \(selectedVehicle?.model)")
 //        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         
@@ -295,7 +295,7 @@ extension RefuelController: ButtonCellDelegate {
             refuel = editableRefuel
         } else {
             refuel = CDRefuel(context: context)
-            refuel.vehicle = selectedVehicle
+            refuel.vehicle = VehicleManager.shared.selectedVehicle
         }
         
         refuel.date = date

@@ -11,12 +11,12 @@ import CoreData
 class MainTabBarController: UITabBarController {
     
     // MARK: - Properties
-    var selectedVehicle: CDVehicle? {
-        didSet {
-            print("DEBUG: - Did select vehicle - \(selectedVehicle?.model)")
-            NotificationCenter.default.post(name: K.Notification.RFVehicleDidSelect, object: nil)
-        }
-    }
+//    var selectedVehicle: CDVehicle? {
+//        didSet {
+//            print("DEBUG: - Did select vehicle - \(selectedVehicle?.model)")
+//
+//        }
+//    }
 
     // MARK: - Lifecycle
     

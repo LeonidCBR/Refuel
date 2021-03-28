@@ -10,27 +10,18 @@ import UIKit
 class ParentController: UITableViewController {
 
     // MARK: - Properties
-    
-    var selectedVehicle: CDVehicle? {
-        get {
-            return (tabBarController as? MainTabBarController)?.selectedVehicle
-        }
-        set {
-            if let mainController = tabBarController as? MainTabBarController {
-                mainController.selectedVehicle = newValue
-            } else {
-                print("DEBUG: Check the main controller link!")
-            }
-        }
-    }
+    var shouldObserveVehicle = true
+
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(vehicleDidSelect), name: K.Notification.RFVehicleDidSelect, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -41,38 +32,38 @@ class ParentController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         view.backgroundColor = .white
-        setBarItem()
+        
+        if shouldObserveVehicle {
+            
+            let modelVehicle = VehicleManager.shared.selectedVehicle?.model ?? "Unknown"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(vehicleDidSelect),
+                                                   name: K.Notification.RFVehicleDidSelect,
+                                                   object: nil)
+        }
+        
     }
     
-    private func setBarItem() {
-        let modelVehicle = selectedVehicle?.model ?? "Unknown"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
-            //UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(handleSelectVehicleButtonTapped))
+    private func setBarButtonItem() {
+        navigationItem.rightBarButtonItem?.title = VehicleManager.shared.selectedVehicle?.model
     }
     
     
     // MARK: - Selectors
     
     @objc private func handleSelectVehicleButtonTapped() {
-        let choiceController = SelectVehicleController()
-        choiceController.delegate = self
-        present(choiceController, animated: true, completion: nil)
+        
+        let choiceController = VehiclesController()
+        choiceController.isSelectingMode = true
+        choiceController.shouldObserveVehicle = false
+        choiceController.caption = "Выберите ТС"
+        present(UINavigationController(rootViewController: choiceController), animated: true, completion: nil)
     }
 
     @objc func vehicleDidSelect() {
-        setBarItem()
+        setBarButtonItem()
     }
     
-}
-
-
-// MARK: - ChoiceControllerDelegate
-
-extension ParentController: ChoiceControllerDelegate {
-    func didChoose(_ vehicle: CDVehicle) {
-        print("DEBUG: \(#function) New selected vehicle is \(vehicle.model)")
-        
-        selectedVehicle = vehicle
-        
-    }
 }

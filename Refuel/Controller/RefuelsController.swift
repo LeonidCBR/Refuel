@@ -53,7 +53,7 @@ class RefuelsController: ParentController {
     
     private func fetchRefuels() {
         
-        if let refuels = selectedVehicle?.refuels?.allObjects as? [CDRefuel] {
+        if let refuels = VehicleManager.shared.selectedVehicle?.refuels?.allObjects as? [CDRefuel] {
             self.refuels = refuels
         }
         
@@ -115,13 +115,12 @@ class RefuelsController: ParentController {
         }
     }
     
-    // Edit refuel record
+    // Select and edit refuel record
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let refuelController = RefuelController()
         
-        // TODO: - Refactor
-        // пока это приведет к полному обновлению таблицы!!!
+        let refuelController = RefuelController()
+        refuelController.shouldObserveVehicle = false
         refuelController.delegate = self
         refuelController.indexPath = indexPath
         
@@ -138,7 +137,7 @@ extension RefuelsController: RefuelControllerDelegate {
     
     func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?) {
 
-        guard refuel.vehicle == selectedVehicle else { return }
+        guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
         
         if let indexPath = indexPath {
             // Editing refuel's record

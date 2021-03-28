@@ -40,7 +40,8 @@ class LoadingController: UIViewController {
         request.fetchLimit = 1
         if let countOfVehicles = try? context.count(for: request), countOfVehicles > 0 {
             let vehicles = try! context.fetch(request)
-            PresenterManager.shared.showViewController(.mainTabBarController(selectedVehicle: vehicles.first!))
+            VehicleManager.shared.selectedVehicle = vehicles.first!
+            PresenterManager.shared.showViewController(.mainTabBarController)
         } else {
             PresenterManager.shared.showViewController(.createVehicleController)
         }

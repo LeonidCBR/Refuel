@@ -238,14 +238,14 @@ extension VehicleController: ButtonCellDelegate {
     //            if let tabBarController = tabBarController as? MainTabBarController {
     //                tabBarController.selectedVehicle = newVehicle
     //            }
-                
+                VehicleManager.shared.selectedVehicle = newVehicle
                 if let navigationController = navigationController {
-                    if let tabBarController = tabBarController as? MainTabBarController {
-                        tabBarController.selectedVehicle = newVehicle
-                    }
+//                    if let tabBarController = tabBarController as? MainTabBarController {
+//                        tabBarController.selectedVehicle = newVehicle
+//                    }
                     navigationController.popViewController(animated: true)
                 } else {
-                    PresenterManager.shared.showViewController(.mainTabBarController(selectedVehicle: newVehicle))
+                    PresenterManager.shared.showViewController(.mainTabBarController)
                 }
                 
             } catch {
