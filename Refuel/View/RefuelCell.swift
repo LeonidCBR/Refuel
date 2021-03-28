@@ -23,20 +23,6 @@ class RefuelCell: UITableViewCell {
         return label
     }()
     
-    /*
-    private let litersLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
-    
-    private let costLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
-    */
-    
     private let odometerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -61,16 +47,8 @@ class RefuelCell: UITableViewCell {
         super.init(coder: coder)
         //fatalError("init(coder:) has not been implemented")
     }
-    
-    /*
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
-    */
-    
-    
+        
     // MARK: - Methods
     
     private func configureUI() {
@@ -86,24 +64,7 @@ class RefuelCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.anchor(top: odometerLabel.topAnchor,
                                 trailing: contentView.trailingAnchor, paddingTrailing: 10.0)
-        
-        /*
-        let stackView = UIStackView(arrangedSubviews: [dateLabel,
-                                                       litersLabel,
-                                                       costLabel,
-                                                       odometerLabel])
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .fill
-//        stackView.spacing = 7.0
-        contentView.addSubview(stackView)
-        stackView.anchor(top: contentView.topAnchor,
-                         bottom: contentView.bottomAnchor,
-                         leading: contentView.leadingAnchor,
-                         trailing: contentView.trailingAnchor)
-    */
     }
-    
     
     private func updateUI() {
         //TODO: use NumberFormatter and DateFormatter
@@ -118,8 +79,6 @@ class RefuelCell: UITableViewCell {
         let dateStr = dateFormatter.string(from: refuel.date!)
         dateLabel.text = dateStr
         
-//        litersLabel.text = "\(refuel.liters)"
-//        costLabel.text = "\(refuel.cost)"
         descriptionLabel.text = "\(refuel.liters) л, \(refuel.cost) руб."
         
         odometerLabel.text = "\(refuel.odometer)"

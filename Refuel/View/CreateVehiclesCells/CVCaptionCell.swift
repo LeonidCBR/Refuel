@@ -13,7 +13,6 @@ class CVCaptionCell: UITableViewCell {
     
     private let captionLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Добавление транспортного средства"
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()

@@ -9,10 +9,6 @@ import UIKit
 import CoreData
 
 protocol RefuelControllerDelegate {
-    
-    // TODO: - Consider to change it to the 'refuelDidChange(mode, refuel)'
-    // mode: 'new', 'edit'
-    
     func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?)
 }
 
@@ -27,8 +23,6 @@ class RefuelController: ParentController {
     private var liters = 0.0
     private var cost = 0.0
     private var odometer = 0
-    
-//    private var refuel: Refuel(date: Date(), liters: 0.0, cost: 0.0, odometer: 0)
     
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -59,7 +53,6 @@ class RefuelController: ParentController {
     */
     var indexPath: IndexPath?
     
-
     
     // MARK: - Lifecycle
     
@@ -73,11 +66,6 @@ class RefuelController: ParentController {
     private func configureUI() {
         title = caption
         
-//        // Hide right bar button of changing the current vehicle
-//        navigationItem.rightBarButtonItem = nil
-
-//        print("DEBUG: Selected vehicle is \(selectedVehicle?.model)")
-//        tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         
         tableView.register(ARLabelsCell.self,
@@ -88,18 +76,7 @@ class RefuelController: ParentController {
                            forCellReuseIdentifier: K.Identifier.AddRefuel.inputTextCell)
         tableView.register(ButtonCell.self,
                            forCellReuseIdentifier: K.Identifier.AddRefuel.buttonCell)
-        
-        
-        // Hide keyboard when tap out of TextFields
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        /*
-         There could be issues if you are dealing with tableviews and adding this tap gesture,
-         selecting the rows, didSelectRowAtIndex path could not be fired until pressed long.
-         Solution:
-                tap.cancelsTouchesInView = false
-         */
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+
     }
     
     private func getString(from doubleValue: Double) -> String {
@@ -146,22 +123,7 @@ class RefuelController: ParentController {
             inputTextCell.delegate = self
             inputTextCell.option = .litersAmount
             inputTextCell.setCaption(to: cellOption.caption)
-            
-//            inputTextCell.setText(to: "\(refuelValues.liters)")
-// or
-//            let strLiters = String.localizedStringWithFormat("%.2f",
-//                                                             refuelValues.liters)
-//            inputTextCell.setText(to: strLiters)
-            /*
-            let number = NSNumber(value: refuelValues.liters)
-            let numberFormatter = NumberFormatter()
-            numberFormatter.allowsFloats = true
-            numberFormatter.numberStyle = .decimal
-            let liters = numberFormatter.string(from: number) ?? ""
-            inputTextCell.setText(to: liters)
-            */
             inputTextCell.setText(to: getString(from: liters))
-            
             cell = inputTextCell
             
         case .cost:
@@ -169,7 +131,6 @@ class RefuelController: ParentController {
             inputTextCell.delegate = self
             inputTextCell.option = .cost
             inputTextCell.setCaption(to: cellOption.caption)
-//            inputTextCell.setText(to: "\(refuelValues.cost)")
             inputTextCell.setText(to: getString(from: cost))
             cell = inputTextCell
             

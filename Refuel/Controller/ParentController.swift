@@ -11,6 +11,7 @@ class ParentController: UITableViewController {
 
     // MARK: - Properties
     var shouldObserveVehicle = true
+    var shouldTapRecognizer = false
 
     
     // MARK: - Lifecycle
@@ -44,6 +45,18 @@ class ParentController: UITableViewController {
                                                    object: nil)
         }
         
+        if shouldTapRecognizer {
+            // Hide keyboard when tap out of TextFields
+            let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+            /*
+             There could be issues if you are dealing with tableviews and adding this tap gesture,
+             selecting the rows, didSelectRowAtIndex path could not be fired until pressed long.
+             Solution:
+             tap.cancelsTouchesInView = false
+             */
+            tap.cancelsTouchesInView = false
+            view.addGestureRecognizer(tap)
+        }
     }
     
     private func setBarButtonItem() {

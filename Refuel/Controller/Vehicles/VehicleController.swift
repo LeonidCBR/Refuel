@@ -13,7 +13,7 @@ protocol VehicleControllerDelegate {
 }
 
 
-class VehicleController: UITableViewController {
+class VehicleController: ParentController {
     
     // MARK: - Properties
     private var caption = "Добавление транспортного средства"
@@ -27,41 +27,12 @@ class VehicleController: UITableViewController {
     var editableVehicle: CDVehicle? {
         didSet {
             guard let vehicle = editableVehicle else { return }
-//            captionLabel.text = "Редактирование транспортного средства"
-//            manufacturerTextField.text = editableVehicle?.manufacturer
-//            modelTextField.text = editableVehicle?.model
             caption = "Редактирование транспортного средства"
             manufacturer = vehicle.manufacturer ?? ""
             model = vehicle.model ?? ""
         }
     }
     
-
-/*
-    private let manufacturerTextField: UITextField = {
-        let tf = UITextField()
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "Марка"
-        return tf
-    }()
-    private let modelTextField: UITextField = {
-        let tf = UITextField()
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "Модель"
-        return tf
-    }()
-    
-    private lazy var saveButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("Сохранить", for: .normal)
-        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        btn.setTitleColor(.white, for: .normal)
-        btn.backgroundColor = .systemBlue
-        btn.layer.cornerRadius = 10
-        btn.addTarget(self, action: #selector(handleSaveButtonTapped), for: .touchUpInside)
-        return btn
-    }()
- */
     
     // MARK: - Lifecycle
     
@@ -74,67 +45,18 @@ class VehicleController: UITableViewController {
     // MARK: - Methods
     
     private func configureUI() {
-        
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         
-        tableView.register(CVCaptionCell.self, forCellReuseIdentifier: K.Identifier.CreateVehicle.captionCell)
-        tableView.register(CVInputTextCell.self, forCellReuseIdentifier: K.Identifier.CreateVehicle.inputTextCell)
-        tableView.register(ButtonCell.self, forCellReuseIdentifier: K.Identifier.CreateVehicle.buttonCell)
-        /*
-         view.backgroundColor = .white
-        manufacturerTextField.anchor(width: 200, height: 40)
-        modelTextField.anchor(width: 200, height: 40)
-        saveButton.anchor(width: 200, height: 40)
+        tableView.register(CVCaptionCell.self,
+                           forCellReuseIdentifier: K.Identifier.CreateVehicle.captionCell)
+        tableView.register(CVInputTextCell.self,
+                           forCellReuseIdentifier: K.Identifier.CreateVehicle.inputTextCell)
+        tableView.register(ButtonCell.self,
+                           forCellReuseIdentifier: K.Identifier.CreateVehicle.buttonCell)
         
-        let mainStackView = UIStackView(arrangedSubviews: [captionLabel, manufacturerTextField, modelTextField, saveButton])
-        mainStackView.axis = .vertical
-        mainStackView.distribution = .equalSpacing
-        mainStackView.alignment = .center
-        mainStackView.spacing = 25
-        
-        view.addSubview(mainStackView)
-        mainStackView.anchor(centerX: view.centerXAnchor,
-                             centerY: view.centerYAnchor)
-        */
-        
-//        if #available(iOS 11.0, *) {
-//            mainStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 20,
-//                                 bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 20,
-//                                 leading: view.safeAreaLayoutGuide.leadingAnchor, paddingLeading: 20,
-//                                 trailing: view.trailingAnchor, paddingTrailing: 20)
-//        } else {
-//            // Fallback on earlier versions
-//            mainStackView.anchor(top: topLayoutGuide.topAnchor, paddingTop: 20,
-//                                 bottom: bottomLayoutGuide.bottomAnchor, paddingBottom: 20,
-//                                 leading: view.leadingAnchor, paddingLeading: 20,
-//                                 trailing: view.trailingAnchor, paddingTrailing: 20)
-//        }
-        
-        
-        
-//        view.addSubview(saveButton)
-//        saveButton.anchor(width: 200,
-//                          height: 40,
-//                          centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        
-        // Hide keyboard when tap out of TextFields
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        /*
-         There could be issues if you are dealing with tableviews and adding this tap gesture,
-         selecting the rows, didSelectRowAtIndex path could not be fired until pressed long.
-         Solution:
-                tap.cancelsTouchesInView = false
-         */
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
     }
     
-    
-    // MARK: - Selectors
-    
-//    @objc private func handleSaveButtonTapped() {
-//    }
     
     // MARK: - Table view data source
 
@@ -187,8 +109,6 @@ class VehicleController: UITableViewController {
 
 extension VehicleController: ButtonCellDelegate {
     func saveButtonTapped() {
-        
-    //        guard let manufacturer = manufacturerTextField.text, let model = modelTextField.text else { return }
             
             // TODO: Show alerts
             
@@ -202,7 +122,6 @@ extension VehicleController: ButtonCellDelegate {
                 return
             }
             
-            //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
             let newVehicle: CDVehicle
             
             do {
@@ -227,22 +146,10 @@ extension VehicleController: ButtonCellDelegate {
                     try context.save()
                 }
                 
-                
-                // TODO: - Make a refactor
-                // Consider to split save process into adding and editing
-                // It will prevent reloading whole table
-                
                 delegate?.didSave()
                 
-                // TODO: there is no tab bar
-    //            if let tabBarController = tabBarController as? MainTabBarController {
-    //                tabBarController.selectedVehicle = newVehicle
-    //            }
                 VehicleManager.shared.selectedVehicle = newVehicle
                 if let navigationController = navigationController {
-//                    if let tabBarController = tabBarController as? MainTabBarController {
-//                        tabBarController.selectedVehicle = newVehicle
-//                    }
                     navigationController.popViewController(animated: true)
                 } else {
                     PresenterManager.shared.showViewController(.mainTabBarController)
@@ -251,7 +158,6 @@ extension VehicleController: ButtonCellDelegate {
             } catch {
                 
                 // TODO: catch errors, show alarm
-                
                 let nserror = error as NSError
                 fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
             }

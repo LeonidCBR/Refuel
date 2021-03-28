@@ -13,21 +13,8 @@ class RefuelsController: ParentController {
     // MARK: - Properties
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-//    var vehicle: CDVehicle? {
-//        didSet {
-//            fetchRefuels()
-//        }
-//    }
-    // didSet fetch refuelsByVehicle
-    
     var refuels: [CDRefuel]?
-    {
-        didSet {
-            print("DEBUG: - Refuels has been changed")
-//            // TODO: consider to remove it
-//            tableView.reloadData()
-        }
-    }
+
     
     // MARK: - Lifecycle
     
@@ -41,13 +28,10 @@ class RefuelsController: ParentController {
     private func configureUI() {
         title = "Заправки"
         
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(selectVehicleButtonTapped))
-        
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         view.backgroundColor = .white
-//        tableView.separatorStyle = .none
         tableView.register(RefuelCell.self, forCellReuseIdentifier: K.Identifier.Refuels.refuelCell)
     }
     
@@ -57,19 +41,9 @@ class RefuelsController: ParentController {
             self.refuels = refuels
         }
         
-//        let request: NSFetchRequest<CDRefuel> = CDRefuel.fetchRequest()
-        // TODO: Create predicate where vehicle = selected vehicle
-//        refuels = try! context.fetch(request)
-        
         tableView.reloadData()
-        
-//        if let vehicle = vehicle, let refuels = vehicle.refuels?.allObjects as? [CDRefuel] {
-//            self.refuels = refuels
-//        }
     }
 
-    
-    // MARK: - Selectors
     override func vehicleDidSelect() {
         super.vehicleDidSelect()
         fetchRefuels()
@@ -79,12 +53,10 @@ class RefuelsController: ParentController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return refuels?.count ?? 0
     }
 
@@ -136,7 +108,6 @@ class RefuelsController: ParentController {
 extension RefuelsController: RefuelControllerDelegate {
     
     func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?) {
-
         guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
         
         if let indexPath = indexPath {
@@ -151,9 +122,6 @@ extension RefuelsController: RefuelControllerDelegate {
             let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
             tableView.insertRows(at: [newIndexPath], with: .none)
         }
-        
-//        fetchRefuels()
-//        tableView.reloadData()
-
     }
+    
 }

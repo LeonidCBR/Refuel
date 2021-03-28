@@ -11,12 +11,7 @@ import CoreData
 class MainTabBarController: UITabBarController {
     
     // MARK: - Properties
-//    var selectedVehicle: CDVehicle? {
-//        didSet {
-//            print("DEBUG: - Did select vehicle - \(selectedVehicle?.model)")
-//
-//        }
-//    }
+
 
     // MARK: - Lifecycle
     
@@ -32,6 +27,7 @@ class MainTabBarController: UITabBarController {
         let addRefuelController = RefuelController()
         let refuelsController = RefuelsController()
         addRefuelController.delegate = refuelsController
+        addRefuelController.shouldTapRecognizer = true
         
         let addRefuelTab = UINavigationController(rootViewController: addRefuelController)
         let refuelsTab = UINavigationController(rootViewController: refuelsController)

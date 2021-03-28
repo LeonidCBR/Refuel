@@ -54,10 +54,6 @@ class ButtonCell: UITableViewCell {
         selectionStyle = .none
         clipsToBounds = true
         
-//        saveButton.addTarget(self,
-//                         action: #selector(handleSaveButtonTapped),
-//                         for: .touchUpInside)
-        
         contentView.addSubview(saveButton)
         
         // TODO: add constraint to width = contentView.width * 0.70
