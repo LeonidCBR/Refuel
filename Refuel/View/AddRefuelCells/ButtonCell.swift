@@ -55,13 +55,11 @@ class ButtonCell: UITableViewCell {
         clipsToBounds = true
         
         contentView.addSubview(saveButton)
-        
-        // TODO: add constraint to width = contentView.width * 0.70
-        
-        saveButton.anchor(width: 200,
-                          height: 40,
-                          centerX: contentView.centerXAnchor,
-                          centerY: contentView.centerYAnchor)
+
+        saveButton.anchor(top: contentView.topAnchor, paddingTop: 30.0,
+                          bottom: contentView.bottomAnchor, paddingBottom: 30.0,
+                          leading: contentView.leadingAnchor, paddingLeading: 50.0,
+                          trailing: contentView.trailingAnchor, paddingTrailing: 50.0)
         
     }
     

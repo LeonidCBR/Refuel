@@ -34,8 +34,9 @@ class CVCaptionCell: UITableViewCell {
     
     private func configureUI() {
         contentView.addSubview(captionLabel)
-        captionLabel.anchor(centerX: contentView.centerXAnchor,
-                            centerY: contentView.centerYAnchor)
+        captionLabel.anchor(top: contentView.topAnchor, paddingTop: 30.0,
+                            bottom: contentView.bottomAnchor, paddingBottom: 30.0,
+                            centerX: contentView.centerXAnchor)
     }
     
     func setCaption(_ captionText: String) {
