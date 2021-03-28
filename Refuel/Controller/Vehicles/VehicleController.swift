@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 protocol VehicleControllerDelegate {
-    func didSave()
+    func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?)
 }
 
 
@@ -23,7 +23,9 @@ class VehicleController: ParentController {
     
     var delegate: VehicleControllerDelegate?
     
-    // It will be not nil if it is being edited
+    /** The `editableVehicle` refer to the editing vehicle's record.
+     If a new vehicle's record is created then the `editableVehicle` will be nil.
+    */
     var editableVehicle: CDVehicle? {
         didSet {
             guard let vehicle = editableVehicle else { return }
@@ -32,6 +34,12 @@ class VehicleController: ParentController {
             model = vehicle.model ?? ""
         }
     }
+    
+    /** The `indexPath` refer to the editing vehicle's row
+     into the table of the vehicles controller.
+     If a new vehicle's record is created then the `indexPath` will be nil.
+    */
+    var indexPath: IndexPath?
     
     
     // MARK: - Lifecycle
@@ -108,59 +116,49 @@ class VehicleController: ParentController {
 // MARK: - ButtonCellDelegate
 
 extension VehicleController: ButtonCellDelegate {
+    
     func saveButtonTapped() {
-            
-            // TODO: Show alerts
-            
             if manufacturer.isEmpty {
                 PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование марки.", byViewController: self)
                 return
             }
-            
+
             if model.isEmpty {
                 PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование модели.", byViewController: self)
                 return
             }
-            
-            let newVehicle: CDVehicle
-            
-            do {
-                
-                if let didEditVehicle = editableVehicle {
-                    
-                    // Editing vehicle
-                    didEditVehicle.manufacturer = manufacturer
-                    didEditVehicle.model = model
-                    newVehicle = didEditVehicle
-                    
-                } else {
-                    
-                    // Creating new vehicle
-                    let vehicle = CDVehicle(context: context)
-                    vehicle.manufacturer = manufacturer
-                    vehicle.model = model
-                    newVehicle = vehicle
-                }
-                
-                if context.hasChanges {
-                    try context.save()
-                }
-                
-                delegate?.didSave()
-                
-                VehicleManager.shared.selectedVehicle = newVehicle
-                if let navigationController = navigationController {
-                    navigationController.popViewController(animated: true)
-                } else {
-                    PresenterManager.shared.showViewController(.mainTabBarController)
-                }
-                
-            } catch {
-                
-                // TODO: catch errors, show alarm
-                let nserror = error as NSError
-                fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+        
+        let vehicle: CDVehicle
+        if let didEditVehicle = editableVehicle {
+            // Editing vehicle
+            vehicle = didEditVehicle
+        } else {
+            // Creating new vehicle
+            vehicle = CDVehicle(context: context)
+        }
+        vehicle.manufacturer = manufacturer
+        vehicle.model = model
+        
+        do {
+            if context.hasChanges {
+                try context.save()
             }
+            
+            delegate?.vehicleDidSave(vehicle, indexPath: indexPath)
+            
+            VehicleManager.shared.selectedVehicle = vehicle
+            if let navigationController = navigationController {
+                navigationController.popViewController(animated: true)
+            } else {
+                PresenterManager.shared.showViewController(.mainTabBarController)
+            }
+            
+        } catch {
+            
+            // TODO: catch errors, show alarm
+            let nserror = error as NSError
+            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+        }
     }
 }
 

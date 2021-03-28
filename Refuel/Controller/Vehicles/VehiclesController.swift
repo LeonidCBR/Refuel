@@ -62,7 +62,13 @@ class VehiclesController: ParentController {
     @objc private func fetchVehicles() {
         // TODO: - Show message if an error is received
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
-        vehicles = try! context.fetch(request)
+        do {
+            vehicles = try context.fetch(request)
+        } catch {
+            // TODO: catch errors
+            let nserror = error as NSError
+            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+        }
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
@@ -142,8 +148,13 @@ class VehiclesController: ParentController {
 
 extension VehiclesController: VehicleControllerDelegate {
     
-    func didSave() {
+    func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?) {
         fetchVehicles()
     }
+    
+    
+//    func didSave() {
+        //fetchVehicles()
+//    }
     
 }

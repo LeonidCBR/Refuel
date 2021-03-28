@@ -93,6 +93,7 @@ class RefuelsController: ParentController {
         
         let refuelController = RefuelController()
         refuelController.shouldObserveVehicle = false
+        refuelController.shouldTapRecognizer = true
         refuelController.delegate = self
         refuelController.indexPath = indexPath
         
@@ -107,7 +108,7 @@ class RefuelsController: ParentController {
 
 extension RefuelsController: RefuelControllerDelegate {
     
-    func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?) {
+    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?) {
         guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
         
         if let indexPath = indexPath {

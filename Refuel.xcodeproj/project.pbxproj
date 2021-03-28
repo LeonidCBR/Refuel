@@ -98,11 +98,20 @@
 			path = CreateVehiclesCells;
 			sourceTree = "<group>";
 		};
+		D7C077BD2610937000F357A3 /* Refuels */ = {
+			isa = PBXGroup;
+			children = (
+				D7C96280257B459F001B1D42 /* RefuelController.swift */,
+				D7C962A3257B5493001B1D42 /* RefuelsController.swift */,
+			);
+			path = Refuels;
+			sourceTree = "<group>";
+		};
 		D7C8CB7025A6A90F0057834C /* Vehicles */ = {
 			isa = PBXGroup;
 			children = (
-				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
 				D7F493F025874E0600297CD2 /* VehicleController.swift */,
+				D7C8CB6C25A5676D0057834C /* VehiclesController.swift */,
 			);
 			path = Vehicles;
 			sourceTree = "<group>";
@@ -163,13 +172,12 @@
 		D7C9629D257B4DB5001B1D42 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D7C8CB7025A6A90F0057834C /* Vehicles */,
+				D7C077BD2610937000F357A3 /* Refuels */,
 				D7F493F5258777FC00297CD2 /* LoadingController.swift */,
 				D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */,
 				D75DF0392606FD0700F664FD /* ParentController.swift */,
-				D7C96280257B459F001B1D42 /* RefuelController.swift */,
-				D7C962A3257B5493001B1D42 /* RefuelsController.swift */,
 				D75DF03C260701BA00F664FD /* ServicesController.swift */,
-				D7C8CB7025A6A90F0057834C /* Vehicles */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

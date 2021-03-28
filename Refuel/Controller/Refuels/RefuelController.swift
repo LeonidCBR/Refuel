@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 protocol RefuelControllerDelegate {
-    func refuelDidChange(_ refuel: CDRefuel, indexPath: IndexPath?)
+    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?)
 }
 
 class RefuelController: ParentController {
@@ -263,17 +263,26 @@ extension RefuelController: ButtonCellDelegate {
         refuel.liters = liters
         refuel.cost = cost
         refuel.odometer = Int64(odometer)
-        try! context.save()
-        
-        delegate?.refuelDidChange(refuel, indexPath: indexPath)
-        
-        if let _ = editableRefuel {
-            // Dissmiss this view controller if the selected refuel is edited
-            navigationController?.popViewController(animated: true)
+        do {
+            if context.hasChanges {
+                try context.save()
+            }
             
-        } else {
-            // Show success message if a new refuel's is created
-            PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+            delegate?.refuelDidSave(refuel, indexPath: indexPath)
+            
+            if let _ = editableRefuel {
+                // Dissmiss this view controller if the selected refuel is edited
+                navigationController?.popViewController(animated: true)
+                
+            } else {
+                // Show success message if a new refuel's is created
+                PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+            }
+        } catch {
+            
+            // TODO: catch errors, show alarm
+            let nserror = error as NSError
+            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
     
