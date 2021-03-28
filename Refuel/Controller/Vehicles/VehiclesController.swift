@@ -111,6 +111,7 @@ class VehiclesController: ParentController {
         } else {
             // Edit selected vehicle
             let editingVehicleController = getNewVehicleController()
+            editingVehicleController.indexPath = indexPath
             editingVehicleController.editableVehicle = vehicles?[indexPath.row]
             navigationController?.pushViewController(editingVehicleController, animated: true)
         }
@@ -149,12 +150,18 @@ class VehiclesController: ParentController {
 extension VehiclesController: VehicleControllerDelegate {
     
     func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?) {
-        fetchVehicles()
+
+        if let indexPath = indexPath {
+            // Editing vehicle's record
+            print("DEBUG: - reload row \(indexPath.row)")
+            tableView.reloadRows(at: [indexPath], with: .none)
+            
+        } else {
+            // New vehicle's record
+            vehicles?.append(vehicle)
+            let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+            tableView.insertRows(at: [newIndexPath], with: .none)
+        }
     }
-    
-    
-//    func didSave() {
-        //fetchVehicles()
-//    }
-    
+
 }
