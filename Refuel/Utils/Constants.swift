@@ -5,9 +5,11 @@
 //  Created by Яна Латышева on 05.12.2020.
 //
 
-import Foundation
+import UIKit
 
 struct K {
+
+    static let defaultRowHeight: CGFloat = 60.0
     
     struct TabBarItem {
         static let addRefuel = "Add"

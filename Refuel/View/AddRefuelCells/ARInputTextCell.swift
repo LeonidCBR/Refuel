@@ -69,8 +69,8 @@ class ARInputTextCell: UITableViewCell {
         
         contentView.addSubview(textField)
         textField.anchor(trailing: contentView.trailingAnchor, paddingTrailing: 15,
-                         width: 100,
-                         height: 30,
+                         width: 100.0,
+                         height: 34.0,
                          centerY: contentView.centerYAnchor)
     }
     

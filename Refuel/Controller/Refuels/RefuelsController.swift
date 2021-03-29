@@ -113,15 +113,17 @@ extension RefuelsController: RefuelControllerDelegate {
         
         if let indexPath = indexPath {
             // Editing refuel's record
-            print("DEBUG: - Editing refuel's record")
-            tableView.reloadRows(at: [indexPath], with: .none)
+            if view.window != nil {
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
             
         } else {
             // New refuel's record
-            print("DEBUG: - New refuel's record")
             refuels?.append(refuel)
-            let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
-            tableView.insertRows(at: [newIndexPath], with: .none)
+            if view.window != nil {
+                let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                tableView.insertRows(at: [newIndexPath], with: .none)
+            }
         }
     }
     

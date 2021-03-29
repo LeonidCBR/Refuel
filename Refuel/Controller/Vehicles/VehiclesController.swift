@@ -56,6 +56,16 @@ class VehiclesController: ParentController {
         return vehicleController
     }
     
+    private func showChoosingVehiclesController() {
+        let choiceController = VehiclesController()
+        choiceController.isSelectingMode = true
+        choiceController.shouldObserveVehicle = false
+        choiceController.caption = "Выберите новое ТС"
+        let navController = UINavigationController(rootViewController: choiceController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true, completion: nil)
+    }
+    
     
     // MARK: - Selectors
     
@@ -118,8 +128,8 @@ class VehiclesController: ParentController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            
             do {
                 if let vehicle = vehicles?[indexPath.row] {
                     context.delete(vehicle)
@@ -128,6 +138,31 @@ class VehiclesController: ParentController {
                     }
                     vehicles?.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
+                    
+                    // if the selected vehicle has being deleted
+                    if let count = vehicles?.count,
+                       VehicleManager.shared.selectedVehicle == vehicle {
+                        
+                        if count == 1 {
+                            // Set new selected vehicle to the last one
+                            VehicleManager.shared.selectedVehicle = vehicles?.first
+                            
+                        } else if count == 0 {
+                            // The last vehicle has been deleted.
+                            // Show controller to create a new one.
+                            PresenterManager.shared.showViewController(.createVehicleController)
+                            
+                        } else {
+                            
+                            // TODO: - Show message
+//                            PresenterManager.shared.showMessage(withTitle: "Внимание!", andMessage: "Так как удалено активное транспортное средство, необходимо выбрать новое.", byViewController: self) {
+//                                print("DEBUG: - closure")
+//                            }
+                            
+                            showChoosingVehiclesController()
+                        }
+                    }
+                    
                 } else {
                     print("DEBUG: Vehicle is nil at row \(indexPath.row)!")
                     return
@@ -152,15 +187,18 @@ extension VehiclesController: VehicleControllerDelegate {
     func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?) {
 
         if let indexPath = indexPath {
-            // Editing vehicle's record
-            print("DEBUG: - reload row \(indexPath.row)")
-            tableView.reloadRows(at: [indexPath], with: .none)
+            // Reload row after editing vehicle's record
+            if view.window != nil {
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
             
         } else {
             // New vehicle's record
             vehicles?.append(vehicle)
-            let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
-            tableView.insertRows(at: [newIndexPath], with: .none)
+            if view.window != nil {
+                let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                tableView.insertRows(at: [newIndexPath], with: .none)
+            }
         }
     }
 

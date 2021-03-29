@@ -23,11 +23,13 @@ struct PresenterManager {
         var window: UIWindow?
         
         switch viewControllerToShow {
+        
         case .mainTabBarController:
             viewController = MainTabBarController()
-//            (viewController as! MainTabBarController).selectedVehicle = vehicle
+            
         case .createVehicleController:
             viewController = VehicleController()
+            (viewController as! VehicleController).shouldTapRecognizer = true
         }
         
         
@@ -53,11 +55,11 @@ struct PresenterManager {
         }
     }
     
-    func showMessage(withTitle title: String, andMessage message: String, byViewController viewController: UIViewController) {
+    func showMessage(withTitle title: String, andMessage message: String, byViewController viewController: UIViewController, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
-        viewController.present(alert, animated: true, completion: nil)
+        viewController.present(alert, animated: true, completion: completion)
     }
     
 }

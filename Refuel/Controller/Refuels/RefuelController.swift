@@ -155,7 +155,7 @@ class RefuelController: ParentController {
         if let cellOption = AddRefuelOption(rawValue: indexPath.row), cellOption == .datePicker {
             return datePickerCurrentHeight
         } else {
-            return 60
+            return K.defaultRowHeight // tableView.estimatedRowHeight
         }
     }
     

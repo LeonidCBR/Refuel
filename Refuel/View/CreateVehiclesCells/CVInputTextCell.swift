@@ -43,10 +43,10 @@ class CVInputTextCell: UITableViewCell {
     private func configureUI() {
         contentView.addSubview(textField)
          
-        textField.anchor(top: contentView.topAnchor, paddingTop: 30.0,
-                         bottom: contentView.bottomAnchor, paddingBottom: 30.0,
-                         leading: contentView.leadingAnchor, paddingLeading: 50.0,
-                         trailing: contentView.trailingAnchor, paddingTrailing: 50.0)
+        textField.anchor(leading: contentView.leadingAnchor, paddingLeading: 50.0,
+                         trailing: contentView.trailingAnchor, paddingTrailing: 50.0,
+                         height: 34.0,
+                         centerY: contentView.centerYAnchor)
     }
     
     func setPlaceholder(_ text: String) {
