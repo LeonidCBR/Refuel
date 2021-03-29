@@ -112,9 +112,11 @@ extension RefuelsController: RefuelControllerDelegate {
         guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
         
         if let indexPath = indexPath {
-            // Editing refuel's record
+            // Reload row after editing refuel's record
             if view.window != nil {
                 tableView.reloadRows(at: [indexPath], with: .none)
+            } else {
+                tableView.reloadData()
             }
             
         } else {
@@ -122,7 +124,11 @@ extension RefuelsController: RefuelControllerDelegate {
             refuels?.append(refuel)
             if view.window != nil {
                 let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                tableView.beginUpdates()
                 tableView.insertRows(at: [newIndexPath], with: .none)
+                tableView.endUpdates()
+            } else {
+                tableView.reloadData()
             }
         }
     }

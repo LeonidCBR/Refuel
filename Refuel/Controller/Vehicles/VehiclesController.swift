@@ -100,6 +100,9 @@ class VehiclesController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // TODO: - Create vehicle cell and pass the vehicle into it
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Vehicles.vehicleCell, for: indexPath)
         if let manufacturer = vehicles?[indexPath.row].manufacturer,
            let model = vehicles?[indexPath.row].model {
@@ -190,6 +193,8 @@ extension VehiclesController: VehicleControllerDelegate {
             // Reload row after editing vehicle's record
             if view.window != nil {
                 tableView.reloadRows(at: [indexPath], with: .none)
+            } else {
+                tableView.reloadData()
             }
             
         } else {
@@ -197,7 +202,15 @@ extension VehiclesController: VehicleControllerDelegate {
             vehicles?.append(vehicle)
             if view.window != nil {
                 let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                tableView.beginUpdates()
                 tableView.insertRows(at: [newIndexPath], with: .none)
+                tableView.endUpdates()
+                
+            } else {
+                // TODO:
+                // let cell = tableView.cellForRow(at: newIndexPath)
+                // cell.setVehicle(vehicle)
+                tableView.reloadData()
             }
         }
     }
