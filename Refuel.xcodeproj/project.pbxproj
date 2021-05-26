@@ -34,6 +34,7 @@
 		D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F5258777FC00297CD2 /* LoadingController.swift */; };
 		D7F61234257CDF9600D51357 /* AddRefuelOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61233257CDF9600D51357 /* AddRefuelOption.swift */; };
 		D7F6123A257CE39800D51357 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F61239257CE39800D51357 /* Extensions.swift */; };
+		D7FCFB052613FFC6006B7A31 /* VehicleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FCFB042613FFC6006B7A31 /* VehicleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		D7F493F5258777FC00297CD2 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
 		D7F61233257CDF9600D51357 /* AddRefuelOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRefuelOption.swift; sourceTree = "<group>"; };
 		D7F61239257CE39800D51357 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D7FCFB042613FFC6006B7A31 /* VehicleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				D7CBD6D9257F471D002BED3A /* AddRefuelCells */,
 				D7F493E425862DF200297CD2 /* RefuelCell.swift */,
 				D75E36C4260DC13F00148156 /* CreateVehiclesCells */,
+				D7FCFB042613FFC6006B7A31 /* VehicleCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7FCFB052613FFC6006B7A31 /* VehicleCell.swift in Sources */,
 				D7C96281257B459F001B1D42 /* RefuelController.swift in Sources */,
 				D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */,
 				D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */,

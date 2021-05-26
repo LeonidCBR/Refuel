@@ -9,7 +9,8 @@ import UIKit
 import CoreData
 
 protocol VehicleControllerDelegate {
-    func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?)
+//    func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?)
+    func vehicleDidSave(_ vehicle: CDVehicle)
 }
 
 
@@ -39,7 +40,7 @@ class VehicleController: ParentController {
      into the table of the vehicles controller.
      If a new vehicle's record is created then the `indexPath` will be nil.
     */
-    var indexPath: IndexPath?
+//    var indexPath: IndexPath?
     
     
     // MARK: - Lifecycle
@@ -148,7 +149,8 @@ extension VehicleController: ButtonCellDelegate {
                 try context.save()
             }
             
-            delegate?.vehicleDidSave(vehicle, indexPath: indexPath)
+//            delegate?.vehicleDidSave(vehicle, indexPath: indexPath)
+            delegate?.vehicleDidSave(vehicle)
             
             VehicleManager.shared.selectedVehicle = vehicle
             if let navigationController = navigationController {

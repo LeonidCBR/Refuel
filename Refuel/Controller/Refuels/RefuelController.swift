@@ -9,7 +9,8 @@ import UIKit
 import CoreData
 
 protocol RefuelControllerDelegate {
-    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?)
+//    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?)
+    func refuelDidSave(_ refuel: CDRefuel)
 }
 
 class RefuelController: ParentController {
@@ -51,7 +52,7 @@ class RefuelController: ParentController {
      into the table of the refuels controller.
      If a new refuel's record is created then the `indexPath` will be nil.
     */
-    var indexPath: IndexPath?
+//    var indexPath: IndexPath?
     
     
     // MARK: - Lifecycle
@@ -268,7 +269,8 @@ extension RefuelController: ButtonCellDelegate {
                 try context.save()
             }
             
-            delegate?.refuelDidSave(refuel, indexPath: indexPath)
+//            delegate?.refuelDidSave(refuel, indexPath: indexPath)
+            delegate?.refuelDidSave(refuel)
             
             if let _ = editableRefuel {
                 // Dissmiss this view controller if the selected refuel is edited

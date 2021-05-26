@@ -38,7 +38,7 @@ class RefuelsController: ParentController {
     private func fetchRefuels() {
         
         if let refuels = VehicleManager.shared.selectedVehicle?.refuels?.allObjects as? [CDRefuel] {
-            self.refuels = refuels
+            self.refuels = refuels.sorted() {$0.odometer < $1.odometer}
         }
         
         tableView.reloadData()
@@ -95,7 +95,7 @@ class RefuelsController: ParentController {
         refuelController.shouldObserveVehicle = false
         refuelController.shouldTapRecognizer = true
         refuelController.delegate = self
-        refuelController.indexPath = indexPath
+        //refuelController.indexPath = indexPath
         
         refuelController.editableRefuel = refuels?[indexPath.row]
         navigationController?.pushViewController(refuelController, animated: true)
@@ -107,7 +107,13 @@ class RefuelsController: ParentController {
 // MARK: - RefuelControllerDelegate
 
 extension RefuelsController: RefuelControllerDelegate {
-    
+    func refuelDidSave(_ refuel: CDRefuel) {
+        guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
+        
+        //tableView.reloadData()
+        fetchRefuels()
+    }
+    /*
     func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?) {
         guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
         
@@ -132,5 +138,5 @@ extension RefuelsController: RefuelControllerDelegate {
             }
         }
     }
-    
+    */
 }

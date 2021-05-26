@@ -12,10 +12,10 @@ struct K {
     static let defaultRowHeight: CGFloat = 60.0
     
     struct TabBarItem {
-        static let addRefuel = "Add"
-        static let vehicles = "Vehicles"
-        static let refuels = "Refuels"
-        static let services = "Services"
+        static let addRefuel = "Добавить заправку" //"Add"
+        static let vehicles = "Транспорт" //"Vehicles"
+        static let refuels = "Заправки" //"Refuels"
+        static let services = "Обслуживание" //"Services"
     }
     
     struct Identifier {

@@ -14,7 +14,7 @@ class VehiclesController: ParentController {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var vehicles: [CDVehicle]?
     var isSelectingMode = false
-    var caption = "Vehicles"
+    var caption = "Транспорт"
     
     
     // MARK: - Lifecycle
@@ -38,15 +38,18 @@ class VehiclesController: ParentController {
             navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
         }
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: K.Identifier.Vehicles.vehicleCell)
-        configureRefreshControl()
+        tableView.register(VehicleCell.self, forCellReuseIdentifier: K.Identifier.Vehicles.vehicleCell)
+        
+        // Disable refresh control
+//        configureRefreshControl()
     }
     
-    private func configureRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(fetchVehicles), for: .valueChanged)
-        self.refreshControl = refreshControl
-    }
+    // Disable refresh control
+//    private func configureRefreshControl() {
+//        let refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action: #selector(fetchVehicles), for: .valueChanged)
+//        self.refreshControl = refreshControl
+//    }
     
     private func getNewVehicleController() -> VehicleController {
         let vehicleController = VehicleController()
@@ -80,7 +83,9 @@ class VehiclesController: ParentController {
             fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
         }
         tableView.reloadData()
-        refreshControl?.endRefreshing()
+        
+        // Disable refresh control
+//        refreshControl?.endRefreshing()
     }
     
     @objc private func addVehicle() {
@@ -103,12 +108,19 @@ class VehiclesController: ParentController {
         
         // TODO: - Create vehicle cell and pass the vehicle into it
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Vehicles.vehicleCell, for: indexPath)
-        if let manufacturer = vehicles?[indexPath.row].manufacturer,
-           let model = vehicles?[indexPath.row].model {
-            cell.textLabel?.text = manufacturer + " " + model
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Vehicles.vehicleCell, for: indexPath) as! VehicleCell
+        
+//        if let manufacturer = vehicles?[indexPath.row].manufacturer,
+//           let model = vehicles?[indexPath.row].model {
+//            cell.textLabel?.text = manufacturer + " " + model
+//        }
+        cell.vehicle = vehicles?[indexPath.row]
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return K.defaultRowHeight * 2
     }
     
     // Row is selected
@@ -124,7 +136,7 @@ class VehiclesController: ParentController {
         } else {
             // Edit selected vehicle
             let editingVehicleController = getNewVehicleController()
-            editingVehicleController.indexPath = indexPath
+//            editingVehicleController.indexPath = indexPath
             editingVehicleController.editableVehicle = vehicles?[indexPath.row]
             navigationController?.pushViewController(editingVehicleController, animated: true)
         }
@@ -186,33 +198,57 @@ class VehiclesController: ParentController {
 // MARK: - CreateVehicleControllerDelegate
 
 extension VehiclesController: VehicleControllerDelegate {
-    
+    func vehicleDidSave(_ vehicle: CDVehicle) {
+        
+//        if let id = vehicles?.firstIndex(where: {$0 == vehicle}) {
+//            print("DEBUG: We have got id \(id)")
+//        } else {
+//            print("DEBUG: There is no such a vehicle!")
+//        }
+        
+        //tableView.reloadData()
+        fetchVehicles()
+    }
+    /*
     func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?) {
 
+        // TODO: - Avoid using indexPath
+        // Consider to use vehicle.uuid
+        
+        
         if let indexPath = indexPath {
             // Reload row after editing vehicle's record
             if view.window != nil {
                 tableView.reloadRows(at: [indexPath], with: .none)
+                
             } else {
-                tableView.reloadData()
+                //tableView.reloadData()
+                let cell = tableView.cellForRow(at: indexPath) as? VehicleCell
+                cell?.vehicle = vehicle
             }
             
         } else {
             // New vehicle's record
             vehicles?.append(vehicle)
+            let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+            
             if view.window != nil {
-                let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                
                 tableView.beginUpdates()
                 tableView.insertRows(at: [newIndexPath], with: .none)
                 tableView.endUpdates()
                 
             } else {
-                // TODO:
-                // let cell = tableView.cellForRow(at: newIndexPath)
-                // cell.setVehicle(vehicle)
+                
                 tableView.reloadData()
+                
+                // TODO: - Create cell and use it
+//                let cell = tableView.cellForRow(at: newIndexPath) as? VehicleCell
+//                cell?.vehicle = vehicle
+                
             }
         }
     }
+    */
 
 }
