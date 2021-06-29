@@ -21,8 +21,8 @@
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDService" inverseName="vehicle" inverseEntity="CDService"/>
     </entity>
     <elements>
-        <element name="CDRefuel" positionX="-138.4638671875" positionY="-16.364013671875" width="128" height="104"/>
-        <element name="CDService" positionX="-261" positionY="27" width="128" height="104"/>
-        <element name="CDVehicle" positionX="-383.7345581054688" positionY="-6.104400634765625" width="128" height="89"/>
+        <element name="CDRefuel" positionX="-743.1485595703125" positionY="-29.29486083984375" width="128" height="118"/>
+        <element name="CDService" positionX="-9.616943359375057" positionY="-28.08047485351557" width="128" height="118"/>
+        <element name="CDVehicle" positionX="-427.8616333007814" positionY="48.04003906249999" width="225.7969360351563" height="103"/>
     </elements>
 </model>

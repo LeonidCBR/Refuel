@@ -11,6 +11,10 @@ import UIKit
  */
 class ServiceController: UITableViewController {
 
+    // MARK: - Properties
+    
+//    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     // MARK: Lifecycle
 
     override func viewDidLoad() {

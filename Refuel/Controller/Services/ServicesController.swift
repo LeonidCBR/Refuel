@@ -48,12 +48,38 @@ class ServicesController: ParentController {
         tableView.reloadData()
     }
 
+    override func vehicleDidSelect() {
+        super.vehicleDidSelect()
+        fetchServices()
+    }
+
 
     // MARK: - Selectors
 
     @objc private func addService() {
+
+        // TODO: - only for TEST!
+        /*
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let newService = CDService(context: context)
+        newService.date = Date()
+        newService.odometer = 127000
+        newService.cost = 1000
+        newService.vehicle = VehicleManager.shared.selectedVehicle!
+        newService.text = "Замена колодок"
+        do {
+            if context.hasChanges {
+                try context.save()
+            }
+        } catch {
+            // TODO: catch errors, show alarm
+            let nserror = error as NSError
+            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        */
         let addService = ServiceController()
         navigationController?.pushViewController(addService, animated: true)
+
     }
 
 
@@ -65,6 +91,15 @@ class ServicesController: ParentController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return services?.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Services.serviceCell, for: indexPath) as! ServiceCell
+
+//        cell.textLabel?.text = "test"
+        cell.service = services?[indexPath.row]
+
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
