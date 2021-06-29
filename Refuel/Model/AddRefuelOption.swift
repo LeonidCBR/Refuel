@@ -9,12 +9,12 @@ import Foundation
 
 enum AddRefuelOption: Int, CaseIterable {
     
-    case dateLabel = 0 // Дата
-    case datePicker // Календарик
-    case litersAmount // Заправлено литров
-    case cost // На сумму
-    case odometer // Пробег
-    case save // Кнопка "Сохранить"
+    case dateLabel = 0  // Дата
+    case datePicker     // Календарик
+    case litersAmount   // Заправлено литров
+    case cost           // На сумму
+    case odometer       // Пробег
+    case save           // Кнопка "Сохранить"
     
     var caption: String {
         switch self {

@@ -13,6 +13,8 @@ protocol RefuelControllerDelegate {
     func refuelDidSave(_ refuel: CDRefuel)
 }
 
+/** Adding or editing a refuel
+ */
 class RefuelController: ParentController {
 
     // MARK: - Properties

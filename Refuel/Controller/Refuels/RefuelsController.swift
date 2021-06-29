@@ -11,6 +11,7 @@ import CoreData
 class RefuelsController: ParentController {
 
     // MARK: - Properties
+    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var refuels: [CDRefuel]?
@@ -23,8 +24,10 @@ class RefuelsController: ParentController {
         configureUI()
         fetchRefuels()
     }
-    
+
+
     // MARK: - Methods
+
     private func configureUI() {
         title = "Заправки"
         

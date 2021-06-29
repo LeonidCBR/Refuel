@@ -13,7 +13,8 @@ protocol VehicleControllerDelegate {
     func vehicleDidSave(_ vehicle: CDVehicle)
 }
 
-
+/** Adding or editing a vehicle
+ */
 class VehicleController: ParentController {
     
     // MARK: - Properties
@@ -35,7 +36,9 @@ class VehicleController: ParentController {
             model = vehicle.model ?? ""
         }
     }
-    
+
+    // TODO: - Get rid of indexPath. Use NSManagedObject
+
     /** The `indexPath` refer to the editing vehicle's row
      into the table of the vehicles controller.
      If a new vehicle's record is created then the `indexPath` will be nil.
