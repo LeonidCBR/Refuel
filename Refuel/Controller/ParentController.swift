@@ -32,7 +32,7 @@ class ParentController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         if shouldObserveVehicle {
             

@@ -13,9 +13,3 @@ enum CreateVehicleOption: Int, CaseIterable {
     case model
     case save
 }
-
-
-enum InputTextCellOption {
-    case manufacturer
-    case model
-}

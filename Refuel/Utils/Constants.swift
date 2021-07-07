@@ -9,7 +9,7 @@ import UIKit
 
 struct K {
 
-    static let defaultRowHeight: CGFloat = 60.0
+//    static let defaultRowHeight: CGFloat = 60.0
     
     struct TabBarItem {
         static let addRefuel = "Добавить заправку" //"Add"
@@ -20,11 +20,12 @@ struct K {
     
     struct Identifier {
 
-        struct AddRefuel {
-            static let labelsCell = "addRefuelLabelsIdentifier"
-            static let datePickerCell = "addRefuelDatePickerIdentifier"
-            static let inputTextCell = "addRefuelInputTextIdentifier"
-            static let buttonCell = "addRefuelButtonIdentifier"
+        struct GeneralCells {
+            static let labelsCell = "labelsCellIdentifier"
+            static let datePickerCell = "datePickerCellIdentifier"
+            static let inputTextCell = "inputTextCellIdentifier"
+            static let multiLineTextCell = "multiLineTextCellIdentifier"
+            static let buttonCell = "buttonCellIdentifier"
         }
         
         struct Refuels {

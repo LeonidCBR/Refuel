@@ -34,7 +34,7 @@ class RefuelsController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         tableView.register(RefuelCell.self, forCellReuseIdentifier: K.Identifier.Refuels.refuelCell)
     }
     

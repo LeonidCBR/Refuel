@@ -11,7 +11,6 @@ import UIKit
 protocol ButtonCellDelegate {
 
     func saveButtonTapped()
-
 }
 
 
@@ -44,7 +43,6 @@ class ButtonCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        //fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -55,12 +53,11 @@ class ButtonCell: UITableViewCell {
         clipsToBounds = true
         
         contentView.addSubview(saveButton)
-        
-        saveButton.anchor(leading: contentView.leadingAnchor, paddingLeading: 50.0,
-                          trailing: contentView.trailingAnchor, paddingTrailing: 50.0,
-                          height: 34.0,
-                          centerY: contentView.centerYAnchor)
-        
+        saveButton.anchor(top: contentView.topAnchor, paddingTop: 20.0,
+                          bottom: contentView.bottomAnchor, paddingBottom: 20.0,
+                          leading: contentView.leadingAnchor, paddingLeading: 15.0,
+                          trailing: contentView.trailingAnchor, paddingTrailing: 15.0,
+                          height: 44.0)
     }
     
     

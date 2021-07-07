@@ -7,9 +7,11 @@
 
 import UIKit
 
+
 protocol CVInputTextCellDelegate {
     func didChangeText(_ inputTextCell: CVInputTextCell, withText text: String)
 }
+
 
 class CVInputTextCell: UITableViewCell {
 
@@ -41,12 +43,19 @@ class CVInputTextCell: UITableViewCell {
     // MARK: - Methods
     
     private func configureUI() {
+        selectionStyle = .none
+        clipsToBounds = true
+
         contentView.addSubview(textField)
-         
-        textField.anchor(leading: contentView.leadingAnchor, paddingLeading: 50.0,
-                         trailing: contentView.trailingAnchor, paddingTrailing: 50.0,
-                         height: 34.0,
-                         centerY: contentView.centerYAnchor)
+//        textField.anchor(leading: contentView.leadingAnchor, paddingLeading: 50.0,
+//                         trailing: contentView.trailingAnchor, paddingTrailing: 50.0,
+//                         height: 34.0,
+//                         centerY: contentView.centerYAnchor)
+        textField.anchor(top: contentView.topAnchor, paddingTop: 20.0,
+                         bottom: contentView.bottomAnchor, paddingBottom: 20.0,
+                         leading: contentView.leadingAnchor, paddingLeading: 15.0,
+                         trailing: contentView.trailingAnchor, paddingTrailing: 15.0,
+                         height: 34.0)
     }
     
     func setPlaceholder(_ text: String) {

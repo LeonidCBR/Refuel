@@ -45,13 +45,15 @@ class RefuelCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        //fatalError("init(coder:) has not been implemented")
     }
 
         
     // MARK: - Methods
     
     private func configureUI() {
+        selectionStyle = .none
+        clipsToBounds = true
+        
         contentView.addSubview(dateLabel)
         dateLabel.anchor(top: contentView.topAnchor, paddingTop: 15.0,
                          centerX: contentView.centerXAnchor)
@@ -64,23 +66,27 @@ class RefuelCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.anchor(top: odometerLabel.topAnchor,
                                 trailing: contentView.trailingAnchor, paddingTrailing: 10.0)
+
+        // TODO: - Consider to add a horizontal constraint to the odometerLabel and the descriptionLabel
+
     }
     
     private func updateUI() {
-        //TODO: use NumberFormatter and DateFormatter
-        guard let refuel = refuel else {
-            print("DEBUG: Refuel is nil!")
+        guard let refuel = refuel else { return }
+
+        dateLabel.text = refuel.date?.toString()
+        odometerLabel.text = "\(refuel.odometer)"
+
+        guard let liters = refuel.liters.toString() else {
+            print("DEBUG: Error while converting liters => \(refuel.liters)!")
             return
         }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        let dateStr = dateFormatter.string(from: refuel.date!)
-        dateLabel.text = dateStr
-        
-        descriptionLabel.text = "\(refuel.liters) л, \(refuel.cost) руб."
-        
-        odometerLabel.text = "\(refuel.odometer)"
+
+        guard let cost = refuel.cost.toString() else {
+            print("DEBUG: Error while converting cost => \(refuel.cost)!")
+            return
+        }
+
+        descriptionLabel.text = "\(liters) л, \(cost) руб."
     }
 }

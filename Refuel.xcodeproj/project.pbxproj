@@ -14,6 +14,7 @@
 		D75E36C6260DC1C100148156 /* CVCaptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36C5260DC1C100148156 /* CVCaptionCell.swift */; };
 		D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */; };
 		D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E36CD260DD0A200148156 /* CVInputTextCell.swift */; };
+		D770052A2691B41C00B28A4B /* InputTextCellOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77005292691B41C00B28A4B /* InputTextCellOption.swift */; };
 		D7900DE0268AFA0A00470147 /* ServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7900DDF268AFA0A00470147 /* ServiceCell.swift */; };
 		D7900DE2268B03F200470147 /* ServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7900DE1268B03F200470147 /* ServiceController.swift */; };
 		D7900DE4268B0C8300470147 /* AddServiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7900DE3268B0C8300470147 /* AddServiceOption.swift */; };
@@ -27,10 +28,11 @@
 		D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */; };
 		D7C962A1257B5025001B1D42 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A0257B5025001B1D42 /* Constants.swift */; };
 		D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C962A3257B5493001B1D42 /* RefuelsController.swift */; };
-		D7CBD6DB257F475D002BED3A /* ARLabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */; };
-		D7CBD6DE257F4876002BED3A /* ARDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */; };
-		D7CBD6E1257F4896002BED3A /* ARInputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */; };
+		D7CBD6DB257F475D002BED3A /* LabelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DA257F475D002BED3A /* LabelsCell.swift */; };
+		D7CBD6DE257F4876002BED3A /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */; };
+		D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E0257F4896002BED3A /* InputTextCell.swift */; };
 		D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */; };
+		D7DE361A268FFBD8008AF58F /* MultiLineTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DE3619268FFBD8008AF58F /* MultiLineTextCell.swift */; };
 		D7F493E525862DF200297CD2 /* RefuelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493E425862DF200297CD2 /* RefuelCell.swift */; };
 		D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493ED25874BB500297CD2 /* PresenterManager.swift */; };
 		D7F493F125874E0600297CD2 /* VehicleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F493F025874E0600297CD2 /* VehicleController.swift */; };
@@ -48,6 +50,7 @@
 		D75E36C5260DC1C100148156 /* CVCaptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVCaptionCell.swift; sourceTree = "<group>"; };
 		D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVehicleOption.swift; sourceTree = "<group>"; };
 		D75E36CD260DD0A200148156 /* CVInputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVInputTextCell.swift; sourceTree = "<group>"; };
+		D77005292691B41C00B28A4B /* InputTextCellOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextCellOption.swift; sourceTree = "<group>"; };
 		D7900DDF268AFA0A00470147 /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
 		D7900DE1268B03F200470147 /* ServiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceController.swift; sourceTree = "<group>"; };
 		D7900DE3268B0C8300470147 /* AddServiceOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceOption.swift; sourceTree = "<group>"; };
@@ -63,10 +66,11 @@
 		D7C96297257B4D0E001B1D42 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D7C962A0257B5025001B1D42 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D7C962A3257B5493001B1D42 /* RefuelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelsController.swift; sourceTree = "<group>"; };
-		D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARLabelsCell.swift; sourceTree = "<group>"; };
-		D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDatePickerCell.swift; sourceTree = "<group>"; };
-		D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARInputTextCell.swift; sourceTree = "<group>"; };
+		D7CBD6DA257F475D002BED3A /* LabelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsCell.swift; sourceTree = "<group>"; };
+		D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
+		D7CBD6E0257F4896002BED3A /* InputTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextCell.swift; sourceTree = "<group>"; };
 		D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		D7DE3619268FFBD8008AF58F /* MultiLineTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineTextCell.swift; sourceTree = "<group>"; };
 		D7F493E425862DF200297CD2 /* RefuelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefuelCell.swift; sourceTree = "<group>"; };
 		D7F493ED25874BB500297CD2 /* PresenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterManager.swift; sourceTree = "<group>"; };
 		D7F493F025874E0600297CD2 /* VehicleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleController.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				D7F61233257CDF9600D51357 /* AddRefuelOption.swift */,
 				D7900DE3268B0C8300470147 /* AddServiceOption.swift */,
 				D75E36CA260DC80F00148156 /* CreateVehicleOption.swift */,
+				D77005292691B41C00B28A4B /* InputTextCellOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,7 +185,7 @@
 		D7C9629C257B4DA2001B1D42 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D7CBD6D9257F471D002BED3A /* AddRefuelCells */,
+				D7CBD6D9257F471D002BED3A /* GeneralCells */,
 				D7F493E425862DF200297CD2 /* RefuelCell.swift */,
 				D7900DDF268AFA0A00470147 /* ServiceCell.swift */,
 				D75E36C4260DC13F00148156 /* CreateVehiclesCells */,
@@ -211,15 +216,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		D7CBD6D9257F471D002BED3A /* AddRefuelCells */ = {
+		D7CBD6D9257F471D002BED3A /* GeneralCells */ = {
 			isa = PBXGroup;
 			children = (
-				D7CBD6DA257F475D002BED3A /* ARLabelsCell.swift */,
-				D7CBD6DD257F4876002BED3A /* ARDatePickerCell.swift */,
-				D7CBD6E0257F4896002BED3A /* ARInputTextCell.swift */,
+				D7CBD6DA257F475D002BED3A /* LabelsCell.swift */,
+				D7CBD6DD257F4876002BED3A /* DatePickerCell.swift */,
+				D7CBD6E0257F4896002BED3A /* InputTextCell.swift */,
+				D7DE3619268FFBD8008AF58F /* MultiLineTextCell.swift */,
 				D7CBD6E3257F48B8002BED3A /* ButtonCell.swift */,
 			);
-			path = AddRefuelCells;
+			path = GeneralCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,25 +302,27 @@
 				D7C962A4257B5493001B1D42 /* RefuelsController.swift in Sources */,
 				D7900DE0268AFA0A00470147 /* ServiceCell.swift in Sources */,
 				D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */,
-				D7CBD6E1257F4896002BED3A /* ARInputTextCell.swift in Sources */,
+				D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */,
 				D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */,
 				D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */,
 				D734E2D3260F4B8F00CD746A /* VehicleManager.swift in Sources */,
 				D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */,
 				D7F61234257CDF9600D51357 /* AddRefuelOption.swift in Sources */,
 				D7F6123A257CE39800D51357 /* Extensions.swift in Sources */,
+				D770052A2691B41C00B28A4B /* InputTextCellOption.swift in Sources */,
 				D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */,
 				D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */,
 				D7C96287257B459F001B1D42 /* Refuel.xcdatamodeld in Sources */,
 				D7900DE4268B0C8300470147 /* AddServiceOption.swift in Sources */,
 				D7F493EE25874BB500297CD2 /* PresenterManager.swift in Sources */,
-				D7CBD6DB257F475D002BED3A /* ARLabelsCell.swift in Sources */,
+				D7CBD6DB257F475D002BED3A /* LabelsCell.swift in Sources */,
+				D7DE361A268FFBD8008AF58F /* MultiLineTextCell.swift in Sources */,
 				D7C9627F257B459F001B1D42 /* SceneDelegate.swift in Sources */,
 				D7C962A1257B5025001B1D42 /* Constants.swift in Sources */,
 				D7900DE2268B03F200470147 /* ServiceController.swift in Sources */,
 				D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */,
 				D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */,
-				D7CBD6DE257F4876002BED3A /* ARDatePickerCell.swift in Sources */,
+				D7CBD6DE257F4876002BED3A /* DatePickerCell.swift in Sources */,
 				D7F493F125874E0600297CD2 /* VehicleController.swift in Sources */,
 				D7C8CB6D25A5676D0057834C /* VehiclesController.swift in Sources */,
 				D7CBD6E4257F48B8002BED3A /* ButtonCell.swift in Sources */,

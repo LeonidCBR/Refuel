@@ -115,9 +115,9 @@ class VehicleController: ParentController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return K.defaultRowHeight
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return K.defaultRowHeight
+//    }
 }
 
 

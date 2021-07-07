@@ -12,6 +12,9 @@ class ServicesController: ParentController {
 
     // MARK: - Properties
 
+    // TODO: - Consider to move 'context' to the Parent class
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     var services: [CDService]?
     
     
@@ -32,7 +35,7 @@ class ServicesController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
 
         let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addService))
         navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
@@ -78,8 +81,11 @@ class ServicesController: ParentController {
         }
         */
         let addService = ServiceController()
-        navigationController?.pushViewController(addService, animated: true)
-
+        addService.shouldObserveVehicle = false
+        addService.shouldTapRecognizer = true
+        addService.delegate = self
+        //navigationController?.pushViewController(addService, animated: true)
+        present(addService, animated: true)
     }
 
 
@@ -95,16 +101,50 @@ class ServicesController: ParentController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Services.serviceCell, for: indexPath) as! ServiceCell
-
-//        cell.textLabel?.text = "test"
         cell.service = services?[indexPath.row]
-
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedService = ServiceController()
+        selectedService.shouldObserveVehicle = false
+        selectedService.shouldTapRecognizer = true
+        selectedService.delegate = self
+        selectedService.editableService = services?[indexPath.row]
         navigationController?.pushViewController(selectedService, animated: true)
+    }
+
+    // Delete service record
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("DEBUG: Delete row \(indexPath.row)")
+
+            guard let service = services?[indexPath.row] else { return }
+            context.delete(service)
+            do {
+                if context.hasChanges {
+                    try context.save()
+                }
+                services?.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } catch {
+                // TODO: catch errors
+                let nserror = error as NSError
+                PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+            }
+        }
+    }
+}
+
+
+// MARK: - ServiceControllerDelegate
+
+extension ServicesController: ServiceControllerDelegate {
+
+    func serviceDidSave(_ service: CDService) {
+        guard service.vehicle == VehicleManager.shared.selectedVehicle else { return }
+
+        fetchServices()
     }
 }

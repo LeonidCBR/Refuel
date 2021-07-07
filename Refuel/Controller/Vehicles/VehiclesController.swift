@@ -31,7 +31,10 @@ class VehiclesController: ParentController {
     private func configureUI() {
         title = caption
         
-        view.backgroundColor = isSelectingMode ? .lightGray : .white
+        //view.backgroundColor = isSelectingMode ? .lightGray : .white
+        if isSelectingMode {
+            view.backgroundColor = .lightGray
+        }
         
         if shouldObserveVehicle {
             let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
@@ -119,9 +122,9 @@ class VehiclesController: ParentController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return K.defaultRowHeight * 2
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return K.defaultRowHeight * 2
+//    }
     
     // Row is selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

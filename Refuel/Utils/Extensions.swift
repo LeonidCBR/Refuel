@@ -126,3 +126,54 @@ extension UIColor {
     //static let mainBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
 }
 
+
+// MARK: - Date
+
+extension Date {
+
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd.MM.yyyy"
+//        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.locale = .current
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: self)
+    }
+}
+
+
+// MARK: - Double
+
+extension Double {
+
+    init?(from localizedString: String) {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = .current
+        numberFormatter.allowsFloats = true
+        numberFormatter.numberStyle = .decimal
+        guard let number = numberFormatter.number(from: localizedString) else {
+            return nil
+        }
+        self = number.doubleValue
+    }
+
+
+    func toString() -> String? {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = .current
+        numberFormatter.allowsFloats = true
+        numberFormatter.numberStyle = .decimal
+        /** do not work with `numberStyle = .decimal`
+         numberFormatter.usesSignificantDigits = true
+        numberFormatter.minimumSignificantDigits = 0
+        numberFormatter.maximumSignificantDigits = 2
+        */
+
+//class func localizedString(from num: NSNumber,
+//        number nstyle: NumberFormatter.Style) -> String
+
+        let number = NSNumber(value: self)
+        return numberFormatter.string(from: number)
+    }
+}

@@ -14,6 +14,7 @@ class CVCaptionCell: UITableViewCell {
     private let captionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textAlignment = .center
         return label
     }()
     
@@ -33,9 +34,14 @@ class CVCaptionCell: UITableViewCell {
     // MARK: - Methods
     
     private func configureUI() {
+        selectionStyle = .none
+        clipsToBounds = true
+
         contentView.addSubview(captionLabel)
-        captionLabel.anchor(centerX: contentView.centerXAnchor,
-                            centerY: contentView.centerYAnchor)
+        captionLabel.anchor(top: contentView.topAnchor, paddingTop: 20.0,
+                            bottom: contentView.bottomAnchor, paddingBottom: 20.0,
+                            leading: contentView.leadingAnchor, paddingLeading: 15.0,
+                            trailing: contentView.trailingAnchor, paddingTrailing: 15.0)
     }
     
     func setCaption(_ captionText: String) {

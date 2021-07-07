@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AddRefuelOption: Int, CaseIterable {
+enum AddRefuelOption: Int, CaseIterable, CustomStringConvertible {
     
     case dateLabel = 0  // Дата
     case datePicker     // Календарик
@@ -16,7 +16,7 @@ enum AddRefuelOption: Int, CaseIterable {
     case odometer       // Пробег
     case save           // Кнопка "Сохранить"
     
-    var caption: String {
+    var description: String {
         switch self {
         case .dateLabel: return "Дата"
         case .datePicker: return "Date picker"

@@ -42,6 +42,7 @@ class ServiceCell: UITableViewCell {
         return label
     }()
 
+
     // MARK: - Lifecycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -53,8 +54,13 @@ class ServiceCell: UITableViewCell {
         super.init(coder: coder)
     }
 
+
     // MARK: - Methods
+
     private func configureUI() {
+        selectionStyle = .none
+        clipsToBounds = true
+        
         contentView.addSubview(dateLabel)
         dateLabel.anchor(top: contentView.topAnchor, paddingTop: 15.0,
                          centerX: contentView.centerXAnchor)
@@ -76,30 +82,17 @@ class ServiceCell: UITableViewCell {
     }
 
     private func updateUI() {
-        guard let service = service else {
-            print("DEBUG: Service is nil!")
-            return
-        }
+        guard let service = service else { return }
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        let dateStr = dateFormatter.string(from: service.date!)
-        dateLabel.text = dateStr
-
+        dateLabel.text = service.date?.toString()
         odometerLabel.text = "\(service.odometer)"
-
-        costLabel.text = "\(service.cost) руб."
-
         serviceLabel.text = service.text
 
-//        let tmpText = "\(service.date!) \(service.odometer) \(service.cost) \(service.text!)"
-//        textLabel?.text = tmpText
+        if let cost = service.cost.toString() {
+            costLabel.text = "\(cost) руб."
+        } else {
+            print("DEBUG: Error while converting cost => \(service.cost)!")
+        }
     }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//        // Configure the view for the selected state
-//    }
 
 }
