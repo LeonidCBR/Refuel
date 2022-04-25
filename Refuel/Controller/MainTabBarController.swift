@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class MainTabBarController: UITabBarController {
     
@@ -35,16 +34,16 @@ class MainTabBarController: UITabBarController {
         let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         
         addRefuelTab.tabBarItem = UITabBarItem(title: K.TabBarItem.addRefuel,
-                                         image: nil,
+                                               image: UIImage(named: "Home"),
                                          tag: 0)
         refuelsTab.tabBarItem = UITabBarItem(title: K.TabBarItem.refuels,
-                                         image: nil,
+                                         image: UIImage(named: "Refuels"),
                                          tag: 1)
         servicesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.services,
-                                         image: nil,
+                                         image: UIImage(named: "Services"),
                                          tag: 2)
         vehiclesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.vehicles,
-                                         image: nil,
+                                         image: UIImage(named: "Vehicles"),
                                          tag: 3)
         
         viewControllers = [addRefuelTab, refuelsTab, servicesTab, vehiclesTab]
