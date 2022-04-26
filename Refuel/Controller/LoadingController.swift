@@ -18,12 +18,15 @@ class LoadingController: UIViewController {
     let loadingLabel: UILabel = {
         let label = UILabel()
         label.text = "Загрузка..."
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
         label.textColor = .white
+        label.textAlignment = .center
         return label
     }()
-    
+
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -33,6 +36,15 @@ class LoadingController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        // Check for persistent errors
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let persistentError = appDelegate.persistentError {
+            loadingLabel.text = persistentError.localizedDescription
+            PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.", byViewController: self)
+            return
+        }
+
         activityIndicator.startAnimating()
 
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
@@ -55,13 +67,15 @@ class LoadingController: UIViewController {
         view.backgroundColor = .systemBlue
         
         view.addSubview(loadingLabel)
-        loadingLabel.anchor(centerX: view.centerXAnchor,
-                            centerY: view.centerYAnchor)
+        loadingLabel.anchor(leading: view.safeAreaLayoutGuide.leadingAnchor,
+                            paddingLeading: 20.0,
+                            trailing: view.safeAreaLayoutGuide.trailingAnchor,
+                            paddingTrailing: 20.0, centerY: view.centerYAnchor)
         
         view.addSubview(activityIndicator)
         activityIndicator.anchor(top: loadingLabel.bottomAnchor, paddingTop: 10,
                                  centerX: view.centerXAnchor)
-        
+
     }
     
 }

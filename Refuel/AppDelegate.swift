@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Declare for iOS below 13.0
     var window: UIWindow?
 
+    var persistentError: Error?
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -56,21 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "Refuel")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
+        container.loadPersistentStores(completionHandler: { [weak self] (storeDescription, error) in
+//            if let error = error as NSError? {
+            self?.persistentError = error
+//            }
         })
         return container
     }()
@@ -82,12 +73,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if context.hasChanges {
             do {
                 try context.save()
+
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                persistentError = error
+                showError(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.")
+                context.rollback()
             }
+        }
+    }
+
+    // MARK: - Methods
+
+    func showError(withTitle title: String, andMessage message: String) {
+        let rootVC: UIViewController?
+
+        if #available(iOS 13, *) {
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate, let window = sceneDelegate.window {
+                rootVC = window.rootViewController
+            } else {
+                rootVC = nil
+            }
+        } else {
+            rootVC = window?.rootViewController
+        }
+
+        if let rootVC = rootVC {
+            PresenterManager.shared.showMessage(withTitle: title, andMessage: message, byViewController: rootVC)
         }
     }
 
