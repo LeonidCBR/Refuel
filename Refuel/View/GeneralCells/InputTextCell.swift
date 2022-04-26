@@ -84,7 +84,6 @@ extension InputTextCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         guard let ds = NumberFormatter().decimalSeparator else {
-            print("DEBUG: Error - Decimal separator is nil!!!\nIgnore!")
             return true
         }
         

@@ -35,7 +35,6 @@ class ServicesController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-//        view.backgroundColor = .white
 
         let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addService))
         navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
@@ -60,31 +59,10 @@ class ServicesController: ParentController {
     // MARK: - Selectors
 
     @objc private func addService() {
-
-        // TODO: - only for TEST!
-        /*
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let newService = CDService(context: context)
-        newService.date = Date()
-        newService.odometer = 127000
-        newService.cost = 1000
-        newService.vehicle = VehicleManager.shared.selectedVehicle!
-        newService.text = "Замена колодок"
-        do {
-            if context.hasChanges {
-                try context.save()
-            }
-        } catch {
-            // TODO: catch errors, show alarm
-            let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        */
         let addService = ServiceController()
         addService.shouldObserveVehicle = false
         addService.shouldTapRecognizer = true
         addService.delegate = self
-        //navigationController?.pushViewController(addService, animated: true)
         present(addService, animated: true)
     }
 
@@ -118,7 +96,6 @@ class ServicesController: ParentController {
     // Delete service record
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("DEBUG: Delete row \(indexPath.row)")
 
             guard let service = services?[indexPath.row] else { return }
             context.delete(service)

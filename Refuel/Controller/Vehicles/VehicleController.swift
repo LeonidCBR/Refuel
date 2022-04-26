@@ -9,7 +9,6 @@ import UIKit
 import CoreData
 
 protocol VehicleControllerDelegate {
-//    func vehicleDidSave(_ vehicle: CDVehicle, indexPath: IndexPath?)
     func vehicleDidSave(_ vehicle: CDVehicle)
 }
 
@@ -37,15 +36,7 @@ class VehicleController: ParentController {
         }
     }
 
-    // TODO: - Get rid of indexPath. Use NSManagedObject
 
-    /** The `indexPath` refer to the editing vehicle's row
-     into the table of the vehicles controller.
-     If a new vehicle's record is created then the `indexPath` will be nil.
-    */
-//    var indexPath: IndexPath?
-    
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -114,10 +105,7 @@ class VehicleController: ParentController {
         
         return cell
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return K.defaultRowHeight
-//    }
+
 }
 
 
@@ -152,7 +140,6 @@ extension VehicleController: ButtonCellDelegate {
                 try context.save()
             }
             
-//            delegate?.vehicleDidSave(vehicle, indexPath: indexPath)
             delegate?.vehicleDidSave(vehicle)
             
             VehicleManager.shared.selectedVehicle = vehicle

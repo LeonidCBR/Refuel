@@ -9,7 +9,6 @@ import UIKit
 import CoreData
 
 protocol RefuelControllerDelegate {
-//    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?)
     func refuelDidSave(_ refuel: CDRefuel)
 }
 
@@ -31,10 +30,6 @@ class RefuelController: ParentController {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     private var refuelModel = RefuelModel()
-//    private var date = Date()
-//    private var liters = 0.0
-//    private var cost = 0.0
-//    private var odometer = 0
 
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -53,31 +48,14 @@ class RefuelController: ParentController {
             guard let refuel = editableRefuel else { return }
 
             caption = "Изменить данные"
-//            date = refuel.date ?? Date()
-//            liters = refuel.liters
-//            cost = refuel.cost
-//            odometer = Int(refuel.odometer)
-
             refuelModel.date = refuel.date ?? Date()
             refuelModel.liters = refuel.liters
             refuelModel.cost = refuel.cost
             refuelModel.odometer = Int(refuel.odometer)
-
-//            setDate(to: refuel.date)
-//            setLiters(to: refuel.liters)
-//            setCost(to: refuel.cost)
-//            setOdometer(to: Int(refuel.odometer))
-
         }
     }
-    
-    /** The `indexPath` refer to the editing refuel's row
-     into the table of the refuels controller.
-     If a new refuel's record is created then the `indexPath` will be nil.
-    */
-//    var indexPath: IndexPath?
-    
-    
+
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -103,30 +81,16 @@ class RefuelController: ParentController {
 
     }
 
-//    private func getString(from doubleValue: Double) -> String {
-//        let number = NSNumber(value: doubleValue)
-//        let numberFormatter = NumberFormatter()
-//        numberFormatter.allowsFloats = true
-//        numberFormatter.numberStyle = .decimal
-//        return numberFormatter.string(from: number) ?? "0"
-//    }
-
-//    private func setDate(to date: Date?) {
-//        let indexPath = IndexPath(row: AddRefuelOption.dateLabel.rawValue, section: 0)
-//        let cell = tableView.cellForRow(at: indexPath) as! LabelsCell
-//        cell.setTextValueLabel(to: Date.getString(of: date))
-//    }
-
     private func setLiters(to value: Double) {
         let indexPath = IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = value.toString() //getString(from: value)
+        cell.textField.text = value.toString()
     }
 
     private func setCost(to value: Double) {
         let indexPath = IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = value.toString() //getString(from: value)
+        cell.textField.text = value.toString()
     }
 
     private func setOdometer(to value: Int) {
@@ -135,33 +99,6 @@ class RefuelController: ParentController {
         cell.textField.text = String(value)
     }
 
-/*
-    private func getDate() -> Date {
-        let indexPath = IndexPath(row: AddRefuelOption.datePicker.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! DatePickerCell
-        return cell.getDate()
-    }
-
-    private func getLiters() -> Double {
-        let indexPath = IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        return Double(cell.textField.text!)!
-//        let number = NumberFormatter().number(from: cell.textField.text!)!
-//        return number.doubleValue
-    }
-
-    private func getCost() -> Double {
-        let indexPath = IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        return Double(cell.textField.text!)!
-    }
-
-    private func getOdometer() -> Int {
-        let indexPath = IndexPath(row: AddRefuelOption.odometer.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        return Int(cell.textField.text!)!
-    }
-*/
     
     // MARK: - Table view data source
 
@@ -183,7 +120,6 @@ class RefuelController: ParentController {
         switch cellOption {
         case .dateLabel:
             let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.labelsCell, for: indexPath) as! LabelsCell
-//            labelsCell.setDate(to: date)
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             labelsCell.setTextValueLabel(to: refuelModel.date.toString())
             cell = labelsCell
@@ -197,12 +133,7 @@ class RefuelController: ParentController {
         case .litersAmount:
             let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
-
-            //inputTextCell.option = .litersAmount
-//            inputTextCell.tag = AddRefuelOption.litersAmount.rawValue
-
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
-//            inputTextCell.setTextValue(to: getString(from: refuelModel.liters))
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.textField.text = refuelModel.liters.toString()
             cell = inputTextCell
@@ -210,12 +141,7 @@ class RefuelController: ParentController {
         case .cost:
             let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
-
-//            inputTextCell.option = .cost
-//            inputTextCell.tag = AddRefuelOption.cost.rawValue
-
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
-//            inputTextCell.setTextValue(to: getString(from: cost))
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.textField.text = refuelModel.cost.toString()
             cell = inputTextCell
@@ -223,12 +149,7 @@ class RefuelController: ParentController {
         case .odometer:
             let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
-
-//            inputTextCell.option = .odometer
-//            inputTextCell.tag = AddRefuelOption.odometer.rawValue
-
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
-//            inputTextCell.setTextValue(to: "\(odometer)")
             inputTextCell.textField.keyboardType = .numberPad
             inputTextCell.textField.text = String(refuelModel.odometer)
             cell = inputTextCell
@@ -247,7 +168,6 @@ class RefuelController: ParentController {
         if let cellOption = AddRefuelOption(rawValue: indexPath.row), cellOption == .datePicker {
             return datePickerCurrentHeight
         } else {
-//            return K.defaultRowHeight
             return tableView.estimatedRowHeight
         }
     }
@@ -262,13 +182,6 @@ class RefuelController: ParentController {
             }
         }
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        // remove extra lines from the bottom
-        return UIView()
-    }
-    */
 }
 
 
@@ -280,13 +193,9 @@ extension RefuelController: DatePickerCellDelegate {
         // We got the date value from cell with date picker
         // And now let's assing it to date label and update model
         let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.dateLabel.rawValue, section: 0)) as! LabelsCell
-//            cell.setDate(to: date)
         cell.setTextValueLabel(to: date.toString())
-
-//        self.date = date
         refuelModel.date = date
     }
-    
 }
 
 
@@ -299,7 +208,6 @@ extension RefuelController: InputTextCellDelegate {
 
         guard let text = textField.text,
               let value = Double(from: text)
-              //let number = NumberFormatter().number(from: text)
         else {
 
 
@@ -318,56 +226,10 @@ extension RefuelController: InputTextCellDelegate {
         case .litersAmount: refuelModel.liters = value // number.doubleValue
         case .cost: refuelModel.cost = value // number.doubleValue
         case .odometer: refuelModel.odometer = Int(value) // number.intValue
-        default:
-            fatalError("Wrong TAG!")
+        default: break
         }
     }
-
-/*
-    func didGetLiters(_ liters: Double?) {
-        guard let liters = liters else {
-            // TODO: Show error
-            print("DEBUG: show error! wrong liters!")
-            
-            // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.litersAmount.rawValue, section: 0)) as? InputTextCell {
-                cell.setTextValue(to: getString(from: self.liters))
-            }
-            return
-        }
-        self.liters = liters
-    }
-    
-    func didGetCost(_ cost: Double?) {
-        guard let cost = cost else {
-            // TODO: Show error
-            print("DEBUG: show error! wrong cost!")
-            
-            // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.cost.rawValue, section: 0)) as? InputTextCell {
-                cell.setTextValue(to: getString(from: self.cost))
-            }
-            return
-        }
-        self.cost = cost
-    }
-    
-    func didGetOdometer(_ odometer: Int?) {
-        guard let odometer = odometer else {
-            // TODO: Show error
-            print("DEBUG: show error! wrong odometer!")
-            
-            // Set old values back to the text field
-            if let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.odometer.rawValue, section: 0)) as? InputTextCell {
-                cell.setTextValue(to: "\(self.odometer)")
-            }
-            return
-        }
-        self.odometer = odometer
-    }
-*/
 }
-
 
 
 // MARK: - ButtonCellDelegate
@@ -383,31 +245,18 @@ extension RefuelController: ButtonCellDelegate {
             refuel = CDRefuel(context: context)
             refuel.vehicle = VehicleManager.shared.selectedVehicle
         }
-        
-//        refuel.date = date
-//        refuel.liters = liters
-//        refuel.cost = cost
-//        refuel.odometer = Int64(odometer)
-        
+
         refuel.date = refuelModel.date
         refuel.liters = refuelModel.liters
         refuel.cost = refuelModel.cost
         refuel.odometer = Int64(refuelModel.odometer)
 
-
-//        refuel.date = getDate()
-//        refuel.liters = getLiters()
-//        refuel.cost = getCost()
-//        refuel.odometer = Int64(getOdometer())
-
         do {
             if context.hasChanges {
                 try context.save()
             }
-            
-//            delegate?.refuelDidSave(refuel, indexPath: indexPath)
+
             delegate?.refuelDidSave(refuel)
-            
             if let _ = editableRefuel {
                 // Dissmiss this view controller if the selected refuel is edited
                 navigationController?.popViewController(animated: true)

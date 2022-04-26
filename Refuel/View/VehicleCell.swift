@@ -56,8 +56,6 @@ class VehicleCell: UITableViewCell {
                                  leading: contentView.leadingAnchor, paddingLeading: 10.0)
         
         contentView.addSubview(modelLabel)
-//        modelLabel.anchor(centerX: contentView.centerXAnchor,
-//                          centerY: contentView.centerYAnchor)
         modelLabel.anchor(top: manufacturerLabel.bottomAnchor, paddingTop: 30.0,
                           bottom: contentView.bottomAnchor, paddingBottom: 50.0,
                           leading: contentView.leadingAnchor, paddingLeading: 15.0,

@@ -34,7 +34,6 @@ class RefuelsController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-//        view.backgroundColor = .white
         tableView.register(RefuelCell.self, forCellReuseIdentifier: K.Identifier.Refuels.refuelCell)
     }
     
@@ -72,8 +71,7 @@ class RefuelsController: ParentController {
     // Delete refuel record
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("DEBUG: Delete row \(indexPath.row)")
-            
+
             guard let refuel = refuels?[indexPath.row] else { return }
             context.delete(refuel)
             do {
@@ -98,8 +96,6 @@ class RefuelsController: ParentController {
         refuelController.shouldObserveVehicle = false
         refuelController.shouldTapRecognizer = true
         refuelController.delegate = self
-        //refuelController.indexPath = indexPath
-        
         refuelController.editableRefuel = refuels?[indexPath.row]
         navigationController?.pushViewController(refuelController, animated: true)
     }
@@ -112,34 +108,6 @@ class RefuelsController: ParentController {
 extension RefuelsController: RefuelControllerDelegate {
     func refuelDidSave(_ refuel: CDRefuel) {
         guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
-        
-        //tableView.reloadData()
         fetchRefuels()
     }
-    /*
-    func refuelDidSave(_ refuel: CDRefuel, indexPath: IndexPath?) {
-        guard refuel.vehicle == VehicleManager.shared.selectedVehicle else { return }
-        
-        if let indexPath = indexPath {
-            // Reload row after editing refuel's record
-            if view.window != nil {
-                tableView.reloadRows(at: [indexPath], with: .none)
-            } else {
-                tableView.reloadData()
-            }
-            
-        } else {
-            // New refuel's record
-            refuels?.append(refuel)
-            if view.window != nil {
-                let newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
-                tableView.beginUpdates()
-                tableView.insertRows(at: [newIndexPath], with: .none)
-                tableView.endUpdates()
-            } else {
-                tableView.reloadData()
-            }
-        }
-    }
-    */
 }

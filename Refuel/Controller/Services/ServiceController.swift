@@ -13,7 +13,7 @@ protocol ServiceControllerDelegate {
 
 /** Adding or editing a service
  */
-class ServiceController: ParentController /*UITableViewController*/ {
+class ServiceController: ParentController {
 
     // MARK: - Properties
 
@@ -24,15 +24,9 @@ class ServiceController: ParentController /*UITableViewController*/ {
         var text = ""
     }
 
-    private var serviceModel = ServiceModel()
-//    private var date = Date()
-//    private var odometer = 0
-//    private var cost = 0.0
-//    private var serviceText = ""
-
     var delegate: ServiceControllerDelegate?
+    private var serviceModel = ServiceModel()
     private var caption = "Добавить ТО"
-
     private var datePickerCurrentHeight: CGFloat = 0.0
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -80,18 +74,10 @@ class ServiceController: ParentController /*UITableViewController*/ {
 
     }
 
-//    private func getString(from doubleValue: Double) -> String {
-//        let number = NSNumber(value: doubleValue)
-//        let numberFormatter = NumberFormatter()
-//        numberFormatter.allowsFloats = true
-//        numberFormatter.numberStyle = .decimal
-//        return numberFormatter.string(from: number) ?? "0"
-//    }
-
     private func setCost(to value: Double) {
         let indexPath = IndexPath(row: AddServiceOption.cost.rawValue, section: 0)
         let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = value.toString() //getString(from: value)
+        cell.textField.text = value.toString()
     }
 
     private func setOdometer(to value: Int) {
@@ -116,7 +102,6 @@ class ServiceController: ParentController /*UITableViewController*/ {
         let cell: UITableViewCell
 
         let cellOption = AddServiceOption(rawValue: indexPath.row)!
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         switch cellOption {
         case .selectedVehicle:
@@ -125,11 +110,7 @@ class ServiceController: ParentController /*UITableViewController*/ {
             if let manufacturer = VehicleManager.shared.selectedVehicle?.manufacturer,
                let model = VehicleManager.shared.selectedVehicle?.model {
                 labelsCell.setTextValueLabel(to: manufacturer + " " + model)
-            } else {
-                // TODO: - Fatal error
-                fatalError("Unexpected nil of selected vehicle!")
             }
-
             cell = labelsCell
 
         case .dateLabel:
@@ -163,7 +144,6 @@ class ServiceController: ParentController /*UITableViewController*/ {
         case .text:
             let multiLineTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.multiLineTextCell, for: indexPath) as! MultiLineTextCell
             multiLineTextCell.delegate = self
-//            inputTextCell.textField.keyboardType = .default
             multiLineTextCell.setTextCaptionLabel(to: cellOption.description)
             multiLineTextCell.setText(to: serviceModel.text)
             cell = multiLineTextCell
@@ -182,7 +162,6 @@ class ServiceController: ParentController /*UITableViewController*/ {
         if let cellOption = AddServiceOption(rawValue: indexPath.row), cellOption == .datePicker {
             return datePickerCurrentHeight
         } else {
-//            return K.defaultRowHeight
             return tableView.estimatedRowHeight
         }
     }
@@ -197,53 +176,6 @@ class ServiceController: ParentController /*UITableViewController*/ {
             }
         }
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -257,8 +189,6 @@ extension ServiceController: DatePickerCellDelegate {
         if let cell = tableView.cellForRow(at: IndexPath(row: AddServiceOption.dateLabel.rawValue, section: 0)) as? LabelsCell {
             cell.setTextValueLabel(to: date.toString())
         }
-
-//        self.date = date
         serviceModel.date = date
     }
 }
@@ -273,7 +203,6 @@ extension ServiceController: InputTextCellDelegate {
 
         guard let text = textField.text,
               let value = Double(from: text) else {
-//              let number = NumberFormatter().number(from: text) else {
 
             // Got wrong value. Set old values back to the text field
             if .odometer == option { setOdometer(to: serviceModel.odometer) }
@@ -282,10 +211,9 @@ extension ServiceController: InputTextCellDelegate {
         }
 
         switch option {
-        case .odometer: serviceModel.odometer = Int(value) // number.intValue
-        case .cost: serviceModel.cost = value // number.doubleValue
-        default:
-            fatalError("Wrong TAG!")
+        case .odometer: serviceModel.odometer = Int(value)
+        case .cost: serviceModel.cost = value
+        default: break
         }
     }
 }
@@ -323,7 +251,6 @@ extension ServiceController: ButtonCellDelegate {
                 try context.save()
             }
 
-            // TODO: - Implement delegate
             delegate?.serviceDidSave(service)
 
             if let _ = editableService {
@@ -332,11 +259,6 @@ extension ServiceController: ButtonCellDelegate {
 
             } else {
                 dismiss(animated: true, completion: nil)
-                // Show success message if a new service is created
-                //PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
-
-                // TODO: - Implement dismiss
-                //dismiss(animated: true, completion: nil)
             }
         } catch {
 

@@ -122,8 +122,7 @@ extension UIColor {
 
         return String(format:"#%06x", rgb)
     }
-    
-    //static let mainBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
+
 }
 
 
@@ -133,8 +132,6 @@ extension Date {
 
     func toString() -> String {
         let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd.MM.yyyy"
-//        dateFormatter.locale = Locale(identifier: "ru_RU")
         dateFormatter.locale = .current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .none
@@ -169,10 +166,6 @@ extension Double {
         numberFormatter.minimumSignificantDigits = 0
         numberFormatter.maximumSignificantDigits = 2
         */
-
-//class func localizedString(from num: NSNumber,
-//        number nstyle: NumberFormatter.Style) -> String
-
         let number = NSNumber(value: self)
         return numberFormatter.string(from: number)
     }

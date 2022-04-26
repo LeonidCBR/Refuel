@@ -10,6 +10,7 @@ import UIKit
 class ParentController: UITableViewController {
 
     // MARK: - Properties
+
     var shouldObserveVehicle = true
     var shouldTapRecognizer = false
 
@@ -32,8 +33,7 @@ class ParentController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-//        view.backgroundColor = .white
-        
+
         if shouldObserveVehicle {
             
             let modelVehicle = VehicleManager.shared.selectedVehicle?.model ?? "Unknown"

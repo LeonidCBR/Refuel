@@ -95,7 +95,7 @@ class ServiceCell: UITableViewCell {
         if let cost = service.cost.toString() {
             costLabel.text = "\(cost) руб."
         } else {
-            print("DEBUG: Error while converting cost => \(service.cost)!")
+            costLabel.text = "\(service.cost) руб."
         }
     }
 

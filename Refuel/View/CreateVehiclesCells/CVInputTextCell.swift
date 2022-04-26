@@ -49,10 +49,6 @@ class CVInputTextCell: UITableViewCell {
         clipsToBounds = true
 
         contentView.addSubview(textField)
-//        textField.anchor(leading: contentView.leadingAnchor, paddingLeading: 50.0,
-//                         trailing: contentView.trailingAnchor, paddingTrailing: 50.0,
-//                         height: 34.0,
-//                         centerY: contentView.centerYAnchor)
         textField.anchor(top: contentView.topAnchor, paddingTop: 20.0,
                          bottom: contentView.bottomAnchor, paddingBottom: 20.0,
                          leading: contentView.leadingAnchor, paddingLeading: 15.0,

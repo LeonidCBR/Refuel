@@ -9,13 +9,11 @@ import UIKit
 
 struct K {
 
-//    static let defaultRowHeight: CGFloat = 60.0
-    
     struct TabBarItem {
-        static let addRefuel = "Добавить заправку" //"Add"
-        static let vehicles = "Транспорт" //"Vehicles"
-        static let refuels = "Заправки" //"Refuels"
-        static let services = "Обслуживание" //"Services"
+        static let addRefuel = "Добавить заправку"
+        static let vehicles = "Транспорт"
+        static let refuels = "Заправки"
+        static let services = "Обслуживание"
     }
     
     struct Identifier {

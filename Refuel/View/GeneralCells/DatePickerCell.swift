@@ -22,8 +22,6 @@ class DatePickerCell: UITableViewCell {
     
     private let datePicker: UIDatePicker = {
 
-        // TODO: - DEBUG
-        
         let datePicker = UIDatePicker()
         if #available(iOS 14.0, *) {
             datePicker.preferredDatePickerStyle = .inline

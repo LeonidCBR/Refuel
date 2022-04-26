@@ -18,7 +18,6 @@ class LoadingController: UIViewController {
     let loadingLabel: UILabel = {
         let label = UILabel()
         label.text = "Загрузка..."
-//        label.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .white
@@ -35,14 +34,14 @@ class LoadingController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
-        
-        // TODO: Show message with error! Make a refactor!
 
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
         request.fetchLimit = 1
-        if let countOfVehicles = try? context.count(for: request), countOfVehicles > 0 {
-            let vehicles = try! context.fetch(request)
-            VehicleManager.shared.selectedVehicle = vehicles.first!
+        if let countOfVehicles = try? context.count(for: request),
+           countOfVehicles > 0,
+           let vehicles = try? context.fetch(request),
+           let vehicle = vehicles.first {
+            VehicleManager.shared.selectedVehicle = vehicle
             PresenterManager.shared.showViewController(.mainTabBarController)
         } else {
             PresenterManager.shared.showViewController(.createVehicleController)

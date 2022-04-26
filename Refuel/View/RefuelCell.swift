@@ -80,16 +80,11 @@ class RefuelCell: UITableViewCell {
         dateLabel.text = refuel.date?.toString()
         odometerLabel.text = "\(refuel.odometer)"
 
-        guard let liters = refuel.liters.toString() else {
-            print("DEBUG: Error while converting liters => \(refuel.liters)!")
-            return
+        // Convert Double to String according with decimal separator
+        if let liters = refuel.liters.toString(), let cost = refuel.cost.toString() {
+            descriptionLabel.text = "\(liters) л, \(cost) руб."
+        } else {
+            descriptionLabel.text = "\(refuel.liters) л, \(refuel.cost) руб."
         }
-
-        guard let cost = refuel.cost.toString() else {
-            print("DEBUG: Error while converting cost => \(refuel.cost)!")
-            return
-        }
-
-        descriptionLabel.text = "\(liters) л, \(cost) руб."
     }
 }

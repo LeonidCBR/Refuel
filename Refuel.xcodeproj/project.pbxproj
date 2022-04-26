@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F9AAC2585EA4700E1225C /* PersistentManager.swift */; };
 		D734E2D3260F4B8F00CD746A /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734E2D2260F4B8F00CD746A /* VehicleManager.swift */; };
 		D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF0392606FD0700F664FD /* ParentController.swift */; };
 		D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF03C260701BA00F664FD /* ServicesController.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D71F9AAC2585EA4700E1225C /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		D734E2D2260F4B8F00CD746A /* VehicleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleManager.swift; sourceTree = "<group>"; };
 		D75DF0392606FD0700F664FD /* ParentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
 		D75DF03C260701BA00F664FD /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		D71F9AAB2585EA2E00E1225C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D71F9AAC2585EA4700E1225C /* PersistentManager.swift */,
 				D7F493ED25874BB500297CD2 /* PresenterManager.swift */,
 				D734E2D2260F4B8F00CD746A /* VehicleManager.swift */,
 			);
@@ -304,7 +301,6 @@
 				D75E36CE260DD0A200148156 /* CVInputTextCell.swift in Sources */,
 				D7CBD6E1257F4896002BED3A /* InputTextCell.swift in Sources */,
 				D7C9627D257B459F001B1D42 /* AppDelegate.swift in Sources */,
-				D71F9AAD2585EA4700E1225C /* PersistentManager.swift in Sources */,
 				D734E2D3260F4B8F00CD746A /* VehicleManager.swift in Sources */,
 				D7C96298257B4D0E001B1D42 /* MainTabBarController.swift in Sources */,
 				D7F61234257CDF9600D51357 /* AddRefuelOption.swift in Sources */,
