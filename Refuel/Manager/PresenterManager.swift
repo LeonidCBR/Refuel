@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct PresenterManager {
+class PresenterManager {
     
     static let shared = PresenterManager()
     

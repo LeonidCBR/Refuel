@@ -18,7 +18,9 @@ class LoadingController: UIViewController {
     let loadingLabel: UILabel = {
         let label = UILabel()
         label.text = "Загрузка..."
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
+//        label.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = .white
         return label
     }()

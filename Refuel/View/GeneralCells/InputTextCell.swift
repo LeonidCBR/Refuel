@@ -22,12 +22,15 @@ class InputTextCell: UITableViewCell {
 
     private let captionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
     let textField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.preferredFont(forTextStyle: .body)
+        tf.adjustsFontForContentSizeCategory = true
         tf.borderStyle = .roundedRect
         tf.keyboardType = .decimalPad
         return tf

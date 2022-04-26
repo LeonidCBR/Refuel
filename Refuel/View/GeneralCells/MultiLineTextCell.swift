@@ -19,7 +19,8 @@ class MultiLineTextCell: UITableViewCell {
 
     private let captionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
@@ -30,6 +31,8 @@ class MultiLineTextCell: UITableViewCell {
         tv.keyboardType = .default
         tv.layer.borderColor = UIColor.systemBlue.cgColor
         tv.layer.borderWidth = 1.5
+        tv.font = UIFont.preferredFont(forTextStyle: .body)
+        tv.adjustsFontForContentSizeCategory = true
         return tv
     }()
 

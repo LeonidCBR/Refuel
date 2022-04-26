@@ -19,6 +19,8 @@ class CVInputTextCell: UITableViewCell {
     
     private lazy var textField: UITextField = {
         let tf = UITextField()
+        tf.font = UIFont.preferredFont(forTextStyle: .body)
+        tf.adjustsFontForContentSizeCategory = true
         tf.borderStyle = .roundedRect
         tf.delegate = self
         return tf
