@@ -75,10 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try context.save()
 
             } catch {
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                let nserror = error as NSError
                 persistentError = error
-                showError(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.")
+                showError(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)")
                 context.rollback()
             }
         }

@@ -266,10 +266,10 @@ extension RefuelController: ButtonCellDelegate {
                 PresenterManager.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
             }
         } catch {
-            
-            // TODO: catch errors, show alarm
+
             let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            context.rollback()
         }
     }
     

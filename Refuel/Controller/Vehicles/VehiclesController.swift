@@ -70,9 +70,9 @@ class VehiclesController: ParentController {
         do {
             vehicles = try context.fetch(request)
         } catch {
-            // TODO: catch errors
             let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            context.rollback()
         }
         tableView.reloadData()
     }
@@ -149,9 +149,10 @@ class VehiclesController: ParentController {
                 }
 
             } catch {
-                // TODO: catch errors
+
                 let nserror = error as NSError
-                fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+                context.rollback()
             }
             
         }

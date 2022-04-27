@@ -150,10 +150,10 @@ extension VehicleController: ButtonCellDelegate {
             }
             
         } catch {
-            
-            // TODO: catch errors, show alarm
+
             let nserror = error as NSError
-            fatalError("DEBUG: Unresolved error \(nserror), \(nserror.userInfo)")
+            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            context.rollback()
         }
     }
 }
@@ -167,8 +167,7 @@ extension VehicleController: CVInputTextCellDelegate {
             manufacturer = text
         case .model:
             model = text
-        case .none:
-            fatalError("It has to have a value!")
+        case .none: break
         }
     }
 }
