@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if let rootVC = rootVC {
-            PresenterManager.shared.showMessage(withTitle: title, andMessage: message, byViewController: rootVC)
+            PresenterManager.showMessage(withTitle: title, andMessage: message, byViewController: rootVC)
         }
     }
 

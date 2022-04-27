@@ -11,7 +11,6 @@ import CoreData
 class LoadingController: UIViewController {
 
     // MARK: - Properties
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let activityIndicator = UIActivityIndicatorView()
     
@@ -36,28 +35,7 @@ class LoadingController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        // Check for persistent errors
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let persistentError = appDelegate.persistentError {
-            loadingLabel.text = persistentError.localizedDescription
-            PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.", byViewController: self)
-            return
-        }
-
-        activityIndicator.startAnimating()
-
-        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
-        request.fetchLimit = 1
-        if let countOfVehicles = try? context.count(for: request),
-           countOfVehicles > 0,
-           let vehicles = try? context.fetch(request),
-           let vehicle = vehicles.first {
-            VehicleManager.shared.selectedVehicle = vehicle
-            PresenterManager.shared.showViewController(.mainTabBarController)
-        } else {
-            PresenterManager.shared.showViewController(.createVehicleController)
-        }
+        perfomLoading()
     }
     
     
@@ -76,6 +54,32 @@ class LoadingController: UIViewController {
         activityIndicator.anchor(top: loadingLabel.bottomAnchor, paddingTop: 10,
                                  centerX: view.centerXAnchor)
 
+    }
+
+    private func perfomLoading() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        // Check for persistent errors
+        if let persistentError = appDelegate.persistentError {
+            loadingLabel.text = persistentError.localizedDescription
+            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.", byViewController: self)
+            return
+        }
+
+        activityIndicator.startAnimating()
+
+        let context = appDelegate.persistentContainer.viewContext
+        let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
+        request.fetchLimit = 1
+        if let countOfVehicles = try? context.count(for: request),
+           countOfVehicles > 0,
+           let vehicles = try? context.fetch(request),
+           let vehicle = vehicles.first {
+            VehicleManager.shared.selectedVehicle = vehicle
+            PresenterManager.showViewController(.mainTabBarController)
+        } else {
+            PresenterManager.showViewController(.createVehicleController)
+        }
     }
     
 }

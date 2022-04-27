@@ -140,7 +140,7 @@ class VehiclesController: ParentController {
                     } else if count == 0 {
                         // The last vehicle has been deleted.
                         // Show controller to create a new one.
-                        PresenterManager.shared.showViewController(.createVehicleController)
+                        PresenterManager.showViewController(.createVehicleController)
 
                     } else {
 

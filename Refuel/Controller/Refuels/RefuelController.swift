@@ -263,7 +263,7 @@ extension RefuelController: ButtonCellDelegate {
                 
             } else {
                 // Show success message if a new refuel's is created
-                PresenterManager.shared.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+                PresenterManager.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
             }
         } catch {
             

@@ -9,16 +9,12 @@ import UIKit
 
 class PresenterManager {
     
-    static let shared = PresenterManager()
-    
-    private init() {}
-    
     enum VC {
         case mainTabBarController
         case createVehicleController
     }
     
-    func showViewController(_ viewControllerToShow: VC) {
+    class func showViewController(_ viewControllerToShow: VC) {
         var viewController: UIViewController
         var window: UIWindow?
         
@@ -55,7 +51,7 @@ class PresenterManager {
         }
     }
     
-    func showMessage(withTitle title: String, andMessage message: String, byViewController viewController: UIViewController, completion: (() -> Void)? = nil) {
+    class func showMessage(withTitle title: String, andMessage message: String, byViewController viewController: UIViewController, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)

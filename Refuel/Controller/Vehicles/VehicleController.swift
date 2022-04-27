@@ -115,12 +115,12 @@ extension VehicleController: ButtonCellDelegate {
     
     func saveButtonTapped() {
             if manufacturer.isEmpty {
-                PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование марки.", byViewController: self)
+                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование марки.", byViewController: self)
                 return
             }
 
             if model.isEmpty {
-                PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование модели.", byViewController: self)
+                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование модели.", byViewController: self)
                 return
             }
         
@@ -146,7 +146,7 @@ extension VehicleController: ButtonCellDelegate {
             if let navigationController = navigationController {
                 navigationController.popViewController(animated: true)
             } else {
-                PresenterManager.shared.showViewController(.mainTabBarController)
+                PresenterManager.showViewController(.mainTabBarController)
             }
             
         } catch {

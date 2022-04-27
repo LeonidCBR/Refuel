@@ -83,7 +83,7 @@ class RefuelsController: ParentController {
             } catch {
                 // TODO: catch errors
                 let nserror = error as NSError
-                PresenterManager.shared.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
             }
         }
     }
