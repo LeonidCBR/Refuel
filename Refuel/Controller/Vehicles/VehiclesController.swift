@@ -65,7 +65,6 @@ class VehiclesController: ParentController {
     // MARK: - Selectors
     
     @objc private func fetchVehicles() {
-        // TODO: - Show message if an error is received
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
         do {
             vehicles = try context.fetch(request)

@@ -209,12 +209,6 @@ extension RefuelController: InputTextCellDelegate {
         guard let text = textField.text,
               let value = Double(from: text)
         else {
-
-
-            // TODO: - Fix bug!
-            // if the value has space like "1 000,45" it won't be converted
-
-            
             // Got wrong value. Set old values back to the text field
             if .litersAmount == option { setLiters(to: refuelModel.liters) }
             else if .cost == option { setCost(to: refuelModel.cost) }

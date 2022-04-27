@@ -106,7 +106,6 @@ class ServicesController: ParentController {
                 services?.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } catch {
-                // TODO: catch errors
                 let nserror = error as NSError
                 PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
             }
