@@ -31,9 +31,9 @@ class VehiclesController: ParentController {
     private func configureUI() {
         title = caption
 
-        if isSelectingMode {
-            view.backgroundColor = .systemBlue
-        }
+//        if isSelectingMode {
+//            view.backgroundColor = .systemBlue
+//        }
         
         if shouldObserveVehicle {
             let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
