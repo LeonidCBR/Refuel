@@ -16,7 +16,7 @@ class LoadingController: UIViewController {
     
     let loadingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Загрузка..."
+        label.text = NSLocalizedString("Loading", comment: "")
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -62,7 +62,7 @@ class LoadingController: UIViewController {
         // Check for persistent errors
         if let persistentError = appDelegate.persistentError {
             loadingLabel.text = persistentError.localizedDescription
-            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства.", byViewController: self)
+            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: NSLocalizedString("DeviceError", comment: ""), byViewController: self)
             return
         }
 

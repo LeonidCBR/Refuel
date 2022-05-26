@@ -71,7 +71,7 @@ class ParentController: UITableViewController {
         let choiceController = VehiclesController()
         choiceController.isSelectingMode = true
         choiceController.shouldObserveVehicle = false
-        choiceController.caption = "Выберите ТС"
+        choiceController.caption = NSLocalizedString("ChooseVehicle", comment: "")
         present(UINavigationController(rootViewController: choiceController), animated: true, completion: nil)
     }
 

@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  Refuel
+
+  Created by Яна Латышева on 20.05.2022.
+  
+*/
+"Loading" = "Загрузка...";
+"Refill" = "Добавить заправку";
+"Vehicles" = "Транспорт";
+"Refuelings" = "Заправки";
+"Services" = "Обслуживание";
+"AddingVehicle" = "Добавление транспортного средства";
+"EditingVehicle" = "Редактирование транспортного средства";
+"EditData" = "Изменить данные";
+"AddingService" = "Добавить ТО";
+"ChooseVehicle" = "Выберите ТС";
+
+"Date" = "Дата";
+"LitersAmount" = "Заправлено литров";
+"Cost" = "На сумму";
+"Odometer" = "Пробег";
+"Save" = "Сохранить";
+"Vehicle" = "ТС";
+"WhatDone" = "Сделанные работы";
+"l" = "л";
+"Manufacturer" = "Марка";
+"Model" = "Модель";
+"Error" = "Ошибка";
+"InputManufacturer" = "Введите наименование марки";
+"InputModel" = "Введите наименование модели";
+"DeviceError" = "Возникла непредвиденная ошибка при работе с памятью устройства.";
+"Success" = "Успешно";
+"DataSaved" = "Данные сохранены";

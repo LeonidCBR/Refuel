@@ -30,16 +30,16 @@ class MainTabBarController: UITabBarController {
         let servicesTab = UINavigationController(rootViewController: ServicesController())
         let vehiclesTab = UINavigationController(rootViewController: VehiclesController())
         
-        addRefuelTab.tabBarItem = UITabBarItem(title: K.TabBarItem.addRefuel,
+        addRefuelTab.tabBarItem = UITabBarItem(title: NSLocalizedString("Refill", comment: ""),
                                                image: UIImage(named: "Home"),
                                          tag: 0)
-        refuelsTab.tabBarItem = UITabBarItem(title: K.TabBarItem.refuels,
+        refuelsTab.tabBarItem = UITabBarItem(title: NSLocalizedString("Refuelings", comment: ""),
                                          image: UIImage(named: "Refuels"),
                                          tag: 1)
-        servicesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.services,
+        servicesTab.tabBarItem = UITabBarItem(title: NSLocalizedString("Services", comment: ""),
                                          image: UIImage(named: "Services"),
                                          tag: 2)
-        vehiclesTab.tabBarItem = UITabBarItem(title: K.TabBarItem.vehicles,
+        vehiclesTab.tabBarItem = UITabBarItem(title: NSLocalizedString("Vehicles", comment: ""),
                                          image: UIImage(named: "Vehicles"),
                                          tag: 3)
         

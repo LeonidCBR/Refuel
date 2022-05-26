@@ -8,23 +8,23 @@
 import Foundation
 
 enum AddServiceOption: Int, CaseIterable, CustomStringConvertible {
-    case selectedVehicle = 0    // Выбранное ТС
-    case dateLabel              // Дата
-    case datePicker             // Календарик
-    case odometer               // Пробег
-    case cost                   // На сумму
-    case text                   // Сделанные работы
-    case save                   // Кнопка "Сохранить"
+    case selectedVehicle = 0
+    case dateLabel
+    case datePicker
+    case odometer
+    case cost
+    case text
+    case save                   // Save button
 
     var description: String {
         switch self {
-        case .selectedVehicle:  return "ТС"
-        case .dateLabel:        return "Дата"
-        case .datePicker:       return "Date picker"
-        case .odometer:         return "Пробег"
-        case .cost:             return "Сумма"
-        case .text:             return "Сделанные работы"
-        case .save:             return "Сохранить"
+        case .selectedVehicle:  return NSLocalizedString("Vehicle", comment: "")
+        case .dateLabel:        return NSLocalizedString("Date", comment: "")
+        case .datePicker:       return ""
+        case .odometer:         return NSLocalizedString("Odometer", comment: "")
+        case .cost:             return NSLocalizedString("Cost", comment: "")
+        case .text:             return NSLocalizedString("WhatDone", comment: "")
+        case .save:             return ""
         }
     }
 }

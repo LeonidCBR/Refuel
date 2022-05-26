@@ -29,7 +29,7 @@ class RefuelsController: ParentController {
     // MARK: - Methods
 
     private func configureUI() {
-        title = "Заправки"
+        title = NSLocalizedString("Refuelings", comment: "")
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -82,7 +82,7 @@ class RefuelsController: ParentController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } catch {
                 let nserror = error as NSError
-                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
             }
         }
     }

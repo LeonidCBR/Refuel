@@ -92,10 +92,11 @@ class ServiceCell: UITableViewCell {
         odometerLabel.text = "\(service.odometer)"
         serviceLabel.text = service.text
 
+        let currencySymbol = Locale.current.currencySymbol ?? "" // "$"
         if let cost = service.cost.toString() {
-            costLabel.text = "\(cost) руб."
+            costLabel.text = "\(cost) \(currencySymbol)"
         } else {
-            costLabel.text = "\(service.cost) руб."
+            costLabel.text = "\(service.cost) \(currencySymbol)"
         }
     }
 

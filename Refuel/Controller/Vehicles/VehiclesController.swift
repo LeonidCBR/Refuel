@@ -14,7 +14,7 @@ class VehiclesController: ParentController {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var vehicles: [CDVehicle]?
     var isSelectingMode = false
-    var caption = "Транспорт"
+    var caption = NSLocalizedString("Vehicles", comment: "")
     
     
     // MARK: - Lifecycle
@@ -55,7 +55,7 @@ class VehiclesController: ParentController {
         let choiceController = VehiclesController()
         choiceController.isSelectingMode = true
         choiceController.shouldObserveVehicle = false
-        choiceController.caption = "Выберите новое ТС"
+        choiceController.caption = NSLocalizedString("ChooseVehicle", comment: "")
         let navController = UINavigationController(rootViewController: choiceController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
@@ -70,7 +70,7 @@ class VehiclesController: ParentController {
             vehicles = try context.fetch(request)
         } catch {
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
             context.rollback()
         }
         tableView.reloadData()
@@ -150,7 +150,7 @@ class VehiclesController: ParentController {
             } catch {
 
                 let nserror = error as NSError
-                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
                 context.rollback()
             }
             

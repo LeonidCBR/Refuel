@@ -26,7 +26,7 @@ class ServiceController: ParentController {
 
     var delegate: ServiceControllerDelegate?
     private var serviceModel = ServiceModel()
-    private var caption = "Добавить ТО"
+    private var caption = NSLocalizedString("AddingService", comment: "")
     private var datePickerCurrentHeight: CGFloat = 0.0
     private var rowDatePickerHeight: CGFloat {
         // row heigth equals width of main view
@@ -40,7 +40,7 @@ class ServiceController: ParentController {
         didSet {
             guard let service = editableService else { return }
 
-            caption = "Изменить данные"
+            caption = NSLocalizedString("EditData", comment: "")
             serviceModel.date = service.date ?? Date()
             serviceModel.odometer = Int(service.odometer)
             serviceModel.cost = service.cost
@@ -263,7 +263,7 @@ extension ServiceController: ButtonCellDelegate {
         } catch {
 
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
             context.rollback()
         }
     }

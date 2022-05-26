@@ -81,10 +81,12 @@ class RefuelCell: UITableViewCell {
         odometerLabel.text = "\(refuel.odometer)"
 
         // Convert Double to String according with decimal separator
+        let litersSign = NSLocalizedString("l", comment: "")
+        let currencySymbol = Locale.current.currencySymbol ?? "" // "$"
         if let liters = refuel.liters.toString(), let cost = refuel.cost.toString() {
-            descriptionLabel.text = "\(liters) л, \(cost) руб."
+            descriptionLabel.text = "\(liters) \(litersSign), \(cost) \(currencySymbol)"
         } else {
-            descriptionLabel.text = "\(refuel.liters) л, \(refuel.cost) руб."
+            descriptionLabel.text = "\(refuel.liters) \(litersSign), \(refuel.cost) \(currencySymbol)"
         }
     }
 }

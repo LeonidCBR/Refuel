@@ -8,13 +8,6 @@
 import UIKit
 
 struct K {
-
-    struct TabBarItem {
-        static let addRefuel = "Добавить заправку"
-        static let vehicles = "Транспорт"
-        static let refuels = "Заправки"
-        static let services = "Обслуживание"
-    }
     
     struct Identifier {
 

@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch {
                 let nserror = error as NSError
                 persistentError = error
-                showError(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)")
+                showError(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)")
                 context.rollback()
             }
         }

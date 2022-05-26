@@ -9,21 +9,21 @@ import Foundation
 
 enum AddRefuelOption: Int, CaseIterable, CustomStringConvertible {
     
-    case dateLabel = 0  // Дата
-    case datePicker     // Календарик
-    case litersAmount   // Заправлено литров
-    case cost           // На сумму
-    case odometer       // Пробег
-    case save           // Кнопка "Сохранить"
+    case dateLabel = 0
+    case datePicker
+    case litersAmount
+    case cost
+    case odometer
+    case save           // Save button
     
     var description: String {
         switch self {
-        case .dateLabel: return "Дата"
-        case .datePicker: return "Date picker"
-        case .litersAmount: return "Заправлено литров"
-        case .cost: return "На сумму"
-        case .odometer: return "Пробег"
-        case .save: return "Сохранить"
+        case .dateLabel: return NSLocalizedString("Date", comment: "")
+        case .datePicker: return ""
+        case .litersAmount: return NSLocalizedString("LitersAmount", comment: "")
+        case .cost: return NSLocalizedString("Cost", comment: "")
+        case .odometer: return NSLocalizedString("Odometer", comment: "")
+        case .save: return ""
         }
     }
 

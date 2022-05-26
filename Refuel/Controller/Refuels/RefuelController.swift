@@ -25,7 +25,7 @@ class RefuelController: ParentController {
 
     // MARK: - Properties
 
-    private var caption = "Добавить заправку"
+    private var caption = NSLocalizedString("Refill", comment: "")
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
@@ -47,7 +47,7 @@ class RefuelController: ParentController {
         didSet {
             guard let refuel = editableRefuel else { return }
 
-            caption = "Изменить данные"
+            caption = NSLocalizedString("EditData", comment: "")
             refuelModel.date = refuel.date ?? Date()
             refuelModel.liters = refuel.liters
             refuelModel.cost = refuel.cost
@@ -257,12 +257,12 @@ extension RefuelController: ButtonCellDelegate {
                 
             } else {
                 // Show success message if a new refuel's is created
-                PresenterManager.showMessage(withTitle: "Успешно", andMessage: "Данные сохранены", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Success", comment: ""), andMessage: NSLocalizedString("DataSaved", comment: ""), byViewController: self)
             }
         } catch {
 
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
             context.rollback()
         }
     }

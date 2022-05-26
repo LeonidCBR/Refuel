@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  Refuel
+
+  Created by Яна Латышева on 20.05.2022.
+  
+*/
+"Loading" = "Loading...";
+"Refill" = "Refill";
+"Vehicles" = "Vehicles";
+"Refuelings" = "Refuelings";
+"Services" = "Services";
+"AddingVehicle" = "Adding a vehicle";
+"EditingVehicle" = "Editing the vehicle";
+"EditData" = "Edit the data";
+"AddingService" = "Adding a service";
+"ChooseVehicle" = "Choose the vehicle";
+
+"Date" = "Date";
+"LitersAmount" = "Liters";
+"Cost" = "Cost";
+"Odometer" = "Odometer";
+"Save" = "Save";
+"Vehicle" = "Vehicle";
+"WhatDone" = "What have been done";
+"l" = "l";
+"Manufacturer" = "Manufacturer";
+"Model" = "Model";
+"Error" = "Error";
+"InputManufacturer" = "Input manufacturer";
+"InputModel" = "Input model";
+"DeviceError" = "An unexpected device error has occurred.";
+"Success" = "Success";
+"DataSaved" = "The data has been saved";

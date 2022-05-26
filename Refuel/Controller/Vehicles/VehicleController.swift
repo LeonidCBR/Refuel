@@ -17,7 +17,7 @@ protocol VehicleControllerDelegate {
 class VehicleController: ParentController {
     
     // MARK: - Properties
-    private var caption = "Добавление транспортного средства"
+    private var caption = NSLocalizedString("AddingVehicle", comment: "")
     private var manufacturer = ""
     private var model = ""
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -30,7 +30,7 @@ class VehicleController: ParentController {
     var editableVehicle: CDVehicle? {
         didSet {
             guard let vehicle = editableVehicle else { return }
-            caption = "Редактирование транспортного средства"
+            caption = NSLocalizedString("EditingVehicle", comment: "")
             manufacturer = vehicle.manufacturer ?? ""
             model = vehicle.model ?? ""
         }
@@ -85,7 +85,7 @@ class VehicleController: ParentController {
             let manufacturerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.CreateVehicle.inputTextCell, for: indexPath) as! CVInputTextCell
             manufacturerCell.cellOption = .manufacturer
             manufacturerCell.delegate = self
-            manufacturerCell.setPlaceholder("Марка")
+            manufacturerCell.setPlaceholder(NSLocalizedString("Manufacturer", comment: ""))
             manufacturerCell.setText(manufacturer)
             cell = manufacturerCell
             
@@ -93,7 +93,7 @@ class VehicleController: ParentController {
             let modelCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.CreateVehicle.inputTextCell, for: indexPath) as! CVInputTextCell
             modelCell.cellOption = .model
             modelCell.delegate = self
-            modelCell.setPlaceholder("Модель")
+            modelCell.setPlaceholder(NSLocalizedString("Model", comment: ""))
             modelCell.setText(model)
             cell = modelCell
             
@@ -115,12 +115,12 @@ extension VehicleController: ButtonCellDelegate {
     
     func saveButtonTapped() {
             if manufacturer.isEmpty {
-                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование марки.", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: NSLocalizedString("InputManufacturer", comment: ""), byViewController: self)
                 return
             }
 
             if model.isEmpty {
-                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Введите наименование модели.", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: NSLocalizedString("InputModel", comment: ""), byViewController: self)
                 return
             }
         
@@ -152,7 +152,7 @@ extension VehicleController: ButtonCellDelegate {
         } catch {
 
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "Возникла непредвиденная ошибка при работе с памятью устройства. \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
             context.rollback()
         }
     }

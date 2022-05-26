@@ -25,7 +25,7 @@ class ButtonCell: UITableViewCell {
         btn.addTarget(self,
                      action: #selector(handleSaveButtonTapped),
                      for: .touchUpInside)
-        btn.setTitle("Сохранить", for: .normal)
+        btn.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
         btn.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         btn.titleLabel?.adjustsFontForContentSizeCategory = true
         btn.setTitleColor(.white, for: .normal)

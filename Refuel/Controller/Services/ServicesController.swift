@@ -30,7 +30,7 @@ class ServicesController: ParentController {
     // MARK: - Methods
     
     private func configureUI() {
-        title = "Обслуживание"
+        title = NSLocalizedString("Services", comment: "")
 
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -107,7 +107,7 @@ class ServicesController: ParentController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } catch {
                 let nserror = error as NSError
-                PresenterManager.showMessage(withTitle: "Ошибка!", andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
             }
         }
     }
