@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-protocol RefuelControllerDelegate {
+protocol RefuelControllerDelegate: AnyObject {
     func refuelDidSave(_ refuel: CDRefuel)
 }
 
@@ -38,7 +38,7 @@ class RefuelController: ParentController {
     
     private var datePickerCurrentHeight: CGFloat = 0.0
     
-    var delegate: RefuelControllerDelegate?
+    weak var delegate: RefuelControllerDelegate?
     
     /** The `editableRefuel` refer to the editing refuel's record.
      If a new refuel's record is created then the `editableRefuel` will be nil.

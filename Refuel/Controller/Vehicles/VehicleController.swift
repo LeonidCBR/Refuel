@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-protocol VehicleControllerDelegate {
+protocol VehicleControllerDelegate: AnyObject {
     func vehicleDidSave(_ vehicle: CDVehicle)
 }
 
@@ -22,7 +22,7 @@ class VehicleController: ParentController {
     private var model = ""
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var delegate: VehicleControllerDelegate?
+    weak var delegate: VehicleControllerDelegate?
     
     /** The `editableVehicle` refer to the editing vehicle's record.
      If a new vehicle's record is created then the `editableVehicle` will be nil.

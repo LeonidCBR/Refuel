@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol CVInputTextCellDelegate {
+protocol CVInputTextCellDelegate: AnyObject {
     func didChangeText(_ inputTextCell: CVInputTextCell, withText text: String)
 }
 
@@ -26,7 +26,7 @@ class CVInputTextCell: UITableViewCell {
         return tf
     }()
     
-    var delegate: CVInputTextCellDelegate?
+    weak var delegate: CVInputTextCellDelegate?
     var cellOption: InputTextCellOption!
     
     

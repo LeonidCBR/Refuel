@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MultiLineTextCellDelegate {
+protocol MultiLineTextCellDelegate: AnyObject {
     func didGetText(_ text: String)
 }
 
@@ -15,7 +15,7 @@ class MultiLineTextCell: UITableViewCell {
 
     // MARK: - Properties
 
-    var delegate: MultiLineTextCellDelegate?
+    weak var delegate: MultiLineTextCellDelegate?
 
     private let captionLabel: UILabel = {
         let label = UILabel()

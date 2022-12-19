@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol ButtonCellDelegate {
+protocol ButtonCellDelegate: AnyObject {
 
     func saveButtonTapped()
 }
@@ -18,7 +18,7 @@ class ButtonCell: UITableViewCell {
 
     // MARK: - Properties
     
-    var delegate: ButtonCellDelegate?
+    weak var delegate: ButtonCellDelegate?
     
     private lazy var saveButton: UIButton = {
         let btn = UIButton(type: .system)

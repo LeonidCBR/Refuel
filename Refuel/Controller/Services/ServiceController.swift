@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ServiceControllerDelegate {
+protocol ServiceControllerDelegate: AnyObject {
     func serviceDidSave(_ service: CDService)
 }
 
@@ -24,7 +24,7 @@ class ServiceController: ParentController {
         var text = ""
     }
 
-    var delegate: ServiceControllerDelegate?
+    weak var delegate: ServiceControllerDelegate?
     private var serviceModel = ServiceModel()
     private var caption = NSLocalizedString("AddingService", comment: "")
     private var datePickerCurrentHeight: CGFloat = 0.0

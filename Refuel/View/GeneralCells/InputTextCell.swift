@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol InputTextCellDelegate {
+protocol InputTextCellDelegate: AnyObject {
 
     func didGetValue(_ textField: UITextField, tableViewCell: UITableViewCell)
 }
@@ -18,7 +18,7 @@ class InputTextCell: UITableViewCell {
 
     // MARK: - Properties
     
-    var delegate: InputTextCellDelegate?
+    weak var delegate: InputTextCellDelegate?
 
     private let captionLabel: UILabel = {
         let label = UILabel()

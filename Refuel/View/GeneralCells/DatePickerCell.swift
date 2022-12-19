@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol DatePickerCellDelegate  {
+protocol DatePickerCellDelegate: AnyObject  {
     
     func dateChanged(to date: Date)
 }
@@ -18,7 +18,7 @@ class DatePickerCell: UITableViewCell {
 
     // MARK: - Properties
     
-    var delegate: DatePickerCellDelegate?
+    weak var delegate: DatePickerCellDelegate?
     
     private let datePicker: UIDatePicker = {
 
