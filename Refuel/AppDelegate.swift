@@ -16,26 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var persistentError: Error?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         if #available(iOS 13, *) {
             // The window will be created in the SceneDelegate
         } else {
-            
             // Init window only if iOS version below 13.0
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = LoadingController() // MainTabBarController()
             window?.makeKeyAndVisible()
         }
-        
         return true
     }
 
     // MARK: UISceneSession Lifecycle
 
     @available(iOS 13.0, *)
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -77,7 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch {
                 let nserror = error as NSError
                 persistentError = error
-                showError(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)")
+                showError(
+                    withTitle: NSLocalizedString("Error", comment: ""),
+                    andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)")
                 context.rollback()
             }
         }
@@ -87,9 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func showError(withTitle title: String, andMessage message: String) {
         let rootVC: UIViewController?
-
         if #available(iOS 13, *) {
-            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate, let window = sceneDelegate.window {
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+               let window = sceneDelegate.window {
                 rootVC = window.rootViewController
             } else {
                 rootVC = nil
@@ -97,11 +100,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             rootVC = window?.rootViewController
         }
-
         if let rootVC = rootVC {
             PresenterManager.showMessage(withTitle: title, andMessage: message, byViewController: rootVC)
         }
     }
 
 }
-

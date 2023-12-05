@@ -11,7 +11,7 @@ import UIKit
 // MARK: - UIView
 
 extension UIView {
-    
+
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 paddingTop: CGFloat = 0,
                 bottom: NSLayoutYAxisAnchor? = nil,
@@ -28,103 +28,91 @@ extension UIView {
                 height: CGFloat? = nil,
                 centerX: NSLayoutXAxisAnchor? = nil,
                 centerY: NSLayoutYAxisAnchor? = nil) {
-        
+
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         if let top = top {
             topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-            
+
         }
-        
+
         if let bottom = bottom {
             bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
         }
-        
+
         if let leading = leading {
             leadingAnchor.constraint(equalTo: leading, constant: paddingLeading).isActive = true
         }
-        
+
         if let trailing = trailing {
             trailingAnchor.constraint(equalTo: trailing, constant: -paddingTrailing).isActive = true
         }
-        
+
         if let left = left {
             leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
         }
-        
+
         if let right = right {
             rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
         }
-        
+
         if let width = width {
             widthAnchor.constraint(equalToConstant: width).isActive = true
         }
-        
+
         if let height = height {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
-        
+
         if let centerX = centerX {
             centerXAnchor.constraint(equalTo: centerX).isActive = true
         }
-        
+
         if let centerY = centerY {
             centerYAnchor.constraint(equalTo: centerY).isActive = true
         }
     }
-    
-}
 
+}
 
 // MARK: - UIColor
 
 extension UIColor {
-    
+
     public convenience init?(hexRGBA: String) {
-        
-        let r,g,b,a: CGFloat
-        
+        let red, green, blue, alpha: CGFloat
         guard hexRGBA.hasPrefix("#"), hexRGBA.count == 9 else { return nil }
         let start = hexRGBA.index(hexRGBA.startIndex, offsetBy: 1)
         let hexColor = String(hexRGBA[start...])
         let scanner = Scanner(string: hexColor)
         var hexNumber: UInt64 = 0
-        
         guard scanner.scanHexInt64(&hexNumber) else { return nil}
-        r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
-        g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
-        b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-        a = CGFloat(hexNumber & 0x000000ff) / 255
-        
-        self.init(red: r, green: g, blue: b, alpha: a)
+        red = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+        green = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+        blue = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+        alpha = CGFloat(hexNumber & 0x000000ff) / 255
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
-    
-    
+
     public convenience init?(hexRGB: String) {
         self.init(hexRGBA: hexRGB + "FF")
     }
-    
-    
+
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1.0)
     }
-       
-    
+
     func toHexString() -> String {
-        var r:CGFloat = 0
-        var g:CGFloat = 0
-        var b:CGFloat = 0
-        var a:CGFloat = 0
-
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-
-        let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-
-        return String(format:"#%06x", rgb)
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let rgb: Int = (Int)(red*255)<<16 | (Int)(green*255)<<8 | (Int)(blue*255)<<0
+        return String(format: "#%06x", rgb)
     }
 
 }
-
 
 // MARK: - Date
 
@@ -138,7 +126,6 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
-
 
 // MARK: - Double
 
@@ -154,7 +141,6 @@ extension Double {
         }
         self = number.doubleValue
     }
-
 
     func toString() -> String? {
         let numberFormatter = NumberFormatter()

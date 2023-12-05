@@ -8,11 +8,11 @@
 import Foundation
 
 class VehicleManager {
-    
+
     static let shared = VehicleManager()
-    
+
     private init() {}
-    
+
     var selectedVehicle: CDVehicle? {
         didSet {
             NotificationCenter.default.post(name: K.Notification.RFVehicleDidSelect, object: nil)

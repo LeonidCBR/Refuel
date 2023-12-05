@@ -16,29 +16,24 @@ class ServicesController: ParentController {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     var services: [CDService]?
-    
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         fetchServices()
     }
 
-    
     // MARK: - Methods
-    
+
     private func configureUI() {
         title = NSLocalizedString("Services", comment: "")
-
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-
         let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addService))
         navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
-
         tableView.register(ServiceCell.self, forCellReuseIdentifier: K.Identifier.Services.serviceCell)
     }
 
@@ -46,7 +41,6 @@ class ServicesController: ParentController {
         if let services = VehicleManager.shared.selectedVehicle?.services?.allObjects as? [CDService] {
             self.services = services.sorted() {$0.odometer < $1.odometer}
         }
-
         tableView.reloadData()
     }
 
@@ -54,7 +48,6 @@ class ServicesController: ParentController {
         super.vehicleDidSelect()
         fetchServices()
     }
-
 
     // MARK: - Selectors
 
@@ -65,7 +58,6 @@ class ServicesController: ParentController {
         addService.delegate = self
         present(addService, animated: true)
     }
-
 
     // MARK: - Table view data source
 
@@ -78,7 +70,9 @@ class ServicesController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Services.serviceCell, for: indexPath) as! ServiceCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: K.Identifier.Services.serviceCell,
+            for: indexPath) as! ServiceCell
         cell.service = services?[indexPath.row]
         return cell
     }
@@ -94,9 +88,10 @@ class ServicesController: ParentController {
     }
 
     // Delete service record
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-
             guard let service = services?[indexPath.row] else { return }
             context.delete(service)
             do {
@@ -107,12 +102,14 @@ class ServicesController: ParentController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } catch {
                 let nserror = error as NSError
-                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(nserror). \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(
+                    withTitle: NSLocalizedString("Error", comment: ""),
+                    andMessage: "\(nserror). \(nserror.userInfo)",
+                    byViewController: self)
             }
         }
     }
 }
-
 
 // MARK: - ServiceControllerDelegate
 
@@ -120,7 +117,6 @@ extension ServicesController: ServiceControllerDelegate {
 
     func serviceDidSave(_ service: CDService) {
         guard service.vehicle == VehicleManager.shared.selectedVehicle else { return }
-
         fetchServices()
     }
 }

@@ -26,7 +26,7 @@ class RefuelController: ParentController {
     // MARK: - Properties
 
     private var caption = NSLocalizedString("Refill", comment: "")
-    
+
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     private var refuelModel = RefuelModel()
@@ -35,11 +35,11 @@ class RefuelController: ParentController {
         // row heigth equals width of main view
         return view.frame.width
     }
-    
+
     private var datePickerCurrentHeight: CGFloat = 0.0
-    
+
     weak var delegate: RefuelControllerDelegate?
-    
+
     /** The `editableRefuel` refer to the editing refuel's record.
      If a new refuel's record is created then the `editableRefuel` will be nil.
     */
@@ -55,21 +55,20 @@ class RefuelController: ParentController {
         }
     }
 
-
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
 
     // MARK: - Methods
-    
+
     private func configureUI() {
         title = caption
-        
+
         tableView.separatorStyle = .none
-        
+
         tableView.register(LabelsCell.self,
                            forCellReuseIdentifier: K.Identifier.GeneralCells.labelsCell)
         tableView.register(DatePickerCell.self,
@@ -78,7 +77,6 @@ class RefuelController: ParentController {
                            forCellReuseIdentifier: K.Identifier.GeneralCells.inputTextCell)
         tableView.register(ButtonCell.self,
                            forCellReuseIdentifier: K.Identifier.GeneralCells.buttonCell)
-
     }
 
     private func setLiters(to value: Double) {
@@ -99,7 +97,6 @@ class RefuelController: ParentController {
         cell.textField.text = String(value)
     }
 
-    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,60 +107,61 @@ class RefuelController: ParentController {
         return AddRefuelOption.allCases.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell: UITableViewCell
-        
         let cellOption = AddRefuelOption(rawValue: indexPath.row)!
-        
         switch cellOption {
         case .dateLabel:
-            let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.labelsCell, for: indexPath) as! LabelsCell
+            let labelsCell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.labelsCell,
+                for: indexPath) as! LabelsCell
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             labelsCell.setTextValueLabel(to: refuelModel.date.toString())
             cell = labelsCell
-            
         case .datePicker:
-            let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.datePickerCell, for: indexPath) as! DatePickerCell
+            let datePickerCell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.datePickerCell,
+                for: indexPath) as! DatePickerCell
             datePickerCell.delegate = self
             datePickerCell.setDate(to: refuelModel.date)
             cell = datePickerCell
-            
         case .litersAmount:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.inputTextCell,
+                for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.textField.text = refuelModel.liters.toString()
             cell = inputTextCell
-            
         case .cost:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.inputTextCell,
+                for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.textField.text = refuelModel.cost.toString()
             cell = inputTextCell
-            
         case .odometer:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
+            let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.inputTextCell,
+                for: indexPath) as! InputTextCell
             inputTextCell.delegate = self
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.keyboardType = .numberPad
             inputTextCell.textField.text = String(refuelModel.odometer)
             cell = inputTextCell
-            
         case .save:
-            cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.buttonCell, for: indexPath)
+            cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifier.GeneralCells.buttonCell,
+                for: indexPath)
             (cell as! ButtonCell).delegate = self
         }
-
         cell.tag = indexPath.row
         return cell
     }
-    
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let cellOption = AddRefuelOption(rawValue: indexPath.row), cellOption == .datePicker {
             return datePickerCurrentHeight
@@ -171,7 +169,7 @@ class RefuelController: ParentController {
             return tableView.estimatedRowHeight
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cellOption = AddRefuelOption(rawValue: indexPath.row), cellOption == .dateLabel {
             UIView.animate(withDuration: 0.3) {
@@ -184,20 +182,19 @@ class RefuelController: ParentController {
     }
 }
 
-
 // MARK: - DatePickerCellDelegate
 
 extension RefuelController: DatePickerCellDelegate {
-    
+
     func dateChanged(to date: Date) {
         // We got the date value from cell with date picker
         // And now let's assing it to date label and update model
-        let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.dateLabel.rawValue, section: 0)) as! LabelsCell
+        let cell = tableView.cellForRow(at: IndexPath(row: AddRefuelOption.dateLabel.rawValue,
+                                                      section: 0)) as! LabelsCell
         cell.setTextValueLabel(to: date.toString())
         refuelModel.date = date
     }
 }
-
 
 // MARK: - InputTextCellDelegate
 
@@ -210,9 +207,13 @@ extension RefuelController: InputTextCellDelegate {
               let value = Double(from: text)
         else {
             // Got wrong value. Set old values back to the text field
-            if .litersAmount == option { setLiters(to: refuelModel.liters) }
-            else if .cost == option { setCost(to: refuelModel.cost) }
-            else if .odometer == option { setOdometer(to: refuelModel.odometer) }
+            if .litersAmount == option {
+                setLiters(to: refuelModel.liters)
+            } else if .cost == option {
+                setCost(to: refuelModel.cost)
+            } else if .odometer == option {
+                setOdometer(to: refuelModel.odometer)
+            }
             return
         }
 
@@ -225,46 +226,45 @@ extension RefuelController: InputTextCellDelegate {
     }
 }
 
-
 // MARK: - ButtonCellDelegate
 
 extension RefuelController: ButtonCellDelegate {
-    
+
     func saveButtonTapped() {
         let refuel: CDRefuel
-        
         if let editableRefuel = editableRefuel {
             refuel = editableRefuel
         } else {
             refuel = CDRefuel(context: context)
             refuel.vehicle = VehicleManager.shared.selectedVehicle
         }
-
         refuel.date = refuelModel.date
         refuel.liters = refuelModel.liters
         refuel.cost = refuelModel.cost
         refuel.odometer = Int64(refuelModel.odometer)
-
         do {
             if context.hasChanges {
                 try context.save()
             }
-
             delegate?.refuelDidSave(refuel)
             if let _ = editableRefuel {
                 // Dissmiss this view controller if the selected refuel is edited
                 navigationController?.popViewController(animated: true)
-                
             } else {
                 // Show success message if a new refuel's is created
-                PresenterManager.showMessage(withTitle: NSLocalizedString("Success", comment: ""), andMessage: NSLocalizedString("DataSaved", comment: ""), byViewController: self)
+                PresenterManager.showMessage(
+                    withTitle: NSLocalizedString("Success", comment: ""),
+                    andMessage: NSLocalizedString("DataSaved", comment: ""),
+                    byViewController: self)
             }
         } catch {
-
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(
+                withTitle: NSLocalizedString("Error", comment: ""),
+                andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)",
+                byViewController: self)
             context.rollback()
         }
     }
-    
+
 }
