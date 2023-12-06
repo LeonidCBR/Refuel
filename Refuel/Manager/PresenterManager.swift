@@ -9,12 +9,12 @@ import UIKit
 
 class PresenterManager {
 
-    enum VC {
+    enum ViewControllerType {
         case mainTabBarController
         case createVehicleController
     }
 
-    class func showViewController(_ viewControllerToShow: VC) {
+    class func showViewController(_ viewControllerToShow: ViewControllerType) {
         var viewController: UIViewController
         var window: UIWindow?
 
