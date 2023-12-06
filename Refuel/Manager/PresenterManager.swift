@@ -23,7 +23,7 @@ class PresenterManager {
             viewController = MainTabBarController()
         case .createVehicleController:
             viewController = VehicleController()
-            (viewController as! VehicleController).shouldTapRecognizer = true
+            (viewController as? VehicleController)?.shouldTapRecognizer = true
         }
 
         if #available(iOS 13, *) {

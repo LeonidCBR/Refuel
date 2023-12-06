@@ -82,7 +82,7 @@ extension InputTextCell: UITextFieldDelegate {
             }
         }
         // Ignore input if text have nore then 4 digits after decimal separator
-        if let _ = Int(string) {
+        if Int(string) != nil {
             if let text = textField.text,
                text.split(separator: Character(separator)).count >= 2,
                text.split(separator: Character(separator))[1].count >= 4 {

@@ -38,7 +38,7 @@ class VehiclesController: ParentController {
                                                     action: #selector(addVehicle))
             navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
         }
-        tableView.register(VehicleCell.self, forCellReuseIdentifier: K.Identifier.Vehicles.vehicleCell)
+        tableView.register(VehicleCell.self, forCellReuseIdentifier: CellIdentifiers.Vehicles.vehicleCell)
     }
 
     private func getNewVehicleController() -> VehicleController {
@@ -92,11 +92,13 @@ class VehiclesController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: K.Identifier.Vehicles.vehicleCell,
-            for: indexPath) as! VehicleCell
-        cell.vehicle = vehicles?[indexPath.row]
-        return cell
+        guard let vehicleCell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifiers.Vehicles.vehicleCell,
+            for: indexPath) as? VehicleCell else {
+            return UITableViewCell()
+        }
+        vehicleCell.vehicle = vehicles?[indexPath.row]
+        return vehicleCell
     }
 
     // Row is selected

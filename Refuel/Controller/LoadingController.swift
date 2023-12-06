@@ -52,7 +52,9 @@ class LoadingController: UIViewController {
     }
 
     private func perfomLoading() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         // Check for persistent errors
         if let persistentError = appDelegate.persistentError {
             loadingLabel.text = persistentError.localizedDescription

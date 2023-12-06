@@ -31,12 +31,12 @@ class RefuelsController: ParentController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        tableView.register(RefuelCell.self, forCellReuseIdentifier: K.Identifier.Refuels.refuelCell)
+        tableView.register(RefuelCell.self, forCellReuseIdentifier: CellIdentifiers.Refuels.refuelCell)
     }
 
     private func fetchRefuels() {
         if let refuels = VehicleManager.shared.selectedVehicle?.refuels?.allObjects as? [CDRefuel] {
-            self.refuels = refuels.sorted() {$0.odometer < $1.odometer}
+            self.refuels = refuels.sorted {$0.odometer < $1.odometer}
         }
         tableView.reloadData()
     }
@@ -57,8 +57,10 @@ class RefuelsController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Refuels.refuelCell,
-                                                 for: indexPath) as! RefuelCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.Refuels.refuelCell,
+                                                       for: indexPath) as? RefuelCell else {
+            return UITableViewCell()
+        }
         cell.refuel = refuels?[indexPath.row]
         return cell
     }

@@ -50,11 +50,11 @@ class VehicleController: ParentController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.register(CVCaptionCell.self,
-                           forCellReuseIdentifier: K.Identifier.CreateVehicle.captionCell)
+                           forCellReuseIdentifier: CellIdentifiers.CreateVehicle.captionCell)
         tableView.register(CVInputTextCell.self,
-                           forCellReuseIdentifier: K.Identifier.CreateVehicle.inputTextCell)
+                           forCellReuseIdentifier: CellIdentifiers.CreateVehicle.inputTextCell)
         tableView.register(ButtonCell.self,
-                           forCellReuseIdentifier: K.Identifier.CreateVehicle.buttonCell)
+                           forCellReuseIdentifier: CellIdentifiers.CreateVehicle.buttonCell)
     }
 
     // MARK: - Table view data source
@@ -72,33 +72,41 @@ class VehicleController: ParentController {
         let cellOption = CreateVehicleOption(rawValue: indexPath.row)!
         switch cellOption {
         case .caption:
-            let captionCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.CreateVehicle.captionCell,
-                for: indexPath) as! CVCaptionCell
+            guard let captionCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.CreateVehicle.captionCell,
+                for: indexPath) as? CVCaptionCell else {
+                return UITableViewCell()
+            }
             captionCell.setCaption(caption)
             cell = captionCell
         case .manufacturer:
-            let manufacturerCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.CreateVehicle.inputTextCell,
-                for: indexPath) as! CVInputTextCell
+            guard let manufacturerCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.CreateVehicle.inputTextCell,
+                for: indexPath) as? CVInputTextCell else {
+                return UITableViewCell()
+            }
             manufacturerCell.cellOption = .manufacturer
             manufacturerCell.delegate = self
             manufacturerCell.setPlaceholder(NSLocalizedString("Manufacturer", comment: ""))
             manufacturerCell.setText(manufacturer)
             cell = manufacturerCell
         case .model:
-            let modelCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.CreateVehicle.inputTextCell,
-                for: indexPath) as! CVInputTextCell
+            guard let modelCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.CreateVehicle.inputTextCell,
+                for: indexPath) as? CVInputTextCell else {
+                return UITableViewCell()
+            }
             modelCell.cellOption = .model
             modelCell.delegate = self
             modelCell.setPlaceholder(NSLocalizedString("Model", comment: ""))
             modelCell.setText(model)
             cell = modelCell
         case .save:
-            let buttonCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.CreateVehicle.buttonCell,
-                for: indexPath) as! ButtonCell
+            guard let buttonCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.CreateVehicle.buttonCell,
+                for: indexPath) as? ButtonCell else {
+                return UITableViewCell()
+            }
             buttonCell.delegate = self
             cell = buttonCell
         }

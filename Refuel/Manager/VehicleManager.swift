@@ -15,7 +15,7 @@ class VehicleManager {
 
     var selectedVehicle: CDVehicle? {
         didSet {
-            NotificationCenter.default.post(name: K.Notification.RFVehicleDidSelect, object: nil)
+            NotificationCenter.default.post(name: NotificationNames.RFVehicleDidSelect, object: nil)
         }
     }
 }

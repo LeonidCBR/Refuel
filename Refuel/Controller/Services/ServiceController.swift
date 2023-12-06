@@ -64,24 +64,27 @@ class ServiceController: ParentController {
 
         tableView.separatorStyle = .none
 
-        tableView.register(LabelsCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.labelsCell)
-        tableView.register(DatePickerCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.datePickerCell)
-        tableView.register(InputTextCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.inputTextCell)
-        tableView.register(MultiLineTextCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.multiLineTextCell)
-        tableView.register(ButtonCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.buttonCell)
+        tableView.register(LabelsCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.labelsCell)
+        tableView.register(DatePickerCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.datePickerCell)
+        tableView.register(InputTextCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.inputTextCell)
+        tableView.register(MultiLineTextCell.self,
+                           forCellReuseIdentifier: CellIdentifiers.GeneralCells.multiLineTextCell)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.buttonCell)
 
     }
 
     private func setCost(to value: Double) {
         let indexPath = IndexPath(row: AddServiceOption.cost.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = value.toString()
+        if let cell = tableView.cellForRow(at: indexPath) as? InputTextCell {
+            cell.textField.text = value.toString()
+        }
     }
 
     private func setOdometer(to value: Int) {
         let indexPath = IndexPath(row: AddServiceOption.odometer.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = String(value)
+        if let cell = tableView.cellForRow(at: indexPath) as? InputTextCell {
+            cell.textField.text = String(value)
+        }
     }
 
     // MARK: - Table view data source
@@ -94,14 +97,17 @@ class ServiceController: ParentController {
         return AddServiceOption.allCases.count
     }
 
+    // TODO: This method should be refactored
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         let cellOption = AddServiceOption(rawValue: indexPath.row)!
         switch cellOption {
         case .selectedVehicle:
-            let labelsCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.labelsCell,
-                for: indexPath) as! LabelsCell
+            guard let labelsCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.labelsCell,
+                for: indexPath) as? LabelsCell else {
+                return UITableViewCell()
+            }
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             if let manufacturer = VehicleManager.shared.selectedVehicle?.manufacturer,
                let model = VehicleManager.shared.selectedVehicle?.model {
@@ -109,50 +115,63 @@ class ServiceController: ParentController {
             }
             cell = labelsCell
         case .dateLabel:
-            let labelsCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.labelsCell,
-                for: indexPath) as! LabelsCell
+            guard let labelsCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.labelsCell,
+                for: indexPath) as? LabelsCell else {
+                return UITableViewCell()
+            }
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             labelsCell.setTextValueLabel(to: serviceModel.date.toString())
             cell = labelsCell
         case .datePicker:
-            let datePickerCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.datePickerCell,
-                for: indexPath) as! DatePickerCell
+            guard let datePickerCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.datePickerCell,
+                for: indexPath) as? DatePickerCell else {
+                    return UITableViewCell()
+                }
             datePickerCell.delegate = self
             datePickerCell.setDate(to: serviceModel.date)
             cell = datePickerCell
         case .odometer:
-            let inputTextCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.inputTextCell,
-                for: indexPath) as! InputTextCell
+            guard let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.inputTextCell,
+                for: indexPath) as? InputTextCell else {
+                return UITableViewCell()
+            }
             inputTextCell.delegate = self
             inputTextCell.textField.keyboardType = .numberPad
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.text = String(serviceModel.odometer)
             cell = inputTextCell
         case .cost:
-            let inputTextCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.inputTextCell,
-                for: indexPath) as! InputTextCell
+            guard let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.inputTextCell,
+                for: indexPath) as? InputTextCell else {
+                return UITableViewCell()
+            }
             inputTextCell.delegate = self
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.text = serviceModel.cost.toString()
             cell = inputTextCell
         case .text:
-            let multiLineTextCell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.multiLineTextCell,
-                for: indexPath) as! MultiLineTextCell
+            guard let multiLineTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.multiLineTextCell,
+                for: indexPath) as? MultiLineTextCell else {
+                return UITableViewCell()
+            }
             multiLineTextCell.delegate = self
             multiLineTextCell.setTextCaptionLabel(to: cellOption.description)
             multiLineTextCell.setText(to: serviceModel.text)
             cell = multiLineTextCell
         case .save:
-            cell = tableView.dequeueReusableCell(
-                withIdentifier: K.Identifier.GeneralCells.buttonCell,
-                for: indexPath)
-            (cell as! ButtonCell).delegate = self
+            guard let buttonCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.buttonCell,
+                for: indexPath) as? ButtonCell else {
+                return UITableViewCell()
+            }
+            buttonCell.delegate = self
+            cell = buttonCell
         }
         cell.tag = indexPath.row
         return cell
@@ -246,7 +265,7 @@ extension ServiceController: ButtonCellDelegate {
                 try context.save()
             }
             delegate?.serviceDidSave(service)
-            if let _ = editableService {
+            if editableService != nil {
                 // Dissmiss this view controller if the selected refuel is edited
                 navigationController?.popViewController(animated: true)
             } else {

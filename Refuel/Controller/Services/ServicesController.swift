@@ -34,12 +34,12 @@ class ServicesController: ParentController {
         }
         let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addService))
         navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
-        tableView.register(ServiceCell.self, forCellReuseIdentifier: K.Identifier.Services.serviceCell)
+        tableView.register(ServiceCell.self, forCellReuseIdentifier: CellIdentifiers.Services.serviceCell)
     }
 
     private func fetchServices() {
         if let services = VehicleManager.shared.selectedVehicle?.services?.allObjects as? [CDService] {
-            self.services = services.sorted() {$0.odometer < $1.odometer}
+            self.services = services.sorted {$0.odometer < $1.odometer}
         }
         tableView.reloadData()
     }
@@ -70,11 +70,13 @@ class ServicesController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: K.Identifier.Services.serviceCell,
-            for: indexPath) as! ServiceCell
-        cell.service = services?[indexPath.row]
-        return cell
+        guard let serviceCell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifiers.Services.serviceCell,
+            for: indexPath) as? ServiceCell else {
+            return UITableViewCell()
+        }
+        serviceCell.service = services?[indexPath.row]
+        return serviceCell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

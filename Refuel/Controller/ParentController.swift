@@ -33,10 +33,13 @@ class ParentController: UITableViewController {
         }
         if shouldObserveVehicle {
             let modelVehicle = VehicleManager.shared.selectedVehicle?.model ?? "Unknown"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle,
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(handleSelectVehicleButtonTapped))
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(vehicleDidSelect),
-                                                   name: K.Notification.RFVehicleDidSelect,
+                                                   name: NotificationNames.RFVehicleDidSelect,
                                                    object: nil)
         }
         if shouldTapRecognizer {
