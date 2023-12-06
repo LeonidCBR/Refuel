@@ -47,9 +47,9 @@ class ServiceController: ParentController {
             serviceModel.text = service.text ?? ""
         }
     }
-
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    // swiftlint:enable force_cast
     // MARK: Lifecycle
 
     override func viewDidLoad() {

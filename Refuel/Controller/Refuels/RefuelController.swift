@@ -26,9 +26,9 @@ class RefuelController: ParentController {
     // MARK: - Properties
 
     private var caption = NSLocalizedString("Refill", comment: "")
-
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    // swiftlint:enable force_cast
     private var refuelModel = RefuelModel()
 
     private var rowDatePickerHeight: CGFloat {

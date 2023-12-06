@@ -11,8 +11,9 @@ import CoreData
 class VehiclesController: ParentController {
 
     // MARK: - Properties
-
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // swiftlint:enable force_cast
     private var vehicles: [CDVehicle]?
     var isSelectingMode = false
     var caption = NSLocalizedString("Vehicles", comment: "")

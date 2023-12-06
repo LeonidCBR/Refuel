@@ -21,7 +21,9 @@ class VehicleController: ParentController {
     private var caption = NSLocalizedString("AddingVehicle", comment: "")
     private var manufacturer = ""
     private var model = ""
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // swiftlint:enable force_cast
 
     weak var delegate: VehicleControllerDelegate?
 

@@ -11,9 +11,9 @@ import CoreData
 class RefuelsController: ParentController {
 
     // MARK: - Properties
-
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    // swiftlint:enable force_cast
     var refuels: [CDRefuel]?
 
     // MARK: - Lifecycle

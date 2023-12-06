@@ -12,9 +12,10 @@ class ServicesController: ParentController {
 
     // MARK: - Properties
 
-    // TODO: - Consider to move 'context' to the Parent class
+    // TODO: - Consider to use dependency injection
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    // swiftlint:enable force_cast
     var services: [CDService]?
 
     // MARK: - Lifecycle
