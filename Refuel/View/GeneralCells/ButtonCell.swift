@@ -7,19 +7,16 @@
 
 import UIKit
 
-
 protocol ButtonCellDelegate: AnyObject {
-
     func saveButtonTapped()
 }
-
 
 class ButtonCell: UITableViewCell {
 
     // MARK: - Properties
-    
+
     weak var delegate: ButtonCellDelegate?
-    
+
     private lazy var saveButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.addTarget(self,
@@ -33,26 +30,23 @@ class ButtonCell: UITableViewCell {
         btn.layer.cornerRadius = 10
         return btn
     }()
-    
-    
+
     // MARK: - Lifecycle
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    
+
     // MARK: - Methods
-    
+
     private func configureUI() {
         selectionStyle = .none
         clipsToBounds = true
-        
         contentView.addSubview(saveButton)
         saveButton.anchor(top: contentView.topAnchor, paddingTop: 20.0,
                           bottom: contentView.bottomAnchor, paddingBottom: 20.0,
@@ -60,10 +54,9 @@ class ButtonCell: UITableViewCell {
                           trailing: contentView.trailingAnchor, paddingTrailing: 15.0,
                           height: 44.0)
     }
-    
-    
+
     // MARK: - Selectors
-    
+
     @objc private func handleSaveButtonTapped() {
         delegate?.saveButtonTapped()
     }

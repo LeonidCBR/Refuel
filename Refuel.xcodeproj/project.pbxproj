@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8415D7B2B20352B00258FFC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B8415D7A2B20352B00258FFC /* README.md */; };
+		B8415D7D2B2035D900258FFC /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = B8415D7C2B2035D900258FFC /* Documentation.docc */; };
 		D734E2D3260F4B8F00CD746A /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734E2D2260F4B8F00CD746A /* VehicleManager.swift */; };
 		D75DF03A2606FD0700F664FD /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF0392606FD0700F664FD /* ParentController.swift */; };
 		D75DF03D260701BA00F664FD /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75DF03C260701BA00F664FD /* ServicesController.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B8415D7A2B20352B00258FFC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B8415D7C2B2035D900258FFC /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		D734E2D2260F4B8F00CD746A /* VehicleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleManager.swift; sourceTree = "<group>"; };
 		D75DF0392606FD0700F664FD /* ParentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
 		D75DF03C260701BA00F664FD /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 		D7C96270257B459F001B1D42 = {
 			isa = PBXGroup;
 			children = (
+				B8415D7A2B20352B00258FFC /* README.md */,
 				D7C9627B257B459F001B1D42 /* Refuel */,
 				D7C9627A257B459F001B1D42 /* Products */,
 			);
@@ -173,6 +178,7 @@
 				D7C96285257B459F001B1D42 /* Refuel.xcdatamodeld */,
 				D76C4B8728372635008C6883 /* Localizable.strings */,
 				D76C4B8D2837513E008C6883 /* InfoPlist.strings */,
+				B8415D7C2B2035D900258FFC /* Documentation.docc */,
 			);
 			path = Refuel;
 			sourceTree = "<group>";
@@ -244,6 +250,7 @@
 				D7C96275257B459F001B1D42 /* Sources */,
 				D7C96276257B459F001B1D42 /* Frameworks */,
 				D7C96277257B459F001B1D42 /* Resources */,
+				B8415D792B1EF38100258FFC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -260,8 +267,9 @@
 		D7C96271257B459F001B1D42 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D7C96278257B459F001B1D42 = {
 						CreatedOnToolsVersion = 12.2;
@@ -294,12 +302,34 @@
 			files = (
 				D7C9628C257B45A7001B1D42 /* LaunchScreen.storyboard in Resources */,
 				D76C4B8B2837513E008C6883 /* InfoPlist.strings in Resources */,
+				B8415D7B2B20352B00258FFC /* README.md in Resources */,
 				D76C4B8528372635008C6883 /* Localizable.strings in Resources */,
 				D7C96289257B45A7001B1D42 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B8415D792B1EF38100258FFC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint is not installed.\"\n#    echo \"error: SwiftLint does not exist!\"\n#    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D7C96275257B459F001B1D42 /* Sources */ = {
@@ -329,6 +359,7 @@
 				D7C962A1257B5025001B1D42 /* Constants.swift in Sources */,
 				D7900DE2268B03F200470147 /* ServiceController.swift in Sources */,
 				D7F493F6258777FD00297CD2 /* LoadingController.swift in Sources */,
+				B8415D7D2B2035D900258FFC /* Documentation.docc in Sources */,
 				D75E36CB260DC80F00148156 /* CreateVehicleOption.swift in Sources */,
 				D7CBD6DE257F4876002BED3A /* DatePickerCell.swift in Sources */,
 				D7F493F125874E0600297CD2 /* VehicleController.swift in Sources */,
@@ -410,6 +441,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -472,6 +504,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -496,12 +529,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 973295K87L;
+				DOCC_HOSTING_BASE_PATH = Refuel;
 				INFOPLIST_FILE = Refuel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.motodolphin.Refuel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -515,12 +551,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 973295K87L;
+				DOCC_HOSTING_BASE_PATH = Refuel;
 				INFOPLIST_FILE = Refuel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.motodolphin.Refuel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

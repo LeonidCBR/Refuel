@@ -47,17 +47,15 @@ class ServiceController: ParentController {
             serviceModel.text = service.text ?? ""
         }
     }
-
-    
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    // swiftlint:enable force_cast
     // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
-
 
     // MARK: - Methods
 
@@ -66,24 +64,27 @@ class ServiceController: ParentController {
 
         tableView.separatorStyle = .none
 
-        tableView.register(LabelsCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.labelsCell)
-        tableView.register(DatePickerCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.datePickerCell)
-        tableView.register(InputTextCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.inputTextCell)
-        tableView.register(MultiLineTextCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.multiLineTextCell)
-        tableView.register(ButtonCell.self, forCellReuseIdentifier: K.Identifier.GeneralCells.buttonCell)
+        tableView.register(LabelsCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.labelsCell)
+        tableView.register(DatePickerCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.datePickerCell)
+        tableView.register(InputTextCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.inputTextCell)
+        tableView.register(MultiLineTextCell.self,
+                           forCellReuseIdentifier: CellIdentifiers.GeneralCells.multiLineTextCell)
+        tableView.register(ButtonCell.self, forCellReuseIdentifier: CellIdentifiers.GeneralCells.buttonCell)
 
     }
 
     private func setCost(to value: Double) {
         let indexPath = IndexPath(row: AddServiceOption.cost.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = value.toString()
+        if let cell = tableView.cellForRow(at: indexPath) as? InputTextCell {
+            cell.textField.text = value.toString()
+        }
     }
 
     private func setOdometer(to value: Int) {
         let indexPath = IndexPath(row: AddServiceOption.odometer.rawValue, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! InputTextCell
-        cell.textField.text = String(value)
+        if let cell = tableView.cellForRow(at: indexPath) as? InputTextCell {
+            cell.textField.text = String(value)
+        }
     }
 
     // MARK: - Table view data source
@@ -96,64 +97,82 @@ class ServiceController: ParentController {
         return AddServiceOption.allCases.count
     }
 
-
+    // TODO: This method should be refactored
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell: UITableViewCell
-
         let cellOption = AddServiceOption(rawValue: indexPath.row)!
-
         switch cellOption {
         case .selectedVehicle:
-            let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.labelsCell, for: indexPath) as! LabelsCell
+            guard let labelsCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.labelsCell,
+                for: indexPath) as? LabelsCell else {
+                return UITableViewCell()
+            }
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             if let manufacturer = VehicleManager.shared.selectedVehicle?.manufacturer,
                let model = VehicleManager.shared.selectedVehicle?.model {
                 labelsCell.setTextValueLabel(to: manufacturer + " " + model)
             }
             cell = labelsCell
-
         case .dateLabel:
-            let labelsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.labelsCell, for: indexPath) as! LabelsCell
+            guard let labelsCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.labelsCell,
+                for: indexPath) as? LabelsCell else {
+                return UITableViewCell()
+            }
             labelsCell.setTextCaptionLabel(to: cellOption.description)
             labelsCell.setTextValueLabel(to: serviceModel.date.toString())
             cell = labelsCell
-
         case .datePicker:
-            let datePickerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.datePickerCell, for: indexPath) as! DatePickerCell
+            guard let datePickerCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.datePickerCell,
+                for: indexPath) as? DatePickerCell else {
+                    return UITableViewCell()
+                }
             datePickerCell.delegate = self
             datePickerCell.setDate(to: serviceModel.date)
             cell = datePickerCell
-
         case .odometer:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
+            guard let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.inputTextCell,
+                for: indexPath) as? InputTextCell else {
+                return UITableViewCell()
+            }
             inputTextCell.delegate = self
             inputTextCell.textField.keyboardType = .numberPad
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.text = String(serviceModel.odometer)
             cell = inputTextCell
-
         case .cost:
-            let inputTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.inputTextCell, for: indexPath) as! InputTextCell
+            guard let inputTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.inputTextCell,
+                for: indexPath) as? InputTextCell else {
+                return UITableViewCell()
+            }
             inputTextCell.delegate = self
             inputTextCell.textField.keyboardType = .decimalPad
             inputTextCell.setTextCaptionLabel(to: cellOption.description)
             inputTextCell.textField.text = serviceModel.cost.toString()
             cell = inputTextCell
-
         case .text:
-            let multiLineTextCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.multiLineTextCell, for: indexPath) as! MultiLineTextCell
+            guard let multiLineTextCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.multiLineTextCell,
+                for: indexPath) as? MultiLineTextCell else {
+                return UITableViewCell()
+            }
             multiLineTextCell.delegate = self
             multiLineTextCell.setTextCaptionLabel(to: cellOption.description)
             multiLineTextCell.setText(to: serviceModel.text)
             cell = multiLineTextCell
-
         case .save:
-            cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.GeneralCells.buttonCell, for: indexPath)
-            (cell as! ButtonCell).delegate = self
-
+            guard let buttonCell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.GeneralCells.buttonCell,
+                for: indexPath) as? ButtonCell else {
+                return UITableViewCell()
+            }
+            buttonCell.delegate = self
+            cell = buttonCell
         }
-
         cell.tag = indexPath.row
         return cell
     }
@@ -178,7 +197,6 @@ class ServiceController: ParentController {
     }
 }
 
-
 // MARK: - DatePickerCellDelegate
 
 extension ServiceController: DatePickerCellDelegate {
@@ -186,13 +204,13 @@ extension ServiceController: DatePickerCellDelegate {
     func dateChanged(to date: Date) {
         // We got the date value from cell with date picker
         // And now let's assing it to date label
-        if let cell = tableView.cellForRow(at: IndexPath(row: AddServiceOption.dateLabel.rawValue, section: 0)) as? LabelsCell {
+        if let cell = tableView.cellForRow(at: IndexPath(row: AddServiceOption.dateLabel.rawValue,
+                                                         section: 0)) as? LabelsCell {
             cell.setTextValueLabel(to: date.toString())
         }
         serviceModel.date = date
     }
 }
-
 
 // MARK: - InputTextCellDelegate
 
@@ -200,16 +218,16 @@ extension ServiceController: InputTextCellDelegate {
 
     func didGetValue(_ textField: UITextField, tableViewCell: UITableViewCell) {
         guard let option = AddServiceOption(rawValue: tableViewCell.tag) else { return }
-
         guard let text = textField.text,
               let value = Double(from: text) else {
-
             // Got wrong value. Set old values back to the text field
-            if .odometer == option { setOdometer(to: serviceModel.odometer) }
-            else if .cost == option { setCost(to: serviceModel.cost) }
+            if .odometer == option {
+                setOdometer(to: serviceModel.odometer)
+            } else if .cost == option {
+                setCost(to: serviceModel.cost)
+            }
             return
         }
-
         switch option {
         case .odometer: serviceModel.odometer = Int(value)
         case .cost: serviceModel.cost = value
@@ -217,7 +235,6 @@ extension ServiceController: InputTextCellDelegate {
         }
     }
 }
-
 
 // MARK: - MultiLineTextCellDelegate
 extension ServiceController: MultiLineTextCellDelegate {
@@ -233,37 +250,33 @@ extension ServiceController: ButtonCellDelegate {
 
     func saveButtonTapped() {
         let service: CDService
-
         if let editableService = editableService {
             service = editableService
         } else {
             service = CDService(context: context)
             service.vehicle = VehicleManager.shared.selectedVehicle
         }
-
         service.date = serviceModel.date
         service.odometer = Int64(serviceModel.odometer)
         service.cost = serviceModel.cost
         service.text = serviceModel.text
-
         do {
             if context.hasChanges {
                 try context.save()
             }
-
             delegate?.serviceDidSave(service)
-
-            if let _ = editableService {
+            if editableService != nil {
                 // Dissmiss this view controller if the selected refuel is edited
                 navigationController?.popViewController(animated: true)
-
             } else {
                 dismiss(animated: true, completion: nil)
             }
         } catch {
-
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(
+                withTitle: NSLocalizedString("Error", comment: ""),
+                andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)",
+                byViewController: self)
             context.rollback()
         }
     }

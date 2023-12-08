@@ -46,7 +46,6 @@ class ServiceCell: UITableViewCell {
         return label
     }()
 
-
     // MARK: - Lifecycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,22 +57,18 @@ class ServiceCell: UITableViewCell {
         super.init(coder: coder)
     }
 
-
     // MARK: - Methods
 
     private func configureUI() {
         selectionStyle = .none
         clipsToBounds = true
-        
         contentView.addSubview(dateLabel)
         dateLabel.anchor(top: contentView.topAnchor, paddingTop: 15.0,
                          centerX: contentView.centerXAnchor)
-
         contentView.addSubview(odometerLabel)
         odometerLabel.anchor(top: dateLabel.bottomAnchor, paddingTop: 10.0,
-                             //bottom: contentView.bottomAnchor, paddingBottom: 25.0,
+//                             bottom: contentView.bottomAnchor, paddingBottom: 25.0,
                              leading: contentView.leadingAnchor, paddingLeading: 10.0)
-
         contentView.addSubview(costLabel)
         costLabel.anchor(top: odometerLabel.topAnchor,
                                 trailing: contentView.trailingAnchor, paddingTrailing: 10.0)
@@ -87,11 +82,9 @@ class ServiceCell: UITableViewCell {
 
     private func updateUI() {
         guard let service = service else { return }
-
         dateLabel.text = service.date?.toString()
         odometerLabel.text = "\(service.odometer)"
         serviceLabel.text = service.text
-
         let currencySymbol = Locale.current.currencySymbol ?? "" // "$"
         if let cost = service.cost.toString() {
             costLabel.text = "\(cost) \(currencySymbol)"

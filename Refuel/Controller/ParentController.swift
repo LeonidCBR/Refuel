@@ -14,37 +14,34 @@ class ParentController: UITableViewController {
     var shouldObserveVehicle = true
     var shouldTapRecognizer = false
 
-    
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    
+
     // MARK: - Methods
-    
+
     private func configure() {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-
         if shouldObserveVehicle {
-            
             let modelVehicle = VehicleManager.shared.selectedVehicle?.model ?? "Unknown"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle, style: .plain, target: self, action: #selector(handleSelectVehicleButtonTapped))
-            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: modelVehicle,
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(handleSelectVehicleButtonTapped))
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(vehicleDidSelect),
-                                                   name: K.Notification.RFVehicleDidSelect,
+                                                   name: NotificationNames.RFVehicleDidSelect,
                                                    object: nil)
         }
-        
         if shouldTapRecognizer {
             // Hide keyboard when tap out of TextFields
             let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
@@ -58,16 +55,14 @@ class ParentController: UITableViewController {
             view.addGestureRecognizer(tap)
         }
     }
-    
+
     private func setBarButtonItem() {
         navigationItem.rightBarButtonItem?.title = VehicleManager.shared.selectedVehicle?.model
     }
-    
-    
+
     // MARK: - Selectors
-    
+
     @objc private func handleSelectVehicleButtonTapped() {
-        
         let choiceController = VehiclesController()
         choiceController.isSelectingMode = true
         choiceController.shouldObserveVehicle = false
@@ -78,5 +73,5 @@ class ParentController: UITableViewController {
     @objc func vehicleDidSelect() {
         setBarButtonItem()
     }
-    
+
 }

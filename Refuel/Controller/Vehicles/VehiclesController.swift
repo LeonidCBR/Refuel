@@ -9,40 +9,39 @@ import UIKit
 import CoreData
 
 class VehiclesController: ParentController {
-    
+
     // MARK: - Properties
+    // swiftlint:disable force_cast
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // swiftlint:enable force_cast
     private var vehicles: [CDVehicle]?
     var isSelectingMode = false
     var caption = NSLocalizedString("Vehicles", comment: "")
-    
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         fetchVehicles()
     }
-    
-    
+
     // MARK: - Methods
-    
+
     private func configureUI() {
         title = caption
-
 //        if isSelectingMode {
 //            view.backgroundColor = .systemBlue
 //        }
-        
         if shouldObserveVehicle {
-            let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVehicle))
+            let plusBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                    target: self,
+                                                    action: #selector(addVehicle))
             navigationItem.rightBarButtonItems?.append(plusBarButtonItem)
         }
-        
-        tableView.register(VehicleCell.self, forCellReuseIdentifier: K.Identifier.Vehicles.vehicleCell)
+        tableView.register(VehicleCell.self, forCellReuseIdentifier: CellIdentifiers.Vehicles.vehicleCell)
     }
-    
+
     private func getNewVehicleController() -> VehicleController {
         let vehicleController = VehicleController()
         vehicleController.shouldTapRecognizer = true
@@ -50,7 +49,7 @@ class VehiclesController: ParentController {
         vehicleController.delegate = self
         return vehicleController
     }
-    
+
     private func showChoosingVehiclesController() {
         let choiceController = VehiclesController()
         choiceController.isSelectingMode = true
@@ -60,28 +59,29 @@ class VehiclesController: ParentController {
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
     }
-    
-    
+
     // MARK: - Selectors
-    
+
     @objc private func fetchVehicles() {
         let request: NSFetchRequest<CDVehicle> = CDVehicle.fetchRequest()
         do {
             vehicles = try context.fetch(request)
         } catch {
             let nserror = error as NSError
-            PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
+            PresenterManager.showMessage(
+                withTitle: NSLocalizedString("Error", comment: ""),
+                andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)",
+                byViewController: self)
             context.rollback()
         }
         tableView.reloadData()
     }
-    
+
     @objc private func addVehicle() {
         let newVehicleController = getNewVehicleController()
         navigationController?.pushViewController(newVehicleController, animated: true)
     }
-    
-    
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,11 +93,15 @@ class VehiclesController: ParentController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.Vehicles.vehicleCell, for: indexPath) as! VehicleCell
-        cell.vehicle = vehicles?[indexPath.row]
-        return cell
+        guard let vehicleCell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifiers.Vehicles.vehicleCell,
+            for: indexPath) as? VehicleCell else {
+            return UITableViewCell()
+        }
+        vehicleCell.vehicle = vehicles?[indexPath.row]
+        return vehicleCell
     }
-    
+
     // Row is selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -107,7 +111,6 @@ class VehiclesController: ParentController {
                 VehicleManager.shared.selectedVehicle = vehicle
             }
             dismiss(animated: true, completion: nil)
-            
         } else {
             // Edit selected vehicle
             let editingVehicleController = getNewVehicleController()
@@ -115,9 +118,10 @@ class VehiclesController: ParentController {
             navigationController?.pushViewController(editingVehicleController, animated: true)
         }
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             do {
                 guard let vehicle = vehicles?[indexPath.row] else { return }
@@ -127,38 +131,32 @@ class VehiclesController: ParentController {
                 }
                 vehicles?.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-
                 // if the selected vehicle has being deleted
                 if let count = vehicles?.count,
                    VehicleManager.shared.selectedVehicle == vehicle {
-
                     if count == 1 {
                         // Set new selected vehicle to the last one
                         VehicleManager.shared.selectedVehicle = vehicles?.first
-
                     } else if count == 0 {
                         // The last vehicle has been deleted.
                         // Show controller to create a new one.
                         PresenterManager.showViewController(.createVehicleController)
-
                     } else {
-
                         showChoosingVehiclesController()
                     }
                 }
-
             } catch {
-
                 let nserror = error as NSError
-                PresenterManager.showMessage(withTitle: NSLocalizedString("Error", comment: ""), andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)", byViewController: self)
+                PresenterManager.showMessage(
+                    withTitle: NSLocalizedString("Error", comment: ""),
+                    andMessage: "\(NSLocalizedString("DeviceError", comment: "")) \(nserror) \(nserror.userInfo)",
+                    byViewController: self)
                 context.rollback()
             }
-            
         }
     }
 
 }
-
 
 // MARK: - CreateVehicleControllerDelegate
 
